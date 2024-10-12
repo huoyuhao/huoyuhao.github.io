@@ -19,7 +19,7 @@ module.exports = {
       { text: 'Network', link: '/network/' },
       { text: 'Linux', link: '/linux/' },
       { text: 'Other', link: '/other/' },
-      { text: 'GitHub', link: 'https://github.com/huoyuhao/myArticle' },
+      { text: 'GitHub', link: 'https://github.com/huoyuhao/huoyuhao.github.io' },
     ],
     sidebar: 
     

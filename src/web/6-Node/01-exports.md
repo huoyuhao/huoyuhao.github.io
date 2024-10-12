@@ -162,11 +162,35 @@ module.exports = { foo };
 // a.js b.js 1
 
 // 对 a.js 预编译时，只会把变量 b 的声明提前，a.js & b.js 预编译后的执行顺序如下
-// a.js
 var b;
 console.log('I am a.js...')
 b = require('./b');
 console.log(b.foo);
+```
+
+```js
+// a.js
+console.log('I am a.js...')
+var b = require('./b');
+console.log(b.foo);
+b.foo = b.foo - 1;
+require('./c');
+
+// b.js
+console.log('b.js')
+let foo = 1;
+module.exports = { foo };
+
+//c.js
+console.log('I am c.js...')
+var b = require('./b');
+console.log(b.foo);
+
+// I am a.js...
+// b.js
+// 1
+// I am c.js...
+// 0
 ```
 
 import命令只能在模块顶层使用，不能在函数、判断语句等代码块之中引用；require可以。
@@ -205,7 +229,7 @@ const { count } = require('./b');
 setTimeout(() => {
   console.log("count in commonjs is", count);
 }, 1000);
-// base.count： 1
+// node a.js base.count： 1
 // count in commonjs is 0
 
 // b.js
