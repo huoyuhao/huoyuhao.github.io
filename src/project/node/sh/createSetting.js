@@ -6,7 +6,7 @@ let fs = require("fs")
 let server = http.createServer()
 
 const dirPath = "/data/github.io/src/"
-const dirList = ['web', 'linux', 'network', 'other', 'frame']
+const dirList = ['web', 'network', 'other']
 const reg = /(?<=[0-9]+\-)(.*)(?=\.md)/ig
 const regFile = /(?<=[0-9]+?\-)(.*)/ig
 const result = {};
