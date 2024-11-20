@@ -9,7 +9,7 @@ module.exports = {
   ],
   dest: './docs', // 设置输出目录
   base: '/', // 设置站点根路径
-  repo: 'https://github.com/huoyuhao/myArticle', // 添加 github 链接
+  repo: 'https://github.com/huoyuhao/huoyuhao.github.io', // 添加 github 链接
   themeConfig: { // 导航栏配置
     logo: '/header-logo.png',
     nav: [
