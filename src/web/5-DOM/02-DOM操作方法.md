@@ -10,15 +10,15 @@ meta:
 
 ## 1. 创建节点
 
-### 1.1 document.createElement()
+### 1.1 document.createElement
 
 创建一个由tagName决定的HTML元素
 
-### 1.2 document.createTextNode()
+### 1.2 document.createTextNode
 
 创建一个文本节点，文本内容为data
 
-### 1.3 document.createDocumentFragment()
+### 1.3 document.createDocumentFragment
 
 创建一个空白的文档片段。文档片段是 DocumentFragment 对象的引用。是DOM节点，但并不是主DOM树的一部分。一般利用文档片段创建一个临时节点，将需要添加到DOM树中的节点先添加到文档片段中，再将文档片段添加到DOM树中，这个时候文档片段中的子元素会替换文档片段。
 
@@ -76,11 +76,11 @@ meta:
 
 ## 3. 节点操作
 
-### 3.1 Node.appendChild()
+### 3.1 Node.appendChild
 
 将一个节点添加到指定节点的子节点列表的末尾。
 
-### 3.2 Node.removeChild()
+### 3.2 Node.removeChild
 
 将一个节点从DOM树中移除。移除后还存在于内存中，还可以继续添加到DOM树中。
 
@@ -91,7 +91,7 @@ let oldChild = node.removeChild(child);
 // oldChild 保存对移除子节点child的引用。可以继续将其添加到DOM树中
 ```
 
-### 3.3 Node.insertBefore()
+### 3.3 Node.insertBefore
 
 在当前节点的某个子节点之前再插入一个子节点。
 
@@ -104,7 +104,7 @@ let insertedElement = parentElement.insertBefore(newElement, referenceElement);
 // referenceElement 在该节点之前插入newElement。可以通过将referenceElement改为referenceElement.nextElementSibling方式让newElement插入到referenceElement之后。实现类似insertAfter方法。
 ```
 
-### 3.4 Node.replaceChild()
+### 3.4 Node.replaceChild
 
 用指定节点替换当前节点的一个子节点，返回被替换掉的节点。
 
@@ -117,39 +117,39 @@ let replacedChild = parentNode.replaceChild(newChild, oldChild);
 
 ## 4. 节点选择
 
-### 4.1 document.querySelector()
+### 4.1 document.querySelector
 
 入参selectors 是一个字符串，包含一个或多个css选择器。返回获取到的元素。
 
-### 4.2 document.querySelectorAll()
+### 4.2 document.querySelectorAll
 
 和querySelector用法类似，只是返回值为NodeList对象。
 
-### 4.3 document.getElementById()
+### 4.3 document.getElementById
 
 根据元素ID获取元素。
 
-### 4.4 document.getElementsByTagName()
+### 4.4 document.getElementsByTagName
 
 根据元素标签名获取元素，返回值为HTMLCollection集合。
 
-### 4.5 document.getElementsByName()
+### 4.5 document.getElementsByName
 
 根据元素name属性获取元素，返回值为NodeList对象。
 
-### 4.6 document.getElementsByClassName()
+### 4.6 document.getElementsByClassName
 
 根据元素类名获取元素，返回值为HTMLCollection集合。
 
 ## 5. 属性操作
 
-### 5.1 element.setAttribute()
+### 5.1 element.setAttribute
 
 参数：name /*属性名*/, value /*属性值*/
 
 给元素设置属性。如果该属性已存在，则更新。
 
-### 5.2 element.removeAttribute()
+### 5.2 element.removeAttribute
 
 参数：attrName /*要删除的属性名*/
 
@@ -165,19 +165,19 @@ let replacedChild = parentNode.replaceChild(newChild, oldChild);
 
 ## 6. DOM事件
 
-### 6.1 element.addEventListener()
+### 6.1 element.addEventListener
 
 参数：type, listener, [, options]
 
 给元素添加指定事件type以及响应该事件的回调函数listener。
 
-### 6.2 element.removeEventListener()
+### 6.2 element.removeEventListener
 
 参数：type, listener, [, options]
 
 移除元素上指定事件，如果元素上分别在捕获和冒泡阶段都注册了事件，需要分别移除。
 
-### 6.3 document.createEvent()
+### 6.3 document.createEvent
 
 创建一个自定义事件，随后必须使用init进行初始化。
 
@@ -196,7 +196,7 @@ elem.dispatchEvent(new Event('click'));
 
 获取elem所有应用了css后的属性值。返回一个实时的 CSSStyleDeclaration 对象。
 
-### 7.2 elem.getBoundingClientRect()
+### 7.2 elem.getBoundingClientRect
 
 返回元素的大小以及相对于视口的位置。返回一个DOMRect对象。包括元素的 left right top bottom width height x y 属性值。
 

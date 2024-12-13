@@ -149,6 +149,32 @@ export let foo = 1;
 
 ```js
 // a.js
+console.log('I am a.js...')
+import b from './b.js';
+console.log('a.js b.foo:', b.foo);
+import c from './c.js';
+
+// b.js
+console.log('b.js')
+let foo = 1;
+export default { foo };
+
+// c.js
+console.log('I am c.js...')
+import b from './b.js';
+console.log('c.js b.foo:', b.foo);
+b.foo = b.foo - 1;
+export default {};
+
+// 运行 node -r esm a.js
+// b.js
+// I am c.js...
+// c.js b.foo: 1
+// I am a.js...
+// a.js b.foo: 0
+```
+```js
+// a.js
 console.log('a.js');
 var b = require('./b');
 console.log(b.foo);
@@ -186,6 +212,7 @@ console.log('I am c.js...')
 var b = require('./b');
 console.log(b.foo);
 
+// node a.js
 // I am a.js...
 // b.js
 // 1
@@ -229,7 +256,8 @@ const { count } = require('./b');
 setTimeout(() => {
   console.log("count in commonjs is", count);
 }, 1000);
-// node a.js base.count： 1
+// node a.js
+// base.count： 1
 // count in commonjs is 0
 
 // b.js
@@ -245,7 +273,7 @@ const { count } = require('./b');
 setTimeout(() => {
   console.log("count in es6 is", count);
 }, 1000);
-// base.count： { a: 2, b: 2 }
+// node a.js base.count： { a: 2, b: 2 }
 // count in es6 is { a: 2, b: 2 }
 ```
 

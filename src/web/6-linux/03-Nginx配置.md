@@ -43,7 +43,7 @@ worker_processes  1;
 
 #events块,主要设置,Nginx服务器与用户的网络连接,这一部分对Nginx服务器的性能影响较大
 events {
-    worker_connections  1024;
+  worker_connections  1024;
 }
 
 #http块，是Nginx服务器配置中的重要部分，代理、缓存、日志记录、第三方模块配置...  
@@ -184,7 +184,7 @@ location @name { ... }
 server {
   server_name liam.com;
   location ^~ /document {
-      return 701; # 用这样的方式，可以方便的知道请求到了哪里
+    return 701; # 用这样的方式，可以方便的知道请求到了哪里
   }
   location /doc {
     return 702;
@@ -253,11 +253,11 @@ location @custom {
 ```shell
 # /data 目录
 |--img
-   |--logo.png
-   |--header.png
+  |--logo.png
+  |--header.png
 |--images
-   |--banner.png
-   |--index.png
+  |--banner.png
+  |--index.png
 ```
 
 ```config

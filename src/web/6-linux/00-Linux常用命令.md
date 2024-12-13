@@ -52,7 +52,6 @@ firewall-cmd --state
 mysql -umysql -h9.134.32.65 -p
 use oss;
 show tables;
-
 ```
 
 ## Others
@@ -84,4 +83,5 @@ find ./* -type f -name "*.log" | grep keyword
 find . -type f | xargs grep keyword
 
 # tailf 日志名 查看日志
+tailf ./log/root.log
 ```
