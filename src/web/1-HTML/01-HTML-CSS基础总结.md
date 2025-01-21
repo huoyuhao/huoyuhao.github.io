@@ -178,3 +178,25 @@ display: -webkit-box;         // 将对象作为弹性伸缩盒子模型显示
   + 可以使用百分比、px、em、rem等单位；
   + 可以混合使用各种单位进行计算；
   + 表达式中有“+”和“-”时，其前后必须要有空格，如"width: calc(12%+5em)"这种没有空格的写法是错误的；
+
+
+## 10. load与DOMContentLoaded区别
+
+DOM解析过程
+1. 解析HTML结构
+2. 加载外部脚本和样式表文件
+3. 解析执行脚本代码 // js
+4. 构建DOM树 // DOMContentLoaded
+5. 加载图片等外部文件
+6. 页面加载完成 // load
+
+DOMContentLoaded触发时，仅当DOM加载完成，不包括样式表、图片、flash
+
+```js
+window.addEventListener('load', function () {
+  console.log('window loaded')
+})
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('dom content loaded')
+})
+```
