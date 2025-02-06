@@ -1,9 +1,9 @@
 # 未完成目录
 
-手动实现脚手架
-diff
-订阅观察
-双向绑定
+
+diff ## 9. key的作用 key（除了v-for循环使用） index
+
+订阅观察 双向绑定 虚拟DOM
 单向数据流 组件通讯方式
 组合式 API
 vueUse
@@ -11,10 +11,8 @@ setup
 fragments片段
 emits
 hash history区别 实现方式
-路由懒加载
 ts
-history hash
-
+手动实现脚手架
 前端工程化
 
 vite 打包 快的原因 为什么选择 webpack 热加载

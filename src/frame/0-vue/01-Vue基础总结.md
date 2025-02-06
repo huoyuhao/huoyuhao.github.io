@@ -450,8 +450,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
 + 将执行函数放到微任务或者宏任务中
 + 事件循环到了微任务或者宏任务，执行函数依次执行callbacks中的回调
 
-## 9. key的作用
+## 9. keep-alive
 
-key（除了v-for循环使用） index
-keep-alive 生命周期
 
+生命周期
