@@ -1,10 +1,11 @@
 # 未完成目录
 
 
-diff ## 9. key的作用 key（除了v-for循环使用） index
+diff key的作用 key（除了v-for循环使用） index
 
 订阅观察 双向绑定 虚拟DOM
-单向数据流 组件通讯方式
+
+vue3提升
 组合式 API
 vueUse
 setup

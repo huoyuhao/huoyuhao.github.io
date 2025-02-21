@@ -312,4 +312,111 @@ server{
 }
 ```
 
+## 4. 内置变量
 
+变量名 | 功能
+--- | ---
+$host | 请求信息中的Host，如果请求中没有Host行，则等于设置的服务器名$request_method | 客户端请求类型，如GET、POST
+$remote_addr | 客户端的IP地址
+$args | 请求中的参数
+$content_length | 请求头中的Content-length字段
+$http_user_agent | 客户端agent信息
+$http_cookie | 客户端cookie信息
+$remote_port | 客户端的端口
+$server_protocol | 请求使用的协议，如HTTP/1.0、·HTTP/1.1`
+$server_addr | 服务器地址
+$server_name | 服务器名称
+$server_port | 服务器的端口号
+
+## 5. 负载均衡
+
+负载均衡就是用来帮助我们将众多的客户端请求合理的分配到各个服务器，以达到服务端资源的充分利用和更少的请求时间。
+
+Upstream指定后端服务器地址列表
+```config
+upstream balanceServer {
+  server 10.1.22.33:12345;
+  server 10.1.22.34:12345;
+  server 10.1.22.35:12345;
+}
+```
+
+在server中拦截响应请求，并将请求转发到Upstream中配置的服务器列表。
+
+```config
+server {
+  server_name  fe.server.com;
+  listen 80;
+  location /api {
+    proxy_pass http://balanceServer;
+  }
+}
+```
+
+上面的配置只是指定了nginx需要转发的服务端列表，并没有指定分配策略
+
+### 5.1 轮询
+
+默认的策略，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。
+
+```config
+upstream balanceServer {
+  server 10.1.22.33:12345;
+  server 10.1.22.34:12345;
+  server 10.1.22.35:12345;
+}
+```
+
+### 5.2 最小连接数策略
+
+将请求优先分配给压力较小的服务器，它可以平衡每个队列的长度，并避免向压力大的服务器添加更多的请求
+
+```config
+upstream balanceServer {
+  least_conn;
+  server 10.1.22.33:12345;
+  server 10.1.22.34:12345;
+  server 10.1.22.35:12345;
+}
+```
+
+### 5.3 IP Hash策略
+
+每个请求按访问IP的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。
+
+```config
+upstream balanceServer {
+  ip_hash;
+  server 10.1.22.33:12345;
+  server 10.1.22.34:12345;
+  server 10.1.22.35:12345;
+}
+```
+
+### 5.4 指定权重
+
++ weight代表权重，权重越高，被分配到的客户端越多。
++ 用于后端服务器性能不均的情况，性能高的服务器将分配更多的客户端
+
+```config
+upstream backserver {
+  server 192.168.0.14 weight=3;
+  server 192.168.0.15 weight=7;
+}
+```
+
+### 5.3 最快响应时间策略
+
++ 依赖于NGINX Plus，优先分配给响应时间最短的服务器
++ fair策略是扩展策略，默认不被编译进nginx内核。它根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。
++ 这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此须慎用
++ nginx的默认模块中是不支持的，需要下载 nginx-upstream-fair 模块
+
+```config
+upstream balanceServer {
+  fair;
+  server 10.1.22.33:12345;
+  server 10.1.22.34:12345;
+  server 10.1.22.35:12345;
+}
+```
