@@ -2,5 +2,3 @@
 
 函数式编程
 WebSocket
-单元测试
-PWA

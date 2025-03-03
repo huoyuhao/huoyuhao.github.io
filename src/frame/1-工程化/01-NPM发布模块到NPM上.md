@@ -16,7 +16,7 @@ meta:
 
 ### 1. 使用简洁的webpack配置模板webpack-simple初始化项目
 
-```npm
+```shell
 vue init webpack-simple vue-name
 #简洁的webpack配置模板
 ```
@@ -40,10 +40,9 @@ export default {
 ```
 
 然后在App.vue中直接引入本地的组件
-
-```vue
+```
 <HelloWorld msg="这是一个测试内容"/></HelloWorld>
-...
+
 import HelloWorld from "./components/HelloWorld";
 ```
 
@@ -117,7 +116,6 @@ export default HelloWorld// 导出..
   "bugs": {
     "email": "email"
   },
-...
 }
 ```
 
@@ -137,7 +135,6 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
-...
 ```
 
 ### 5. 修改文件目录格式
@@ -173,7 +170,7 @@ npm pack
 
 #### 2）新项目引入测试
 
-```linux
+```shell
 # 安装打包文件 name：打包文件名称
 npm install 路径/HelloWorld-1.0.0.tgz
 # 引入组件
@@ -183,7 +180,7 @@ Vue.use(HelloWorld)
 
 ## 三、发布线上
 
-```linux
+```shell
 npm login // 登陆 
 npm publish // 发布
 # 如果使用淘宝镜像 登陆会报错
