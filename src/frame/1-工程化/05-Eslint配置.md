@@ -10,6 +10,8 @@ meta:
 ## 安装Eslint
 
 `npm i eslint -D`
+`npx eslint --init`
+
 
 ### Eslint基础配置
 
