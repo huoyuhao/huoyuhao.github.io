@@ -20,7 +20,7 @@ npm install --registry=https://registry.npm.taobao.org # 安装package.json中�
 
 npm config list -l # 查看 npm 的配置
 npm config get registry # 查看当前本地npm配置的仓库镜像
-npm config set registry <https://....仓库镜像源地址> # 设置本地npm配置的仓库镜像
+npm config set registry https://registry.npm.taobao.org # 设置本地npm配置的仓库镜像
 npm config set init.author.name liamhuo # 修改 npm 默认配置
 npm config delete init.author.name # 删除 npm 指定配置
 
