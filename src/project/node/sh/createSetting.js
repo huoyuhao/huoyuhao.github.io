@@ -5,7 +5,7 @@ let http = require("http")
 let fs = require("fs")
 let server = http.createServer()
 
-const dirPath = "/data/huoyuhao.github.io/src/"
+const dirPath = "/Users/huoyuhao/Desktop/code/github/blog/src/"
 const dirList = ['web', 'network', 'frame', 'other']
 const reg = /(?<=[0-9]+\-)(.*)(?=\.md)/ig
 const regFile = /(?<=[0-9]+?\-)(.*)/ig
