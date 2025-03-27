@@ -248,6 +248,11 @@ s：会合并到上一个 commit
 
 `git push -f`
 
+如果是从master拉取的分支，但是后续master有新的提交，处于于本地分支落后于远程分支，这时候需要先拉取远程分支，再进行合并。
+
+如果使用`git merge master`，会导致本地分支提交污染
+使用`git rebase master`，这样本地分支就会等同于远程分支，再进行`git push`即可
+
 
 ## 3. git个性化配置
 
@@ -308,3 +313,4 @@ s：会合并到上一个 commit
 ## 4. 参考文献
 
 [说说你对git rebase 和 git merge的理解？区别](https://github.com/febobo/web-interview/issues/228)
+[合併多個 commit，並且同步到遠端](https://github.com/880831ian/git-merge-multiple-commit)
