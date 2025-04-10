@@ -17,7 +17,7 @@ meta:
 
 修改 HTML 标签时，自动修改匹配的标签
 
-### Beautify
+### Beautify css/sass/scss/less
 
 css/sass/less 格式化
 
@@ -51,19 +51,10 @@ HTML5、CSS3、SVG 的浏览器兼容性检查
 通过命令面板输入Can I Use
 再搜索兼容性内容即可
 
-### Code Runner
-
-运行选中代码段（支持大量语言，包括 Node）
-| 动作 | 快捷键         |
-| ---- | -------------- |
-| 运行 | Ctrl + Alt + N |
-| 停止 | Ctrl + Alt + M |
-
 ### Code Spellchecker
 
 单词拼写检查，会自动检查单词拼写错误
 选中单词右键点击【Add Word to User Dictionary】可以把自创单词加入字典中
-
 
 ### Color Highlight
 
@@ -87,11 +78,7 @@ ESLint 插件，高亮提示
 
 ### EditorConfig for VS Code
 
-EditorConfig 插件
-
-### File Peek
-
-鼠标移到路径名按住 ctrl 可打开文件，系统已内置
+[EditorConfig 插件](https://editorconfig.org/)
 
 ### Git
 
@@ -99,10 +86,22 @@ Git Blame 在状态栏显示当前行的 Git 信息
 Git History(git log) 查看 git log
 GitLens 显示文件最近的 commit 和作者，显示当前行 commit 信息 - GitLens — Git supercharged
 
+### GitLens supercharged
+
+GitLens 显示文件最近的 commit 和作者，显示当前行 commit 信息 - GitLens — Git supercharged
+
+### Local History
+
+本地历史记录，保存文件修改记录
+
 ### Guides
 
 高亮缩进基准线
 与内置的缩进参考线不同，Guides 能够让你通过配置项来修改参考线的颜色、样式、缩进空白的背景色等，如果你愿意折腾，甚至能够配置出类似 Indent Rainbow 那样风格的参考线。
+
+### Highlight Matching Tag
+
+高亮选中标签
 
 ### Helium Icon Theme
 
@@ -145,21 +144,21 @@ Standard 风格
 
 less 变量与混合提示
 
+### Lingma - Alibaba Cloud AI Coding Assistant
+
+灵码 阿里AI
+
 ### Lodash
 
 Lodash 代码段
 
-### MochaSnippets
+### Markdown All in One
 
-Mocha 代码段
+Markdown 语法提示
 
-### Node modules resolve
+### nginx.conf hint
 
-快速导航到 Node 模块
-
-### Output Colorizer
-
-彩色输出信息
+nginx 配置文件提示
 
 ### Partial Diff
 
@@ -173,10 +172,6 @@ Mocha 代码段
 
 另一个路径完成提示
 
-### PostCss Sorting
-
-css 排序
-
 ### Prettify JSON
 
 格式化 JSON
@@ -185,17 +180,17 @@ css 排序
 
 快速切换项目
 
-### REST Client
+### Simple React Snippets
 
-发送 REST 风格的 HTTP 请求
-
-### Sass
-
-sass 插件
+React 代码片段
 
 ### Settings Sync VSCode
 
 设置同步到 Gist
+
+### Tailwind CSS IntelliSense
+
+tailwindcss 提示
 
 ### Sort Typescript Imports
 
@@ -225,10 +220,6 @@ ts/js 前缀提示
 
 语法检查
 
-### Test Spec Generator
-
-测试用例生成（支持 chai、should、jasmine）
-
 ### TypeScript Import
 
 TS 自动 import
@@ -240,10 +231,6 @@ TS 声明文件搜索
 ### Types auto installer
 
 自动安装@types 声明依赖
-
-### VSCode Great Icons
-
-文件图标拓展
 
 ### Version Lens
 
@@ -382,7 +369,6 @@ styled-jsx 高亮支持
   },
   "sync.autoDownload": false,
   "editor.renderIndentGuides": false,
-  "php.executablePath": "/usr/bin/php",
   "git.ignoreLegacyWarning": true,
   "git.confirmSync": false,
   "window.zoomLevel": 0,
@@ -414,3 +400,12 @@ styled-jsx 高亮支持
 }
 
 ```
+
+## 3. 常用快捷键
+
+- `command + p` 快速打开文件
+- `command + f` 查找
+- `command + ] / [`	行缩进
+- `command + k + 0` 折叠所有代码块
+- `command + k + j` 展开所有代码块
+- `control + g` 跳转行
