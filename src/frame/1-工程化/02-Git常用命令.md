@@ -82,14 +82,15 @@ meta:
 `git checkout .`  |    清空暂存区已修改和删除文件，新建文件无法清空
 `git clean -d -f` |    删除当前目录下没有被跟踪的文件和文件夹（即新建文件/夹）
 `git stash`       |    把暂存区和工作区的改动保存起来
-`git stash save 'message...'` |    把暂存区和工作区的改动保存起来
-`git stash list`  |    显示保存进度的列表
-`git stash pop [–index] [stash_id]` |    取出储藏中最后存入的工作状态进行恢复，会删除储藏
-`git stash pop stash@{1}` |   恢复指定的进度到工作区
-`git stash show -p` |   查看堆栈中最新保存的stash和当前目录的差异
-`git stash show stash@{1} -p` |   查看堆栈中指定的stash和当前目录的差异
+`git stash save 'message...'`         |    把暂存区和工作区的改动保存起来
+`git stash list`                      |    显示保存进度的列表
+`git stash pop [–index] [stash_id]`   |    取出储藏中最后存入的工作状态进行恢复，会删除储藏
+`git stash pop stash@{1}`             |   恢复指定的进度到工作区
+`git stash show -p`                   |   查看堆栈中最新保存的stash和当前目录的差异
+`git stash show stash@{1} -p`         |   查看堆栈中指定的stash和当前目录的差异
 `git stash apply [–index] [stash_id]` |   同git stash pop，不会删除储藏
-`git stash clear` |   删除所有存储的进度
+`git stash clear`                     |   删除所有存储的进度
+
 
 ### 1.9 合并分支
 
@@ -111,7 +112,7 @@ meta:
 
 reset：真实硬性回滚，目标版本后面的提交记录全部丢失了
 
-revert：同样回滚，这个回滚操作相当于一个提价，目标版本后面的提交记录也全部都有
+revert：同样回滚，这个回滚操作相当于一个提交，目标版本后面的提交记录也全部都有
 
 ### 1.11 配置config
 
@@ -184,12 +185,13 @@ git rebase feature_XXX
 `git fetch upstream` | 拉取
 `git rebase upstream/master` | 拉取远程master覆盖本地
 
-## 3. git合并本地commit
+## 3. git合并本地多个commit
 
 首先这个适用场景是个人开发的commit，存在多个提交，需要手动合并多个提交变为一个提交
 
 `git log` 查看提交记录
 
+```md
 commit hash3 
 Date:   Sun Mar 16 18:44:59 2025
     个性化设置
@@ -201,12 +203,13 @@ Date:   Tue Mar 11 11:18:52 2025
 commit hash1
 Date:   Mon Mar 3 16:07:21 2025
     MD文档
+```
 
 如果需要合并hash3、hash2两个commit，执行以下命令
 `git rebase -i hash1`
-rebase到不变动的commit，也就是MD文档这个commit，然后会弹出一个编辑器，显示如下内容
+rebase到不变动的commit，也就是[MD文档]这个commit，然后会弹出一个编辑器，显示如下内容
 
-```
+```md
 pick hash3 个性化设置
 pick hash2 初始化
 
@@ -221,26 +224,18 @@ pick hash2 初始化
 pick：会执行該 commit。
 squash：会将这个 commit 合并到前一个 commit
 
-江上面内容改为如下：
+将上面内容改为如下：
 
-```
+```md
 pick hash3 个性化设置
 s hash2 初始化
+
+...
 ```
 
 s：会合并到上一个 commit
 保存退出，会弹出一个编辑器，显示如下内容
 
-```
-# This is a combination of 2 commits.
-# This is the 1st commit message:
-
-个性化设置
-
-# This is the commit message #2:
-
-初始化
-```
 
 保存退出查看 `git log`，可以看到已经将提交进行了合并
 
@@ -276,7 +271,7 @@ s：会合并到上一个 commit
 
 在下面添加如下代码
 
-```js
+```config
 [alias]
   st = status
   ci = commit

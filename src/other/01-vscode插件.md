@@ -148,13 +148,19 @@ less 变量与混合提示
 
 灵码 阿里AI
 
+接受行间代码建议 `Tab`
+废弃行间代码建议 `esc`
+查看上一个行间推荐结果 `⌥(option) [`
+查看下一个行间推荐结果 `⌥(option) ]`
+手动触发行间代码建议 `⌥(option) P`
+
 ### Lodash
 
 Lodash 代码段
 
 ### Markdown All in One
 
-Markdown 语法提示
+Markdown 语法高亮
 
 ### nginx.conf hint
 
