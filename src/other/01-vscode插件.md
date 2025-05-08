@@ -415,3 +415,21 @@ styled-jsx 高亮支持
 - `command + k + 0` 折叠所有代码块
 - `command + k + j` 展开所有代码块
 - `control + g` 跳转行
+
+## 4. 正则使用
+
+可以在 vscode 中使用正则表达式进行查找和替换
+
+搜索框中可以根据正则表达式进行搜索，例如：
+
+\n 正则模式可以匹配换行符
+
+```shell
+# 查找以 - `command开头的行
+^- `command
+# 查找以 - `command开头、块字符结尾的行
+^- `command(.*)块$
+# 替换规则 将command 替换为 option
+^- `command(.*)块$
+- `option$1块
+```

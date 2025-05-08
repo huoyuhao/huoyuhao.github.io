@@ -185,7 +185,9 @@ git rebase feature_XXX
 `git fetch upstream` | 拉取
 `git rebase upstream/master` | 拉取远程master覆盖本地
 
-## 3. git合并本地多个commit
+## 3. git rebase
+
+### 3.1 合并本地多个commit
 
 首先这个适用场景是个人开发的commit，存在多个提交，需要手动合并多个提交变为一个提交
 
@@ -243,13 +245,23 @@ s：会合并到上一个 commit
 
 `git push -f`
 
+### 3.2 git rebase和git merge的区别
+
 如果是从master拉取的分支，但是后续master有新的提交，处于于本地分支落后于远程分支，这时候需要先拉取远程分支，再进行合并。
 
 如果使用`git merge master`，会导致本地分支提交污染
 使用`git rebase master`，这样本地分支就会等同于远程分支，再进行`git push`即可
 
+```shell
+git checkout feature_xxx
+git rebase master
+# 遇到冲突解决冲突
+git rebase --continue
+git push
+```
 
-## 3. git个性化配置
+
+## 4. git个性化配置
 
 当我们使用git一段时间之后，想要使用一些git命令的简称，比如`st => status`，这时候我们学习如何进行个性化配置git命令。
 
@@ -305,7 +317,7 @@ s：会合并到上一个 commit
 其中`alias`里面的内容都是`git`命令的缩写
 `difftool`和`mergetool`是使用`BCompare`软件显示文件差异以及解决合并冲突
 
-## 4. 参考文献
+## 5. 参考文献
 
 [说说你对git rebase 和 git merge的理解？区别](https://github.com/febobo/web-interview/issues/228)
 [合併多個 commit，並且同步到遠端](https://github.com/880831ian/git-merge-multiple-commit)
