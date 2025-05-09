@@ -2,13 +2,19 @@
   "scripts": {
     "docs:dev": "vuepress dev src",
     "docs:build": "vuepress build src",
+    "dev": "npm run update && npm run docs:dev",
+    "build": "npm run update && npm run docs:build",
+    "lint": "eslint --cache --fix --ext .js,.mjs,.cjs",
     "update": "node ./createConfig.js"
   },
   "devDependencies": {
+    "@eslint/js": "^9.26.0",
     "@vuepress/plugin-active-header-links": "^1.4.1",
     "@vuepress/plugin-back-to-top": "^1.4.1",
     "@vuepress/plugin-medium-zoom": "^1.4.1",
     "@vuepress/shared-utils": "^1.4.1",
+    "eslint": "^9.26.0",
+    "globals": "^16.1.0",
     "vuepress": "^1.9.7",
     "vuepress-plugin-auto-sidebar": "^1.4.1"
   },
