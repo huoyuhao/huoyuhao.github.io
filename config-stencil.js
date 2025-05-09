@@ -5,7 +5,7 @@ module.exports = {
     ['link', { rel: 'icon', href: '/logo.png' }], // 增加一个自定义的 favicon
     ['meta', { name: 'author', content: 'liam' }],
     ['meta', { name: 'keywords', content: '前端 web 霍雨浩 个人博客' }],
-    ["meta", { name: "apple-mobile-web-app-capable", content: 'yes' }]
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }]
   ],
   dest: './docs', // 设置输出目录
   base: '/', // 设置站点根路径
@@ -32,7 +32,7 @@ module.exports = {
     '@vuepress/active-header-links': {},
     '@vuepress/back-to-top': {}, // 返回顶部
     '@vuepress/google-analytics': {
-      'ga': 'UA-165864510-1'
+      ga: 'UA-165864510-1'
     },
     '@vuepress/medium-zoom': {
       selector: 'img',
@@ -41,4 +41,4 @@ module.exports = {
       }
     }
   }
-}
+};

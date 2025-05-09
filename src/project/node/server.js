@@ -1,26 +1,25 @@
-var express = require("express")
-var app = express()
+const express = require('express');
+const app = express();
 
-app.get("/crossDomain", function(req, res) {
-  var query = req.query
-  var reqData = { name: 'liam' }
-  console.log(query)
+app.get('/crossDomain', (req, res) => {
+  const { query } = req;
+  const reqData = { name: 'liam' };
+  console.log(query);
   if (query.callback) {
-    var str =  query.callback + '(' + JSON.stringify(reqData) + ')' // jsonp
-    res.end(str)
+    const str = `${query.callback }(${ JSON.stringify(reqData) })`; // jsonp
+    res.end(str);
   } else {
-    res.end(JSON.stringify(reqData))
+    res.end(JSON.stringify(reqData));
   }
-})
+});
 
-app.get("/crossDomain2", function(req, res) {
-  var reqData = { name: 'liam' }
-  res.end(JSON.stringify(reqData))
-})
+app.get('/crossDomain2', (req, res) => {
+  const reqData = { name: 'liam' };
+  res.end(JSON.stringify(reqData));
+});
 
-app.use('/static', express.static('public'))
+app.use('/static', express.static('public'));
 
-
-app.listen(3001, function() {
-  console.log("App started on port 3001")
-})
+app.listen(3001, () => {
+  console.log('App started on port 3001');
+});

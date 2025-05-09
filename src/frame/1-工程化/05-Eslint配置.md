@@ -7,9 +7,9 @@ meta:
 ---
 # 前端Eslint学习
 
-## 安装Eslint
+## 1. 安装Eslint
 
-`npm i -D eslint`
+`pnpm i -D eslint`
 `npx eslint --init`
 
 ### Eslint基础配置
@@ -20,6 +20,7 @@ meta:
 + error 或者 2  把规则作为一个错误（退出代码触发时为1）
 
 ```js
+
 "rules": {
   'function-paren-newline': 'off', // 强制在函数括号内使用一致的换行
   'no-alert': 1, // 禁止使用alert confirm prompt
@@ -126,9 +127,9 @@ meta:
 ```
 
 
-## Eslint Vue3项目配置
+## 2. Eslint Vue3项目配置
 
-## 安装
+### 安装
 
 `npm install eslint@^8.57.1 eslint-plugin-vue@^9.0.0 --save-dev`
 
@@ -287,6 +288,14 @@ module.exports = {
 ### 脚本
 
 `"lint": "eslint --cache --fix --ext .js --ext .vue ./",`
+
+### 忽略文件
+
+```
+.eslintignore
+/docs
+```
+
 
 ## 参考文献
 
