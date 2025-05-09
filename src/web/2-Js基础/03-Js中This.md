@@ -17,13 +17,13 @@ meta:
 
 ```js
 (function () {
-  "use strict"
-  console.log(this)
+  'use strict';
+  console.log(this);
 })();
 (function () {
   // 不使用严格模式
-  console.log(this)
-})()
+  console.log(this);
+})();
 ```
 
 ## 2. 作为对象的方法调用
@@ -32,26 +32,26 @@ meta:
 
 ```js
 function test () {
-  console.log(this.name)
+  console.log(this.name);
 }
-let obj = {
+const obj = {
   name: 'liam',
-  foo: test
-}
-obj.foo() // liam
+  foo: test,
+};
+obj.foo(); // liam
 ```
 
 在 js 中一切都是对象，函数也是一个对象，对于 `test` ，它只是一个函数名，函数的引用，它指向这个函数，当 `foo = test`，`foo` 同样也指向了这个函数
 
 ```js
-let obj = {
+const obj = {
   name: 'liam',
-  foo: function () {
-    console.log(this)
-  }
-}
-let test = obj.foo
-test() // Window
+  foo () {
+    console.log(this);
+  },
+};
+const test = obj.foo;
+test(); // Window
 ```
 
 当我们把 `test = obj.foo` ，`test` 直接指向了一个函数的引用，这时候，其实和 `obj` 这个对象没有关系了，所以，它是被当作一个普通函数来直接调用，因此，`this` 指向全局对象。
@@ -67,7 +67,7 @@ function Student (name) {
   // 相当于返回了
   // return this;
 }
-let result = new Student('凉风');
+const result = new Student('凉风');
 ```
 
 使用new操作符调用函数，会自动执行以下步骤
@@ -88,7 +88,7 @@ function Student (name) {
   // return function f () {};
   // return {};
 }
-let result = new Student('凉风');
+const result = new Student('凉风');
 console.log(result); // { name: '凉风' }
 // 如果返回函数f，则result是函数f，如果是对象{}，则result是对象{}
 ```
@@ -196,21 +196,21 @@ bind和call和apply类似，第一个参数也是修改this指向，只不过返
 如果不确定，可以在箭头外声明`let that = this;`，箭头函数中的this就是指向that。
 
 ```js
-let name = 'window';
-let student = {
+const name = 'window';
+const student = {
   name: '凉风',
-  doSth: function () {
+  doSth () {
     // let self = this;
-    let arrowDoSth = () => {
+    const arrowDoSth = () => {
       // console.log(self.name);
       console.log(this.name);
-    }
+    };
     arrowDoSth();
   },
   arrowDoSth2: () => {
     console.log(this.name);
-  }
-}
+  },
+};
 student.doSth(); // '凉风'
 student.arrowDoSth2(); // 'window'
 ```
@@ -218,18 +218,18 @@ student.arrowDoSth2(); // 'window'
 ### 7.3 不能改变this
 
 ```js
-let student = {
+const student = {
   name: '凉风',
-  doSth: function(){
+  doSth() {
     console.log(this.name);
     return () => {
       console.log('arrowFn:', this.name);
-    }
-  }
-}
-let person = {
+    };
+  },
+};
+const person = {
   name: 'person',
-}
+};
 student.doSth().call(person); // '凉风'  'arrowFn:' '凉风'
 student.doSth.call(person)(); // 'person' 'arrowFn:' 'person'
 ```

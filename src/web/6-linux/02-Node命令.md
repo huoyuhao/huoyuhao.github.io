@@ -9,20 +9,20 @@ meta:
 
 ## Node & Npm安装
 
-```js
-// 最新版本安装方法
+```shell
+# 最新版本安装方法
 sudo apt install nodejs-legacy
 sudo apt install npm
 
-// 升级npm为最新版本
+# 升级npm为最新版本
 sudo npm install npm@latest -g
-npm install npm@4 -g // 4是版本号
+npm install npm@4 -g # 4是版本号
 
-// 安装用于安装nodejs的模块n
-sudo npm install -g n sudo n latest // 安装官方最新版本
-sudo n stable // 安装官方稳定版本
-sudo n lts // 安装官方最新LTS版本
-n 8.10.0 // 安装8.10.0版本
+# 安装用于安装nodejs的模块n
+sudo npm install -g n sudo n latest # 安装官方最新版本
+sudo n stable # 安装官方稳定版本
+sudo n lts # 安装官方最新LTS版本
+n 8.10.0 # 安装8.10.0版本
 ```
 
 ## 用forever 进行管理
@@ -36,14 +36,14 @@ forever start index.js
 
 ### 安装
 
-```js
-// 通过npm安装
+```shell
+# 通过npm安装
 npm install -g pm2
 
-// 通过yarn安装
+# 通过yarn安装
 yarn global add pm2
 
-// 添加pm2命令自动完成功能
+# 添加pm2命令自动完成功能
 pm2 completion install
 ```
 

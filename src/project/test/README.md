@@ -45,17 +45,17 @@ https://github.com/camsong/blog/issues/9
 ```js
 console.log('Hello World!');
 Array.prototype.myReduce = function (fun, item) {
-  let len = this.length;
+  const len = this.length;
   let result = this[0];
   if (item) {
-    result = fun(item,this[0]);
+    result = fun(item, this[0]);
   }
-  for(let i = 0; i < len; i++){
-    result = fun(result,this[i+1]);
+  for (let i = 0; i < len; i++) {
+    result = fun(result, this[i + 1]);
   }
   return result;
-}
-arr.reduce((pre,next)=>{
+};
+arr.reduce((pre, next) => {
   return pre + next;
 });
 ```
@@ -72,19 +72,19 @@ arr.reduce((pre,next)=>{
 解释: 数组元素个数小于 2，因此返回 0。
 
 ```js
-let arr = [3,6,9,1];
+const arr = [3, 6, 9, 1];
 function f (arr) {
-  let result = 0
+  let result = 0;
   if (arr.length >= 2) {
-    let sortArr = sortFun(arr)
-    for(let i = sortArr.length; i > 0; i--) {
-      let number = sortArr[i] - sortArr[i-1]
-      if(number > result){
-          result = number
+    const sortArr = sortFun(arr);
+    for (let i = sortArr.length; i > 0; i--) {
+      const number = sortArr[i] - sortArr[i - 1];
+      if (number > result) {
+        result = number;
       }
     }
   }
-  return result
+  return result;
 }
 function sortFun(arr) {
   // 排序返回新的数组
@@ -96,28 +96,28 @@ function sortFun(arr) {
 #### 1. 闭包
 
 ```js
-inner = 'window'
+inner = 'window';
 function say() {
-  console.log(inner)
-  console.log(this.inner)
+  console.log(inner);
+  console.log(this.inner);
 }
 var obj = (function () {
-  var inner = '1-1'
+  const inner = '1-1';
   return {
     inner: '1-2',
-    say: function () {
-      console.log(inner)
-      console.log(this.inner)
-    }
-  }
+    say () {
+      console.log(inner);
+      console.log(this.inner);
+    },
+  };
 })();
 obj.say();
 var obj = (function () {
-  var inner = '1-1'
+  const inner = '1-1';
   return {
     inner: '1-2',
-    say
-  }
+    say,
+  };
 })();
 obj.say();
 ```
@@ -141,17 +141,17 @@ foo(7)(8) // 21
 ```js
 console.log('Hello World!');
 function sum (number) {
-  this.value = number
-  var result = this.value
-  var t = function (add)  {
+  this.value = number;
+  const result = this.value;
+  const t = function (add) {
     this.toString = () => {
-      return result
-    }
-    return sum(add + result)
-  }
-  return t
+      return result;
+    };
+    return sum(add + result);
+  };
+  return t;
 }
-console.log(sum(1)(2)(3))
+console.log(sum(1)(2)(3));
 ```
 
 ## 算法
@@ -207,12 +207,12 @@ console.log(addSerial(["ab", "c", "ab", "d", "c"]))
 ### 1. Promise.all
 
 ```js
-Promise.all().then().catch()
+Promise.all().then().catch();
 
 function promiseAll([]) {
 }
 
-promiseAll().then().catch()
+promiseAll().then().catch();
 ```
 
 ### 2. 多个请求发送，10s后停止
@@ -234,33 +234,33 @@ m * n个雷
 2、 确认地雷周围的数字
 */
 function getMap(m, n, k) {
-let arr = new Array(m+2) // 没时间写循环了 值为0
-for (let i = 0; i < m + 2; i++) {
-  arr[i] = new Array(n + 2)
-}
-let number = m * n
-for (let i = 0; i < k;){
-  let value = Math.floor(Math.random() * number)
-  let j = Math.floor(value / m) + 1
-  let l = value % m + 1
-  if (arr[i][j] === -1) {
-    continue
-  } else {
-    arr[i][j] = -1
-    i++
-    arr[i - 1][j - 1] === -1 ? arr[i - 1][j - 1] : arr[i - 1][j - 1]++
-    arr[i - 1][j]++
-    arr[i - 1][j + 1]++
-    arr[i][j - 1]++
-    arr[i][j + 1]++
-    arr[i + 1][j - 1]++
-    arr[i + 1][j]++
-    arr[i + 1][j + 1]++
+  const arr = new Array(m + 2); // 没时间写循环了 值为0
+  for (let i = 0; i < m + 2; i++) {
+    arr[i] = new Array(n + 2);
   }
-  if (i > number) { // 雷的个数大于地图位置的个数
-    break
+  const number = m * n;
+  for (let i = 0; i < k;) {
+    const value = Math.floor(Math.random() * number);
+    const j = Math.floor(value / m) + 1;
+    const l = value % m + 1;
+    if (arr[i][j] === -1) {
+      continue;
+    } else {
+      arr[i][j] = -1;
+      i++;
+      arr[i - 1][j - 1] === -1 ? arr[i - 1][j - 1] : arr[i - 1][j - 1]++;
+      arr[i - 1][j]++;
+      arr[i - 1][j + 1]++;
+      arr[i][j - 1]++;
+      arr[i][j + 1]++;
+      arr[i + 1][j - 1]++;
+      arr[i + 1][j]++;
+      arr[i + 1][j + 1]++;
+    }
+    if (i > number) { // 雷的个数大于地图位置的个数
+      break;
+    }
   }
-}
 // 最外面的数据
 }
 ```
@@ -273,13 +273,13 @@ for (let i = 0; i < k;){
 
 ```js
 arr = [...new Array(number).keys()]
-[0,1,2,3,4,5]
-2
+  [0, 1, 2, 3, 4, 5];
+2;
 1
-[0,2,3,4,5]
-number-1
+  [0, 2, 3, 4, 5];
+number - 1;
 4
-[0,2,3,4]
+  [0, 2, 3, 4];
 ```
 
 编程题：

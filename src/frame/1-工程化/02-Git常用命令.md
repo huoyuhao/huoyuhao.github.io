@@ -209,7 +209,7 @@ Date:   Mon Mar 3 16:07:21 2025
 
 如果需要合并hash3、hash2两个commit，执行以下命令
 `git rebase -i hash1`
-rebase到不变动的commit，也就是[MD文档]这个commit，然后会弹出一个编辑器，显示如下内容
+rebase到不变动的commit，也就是【MD文档】这个commit，然后会弹出一个编辑器，显示如下内容
 
 ```md
 pick hash3 个性化设置

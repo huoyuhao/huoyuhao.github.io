@@ -30,20 +30,20 @@ Set本身是一个构造函数，用来生成 Set 数据结构。
 + forEach()：使用回调函数遍历每个成员
 
 ```js
-let set = new Set(['red', 'green', 'blue'])
+const set = new Set(['red', 'green', 'blue']);
 
-for (let item of set.keys()) {
-  console.log(item)
+for (const item of set.keys()) {
+  console.log(item);
 }
 // red green blue
 
-for (let item of set.values()) {
-  console.log(item)
+for (const item of set.values()) {
+  console.log(item);
 }
 // red green blue
 
-for (let item of set.entries()) {
-  console.log(item)
+for (const item of set.entries()) {
+  console.log(item);
 }
 // ["red", "red"]
 // ["green", "green"]
@@ -80,35 +80,35 @@ WeakSet 没有 size 属性
 `Array.from` 方法可以将 Set 结构转为数组
 
 ```js
-const items = new Set([1, 2, 3, 4, 5])
-const array = Array.from(items)
+const items = new Set([1, 2, 3, 4, 5]);
+const array = Array.from(items);
 ```
 
 #### 1.5.2 数组去重
 
 ```js
 // 去除数组的重复成员
-[...new Set(array)]
+[...new Set(array)];
 
-Array.from(new Set(array))
+Array.from(new Set(array));
 ```
 
 #### 1.5.3 实现并集 (Union)、交集 (Intersect) 和差集
 
 ```js
-let a = new Set([1, 2, 3])
-let b = new Set([4, 3, 2])
+const a = new Set([1, 2, 3]);
+const b = new Set([4, 3, 2]);
 
 // 并集
-let union = new Set([...a, ...b])
+const union = new Set([...a, ...b]);
 // Set {1, 2, 3, 4}
 
 // 交集
-let intersect = new Set([...a].filter((x) => b.has(x)))
+const intersect = new Set([...a].filter((x) => b.has(x)));
 // set {2, 3}
 
 // 差集
-let difference = new Set([...a].filter((x) => !b.has(x)))
+const difference = new Set([...a].filter((x) => !b.has(x)));
 // Set {1}
 ```
 
@@ -125,17 +125,17 @@ let difference = new Set([...a].filter((x) => !b.has(x)))
 + clear() 将这个Map中的所有元素删除
 
 ```js
-let map = new Map();
+const map = new Map();
 
-map.set('1', 'str1');   // 字符串键
-map.set(1, 'num1');     // 数字键
+map.set('1', 'str1'); // 字符串键
+map.set(1, 'num1'); // 数字键
 map.set(true, 'bool1'); // 布尔值键
 
 // 还记得普通的 Object 吗? 它会将键转化为字符串
 // Map 则会保留键的类型，所以下面这两个结果不同：
-console.log(map.get(1));    // 'num1'
-console.log(map.get('1'));  // 'str1'
-console.log(map.size);      // 3
+console.log(map.get(1)); // 'num1'
+console.log(map.get('1')); // 'str1'
+console.log(map.size); // 3
 ```
 
 Map 使用 SameValueZero 算法来比较键是否相等。它和严格等于 === 差不多，但区别是 NaN 被看成是等于 NaN。所以 NaN 也可以被用作键。
@@ -150,24 +150,24 @@ Map 使用 SameValueZero 算法来比较键是否相等。它和严格等于 ===
 + forEach()：使用回调函数遍历每个成员
 
 ```js
-let recipeMap = new Map([
+const recipeMap = new Map([
   ['cucumber', 500],
   ['tomatoes', 350],
   ['onion', 50],
 ]);
 
 // 遍历所有的键（vegetables）
-for (let vegetable of recipeMap.keys()) {
+for (const vegetable of recipeMap.keys()) {
   console.log(vegetable); // cucumber, tomatoes, onion
 }
 
 // 遍历所有的值（amounts）
-for (let amount of recipeMap.values()) {
+for (const amount of recipeMap.values()) {
   console.log(amount); // 500, 350, 50
 }
 
 // 遍历所有的实体 [key, value]
-for (let entry of recipeMap) { // 与 recipeMap.entries() 相同
+for (const entry of recipeMap) { // 与 recipeMap.entries() 相同
   console.log(entry); // cucumber,500 (and so on)
 }
 ```
@@ -195,12 +195,12 @@ WeakMap结构与 Map 类似，也是不重复的值的集合
 该方法返回对象的键/值对数组
 
 ```js
-let obj = {
-  name: "John",
-  age: 30
+const obj = {
+  name: 'John',
+  age: 30,
 };
 
-let map = new Map(Object.entries(obj));
+const map = new Map(Object.entries(obj));
 
 console.log(map.get('name')); // John
 ```
@@ -210,12 +210,12 @@ console.log(map.get('name')); // John
 Object.fromEntries 方法的作用是给定一个具有 [key, value] 键值对的数组，它会根据给定数组创建一个对象
 
 ```js
-let map = new Map();
+const map = new Map();
 map.set('banana', 1);
 map.set('orange', 2);
 map.set('meat', 4);
 
-let obj = Object.fromEntries(map.entries()); // 创建一个普通对象（plain object）(*)
+const obj = Object.fromEntries(map.entries()); // 创建一个普通对象（plain object）(*)
 
 // obj = { banana: 1, orange: 2, meat: 4 }
 

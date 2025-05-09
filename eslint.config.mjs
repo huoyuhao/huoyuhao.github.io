@@ -1,13 +1,14 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import markdown from 'eslint-plugin-markdown';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
   // 忽略文件
   globalIgnores(['**/docs/', 'src/.vuepress/config.js']),
   {
-    files: ['**/*.{js,mjs,cjs}'],
-    plugins: { js },
+    files: ['**/*.{js,mjs,cjs}', '**/*.md/*.js'],
+    plugins: { js, markdown },
     extends: ['js/recommended'],
     languageOptions: {
       sourceType: 'module', // 设置语言类型为 commonjs
@@ -129,5 +130,12 @@ export default defineConfig([
       semi: 2, // 要求或禁止使用分号代替 ASI
       'no-multi-spaces': 2, // 禁止出现多个空格
     },
+  },
+  {
+    files: ['**/*.md'],
+    plugins: {
+      markdown,
+    },
+    processor: 'markdown/markdown',
   },
 ]);

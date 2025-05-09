@@ -21,8 +21,8 @@ const { run, eat } = require('./dog.js');
 
 ```js
 const dog = require('./dog.js');
-const run = dog.run;
-const eat = dog.eat;
+const { run } = dog;
+const { eat } = dog;
 ```
 
 ### 1.2 module
@@ -52,10 +52,12 @@ const eat = require('./dog.js');
 
 ```js
 // 正确使用 等同于module.exports.eat
-exports.eat = function (data) { console.log(data); }
+exports.eat = function (data) {
+  console.log(data);
+};
 
 // 无法导出
-exports = 123
+exports = 123;
 ```
 
 ### 1.5 require
@@ -77,9 +79,9 @@ exports = 123
 
 ```js
 // CommonJS
-exports.eat = function () {}
+exports.eat = function () {};
 // ES6
-export function eat () {} 
+export function eat () {}
 ```
 
 `export`用于暴露模块对外的接口。这里需要注意`export暴露的是变量而不是值`。注意这两者的区别，下面代码对变量和值进行了解释。（个人理解import取得是当前变量的引用，所以必须是变量而不是值）
@@ -180,8 +182,8 @@ var b = require('./b');
 console.log(b.foo);
 
 // b.js
-console.log('b.js')
-let foo = 1;
+console.log('b.js');
+const foo = 1;
 module.exports = { foo };
 
 // 运行 node a.js
@@ -189,26 +191,26 @@ module.exports = { foo };
 
 // 对 a.js 预编译时，只会把变量 b 的声明提前，a.js & b.js 预编译后的执行顺序如下
 var b;
-console.log('I am a.js...')
+console.log('I am a.js...');
 b = require('./b');
 console.log(b.foo);
 ```
 
 ```js
 // a.js
-console.log('I am a.js...')
+console.log('I am a.js...');
 var b = require('./b');
 console.log(b.foo);
 b.foo = b.foo - 1;
 require('./c');
 
 // b.js
-console.log('b.js')
-let foo = 1;
+console.log('b.js');
+const foo = 1;
 module.exports = { foo };
 
 // c.js
-console.log('I am c.js...')
+console.log('I am c.js...');
 var b = require('./b');
 console.log(b.foo);
 

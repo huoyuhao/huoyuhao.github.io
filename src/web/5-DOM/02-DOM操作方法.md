@@ -85,7 +85,7 @@ meta:
 将一个节点从DOM树中移除。移除后还存在于内存中，还可以继续添加到DOM树中。
 
 ```js
-let oldChild = node.removeChild(child);
+const oldChild = node.removeChild(child);
 // node child的父节点
 // child 要移除的子节点
 // oldChild 保存对移除子节点child的引用。可以继续将其添加到DOM树中
@@ -96,7 +96,7 @@ let oldChild = node.removeChild(child);
 在当前节点的某个子节点之前再插入一个子节点。
 
 ```js
-let insertedElement = parentElement.insertBefore(newElement, referenceElement);
+const insertedElement = parentElement.insertBefore(newElement, referenceElement);
 // 如果referenceElement为空，则插入到parentElement的子节点末尾。
 // insertedElement 插入的子节点，即newElement
 // parentElement 新插入节点的父节点
@@ -109,7 +109,7 @@ let insertedElement = parentElement.insertBefore(newElement, referenceElement);
 用指定节点替换当前节点的一个子节点，返回被替换掉的节点。
 
 ```js
-let replacedChild = parentNode.replaceChild(newChild, oldChild);
+const replacedChild = parentNode.replaceChild(newChild, oldChild);
 // newChild 会替换掉 oldChild。如果newChild已经存在于DOM树中，则会从DOM树中删除
 // oldChild 被替换掉的节点。
 // replacedChild 等于 oldChild

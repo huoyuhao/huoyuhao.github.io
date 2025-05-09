@@ -30,7 +30,7 @@ position left/right/top/bottom: -9999px; // 让元素在视区外
 
 ### 不占位
 
-```js
+```
 display: none;
 width: 0; height: 0; overflow: hidden;
 ```
@@ -193,10 +193,10 @@ DOM解析过程
 DOMContentLoaded触发时，仅当DOM加载完成，不包括样式表、图片、flash
 
 ```js
-window.addEventListener('load', function () {
-  console.log('window loaded')
-})
-document.addEventListener('DOMContentLoaded', function () {
-  console.log('dom content loaded')
-})
+window.addEventListener('load', () => {
+  console.log('window loaded');
+});
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('dom content loaded');
+});
 ```

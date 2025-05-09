@@ -14,11 +14,11 @@ meta:
 promise是一个类，它的构造函数接受一个函数，函数的两个参数也都是函数
 
 ```js
-class MyPromise{
+class MyPromise {
   // 构造器
-  constructor(executor){
-    let resolve = () => {};
-    let reject = () => {};
+  constructor(executor) {
+    const resolve = () => {};
+    const reject = () => {};
     // 立即执行
     executor(resolve, reject);
   }
@@ -33,15 +33,15 @@ class MyPromise{
 + rejected: 一个promise被reject后就处于rejected状态，这个状态也不能再改变，而且必须拥有一个不可变的拒绝原因(reason)
 
 ```js
-class MyPromise{
-  constructor(executor){
+class MyPromise {
+  constructor(executor) {
     // 初始化state为等待态
     this.state = 'pending';
     // 成功的值
     this.value = undefined;
     // 失败的原因
     this.reason = undefined;
-    let resolve = value => {
+    const resolve = (value) => {
       // state改变,resolve调用就会失败
       if (this.state === 'pending') {
         // resolve调用后，state转化为成功态
@@ -50,7 +50,7 @@ class MyPromise{
         this.value = value;
       }
     };
-    let reject = reason => {
+    const reject = (reason) => {
       // state改变,reject调用就会失败
       if (this.state === 'pending') {
         // reject调用后，state转化为失败态
@@ -60,7 +60,7 @@ class MyPromise{
       }
     };
     // 如果executor执行报错，直接执行reject
-    try{
+    try {
       executor(resolve, reject);
     } catch (err) {
       reject(err);
@@ -94,8 +94,8 @@ class MyPromise{
 
 ```js
 const test = new MyPromise((resolve, reject) => {
-  resolve('成功')
-}).then(res => console.log(res), err => console.log(err));
+  resolve('成功');
+}).then((res) => console.log(res), (err) => console.log(err));
 // 成功
 ```
 
@@ -104,8 +104,8 @@ const test = new MyPromise((resolve, reject) => {
 是当resolve在setTimeout内执行，then时state还是pending等待状态 我们就需要在then调用的时候，将成功和失败存到各自的数组，一旦reject或者resolve，就调用它们
 
 ```js
-class MyPromise{
-  constructor(executor){
+class MyPromise {
+  constructor(executor) {
     this.state = 'pending';
     this.value = undefined;
     this.reason = undefined;
@@ -113,45 +113,45 @@ class MyPromise{
     this.onResolvedCallbacks = [];
     // 失败存放法数组
     this.onRejectedCallbacks = [];
-    let resolve = value => {
+    const resolve = (value) => {
       if (this.state === 'pending') {
         this.state = 'fulfilled';
         this.value = value;
         // 一旦resolve执行，调用成功数组的函数
-        this.onResolvedCallbacks.forEach(fn => fn());
+        this.onResolvedCallbacks.forEach((fn) => fn());
       }
     };
-    let reject = reason => {
+    const reject = (reason) => {
       if (this.state === 'pending') {
         this.state = 'rejected';
         this.reason = reason;
         // 一旦reject执行，调用失败数组的函数
-        this.onRejectedCallbacks.forEach(fn => fn());
+        this.onRejectedCallbacks.forEach((fn) => fn());
       }
     };
-    try{
+    try {
       executor(resolve, reject);
     } catch (err) {
       reject(err);
     }
   }
-  then(onFulfilled,onRejected) {
+  then(onFulfilled, onRejected) {
     if (this.state === 'fulfilled') {
       onFulfilled(this.value);
-    };
+    }
     if (this.state === 'rejected') {
       onRejected(this.reason);
-    };
+    }
     // 当状态state为pending时
     if (this.state === 'pending') {
       // onFulfilled传入到成功数组
-      this.onResolvedCallbacks.push(()=>{
+      this.onResolvedCallbacks.push(() => {
         onFulfilled(this.value);
-      })
+      });
       // onRejected传入到失败数组
-      this.onRejectedCallbacks.push(()=>{
+      this.onRejectedCallbacks.push(() => {
         onRejected(this.reason);
-      })
+      });
     }
   }
 }
@@ -162,7 +162,7 @@ const test = new MyPromise((resolve, reject) => {
   setTimeout(() => {
     resolve('成功');
   });
-}).then(res => console.log(res), err => console.log(err));
+}).then((res) => console.log(res), (err) => console.log(err));
 console.log('失败');
 // 如果是1.4 由于立即执行函数，没有办法解决异步执行resolve代码，返回 失败
 // 失败 -> 成功
@@ -228,9 +228,9 @@ class MyPromise{
 + 成功和失败只能调用一个 所以设定一个called来防止多次调用
 
 ```js
-function resolvePromise(promise2, x, resolve, reject){
+function resolvePromise(promise2, x, resolve, reject) {
   // 规范 2.3.1，x 不能和 promise2 相同，避免循环引用
-  if(x === promise2) {
+  if (x === promise2) {
     // reject报错
     return reject(new TypeError('Chaining cycle detected for promise'));
   }
@@ -239,13 +239,13 @@ function resolvePromise(promise2, x, resolve, reject){
   if (x instanceof MyPromise) {
     // 2.3.2.1 如果x为pending状态，promise必须保持pending状态，直到x为fulfilled/rejected
     if (x.currentState === 'pending') {
-      x.then(function(value) {
+      x.then((value) => {
         // 再次调用该函数是为了确认 x resolve 的
         // 参数是什么类型，如果是基本类型就再次 resolve
         // 把值传给下个 then
-        resolutionProcedure(promise2, value, resolve, reject)
+        resolutionProcedure(promise2, value, resolve, reject);
       }, reject);
-      } else { // 但如果这个promise的状态已经确定了，那么它肯定有一个正常的值，而不是一个thenable，所以这里可以取它的状态
+    } else { // 但如果这个promise的状态已经确定了，那么它肯定有一个正常的值，而不是一个thenable，所以这里可以取它的状态
       x.then(resolve, reject);
     }
     return;
@@ -258,22 +258,22 @@ function resolvePromise(promise2, x, resolve, reject){
     try {
       // 规范2.3.3.1 因为x.then可能是一个getter，这种情况下多次读取就有可能产生副作用
       // 既要判断它的类型，又要调用它，这就是两次读取
-      let then = x.then;
+      const { then } = x;
       // 规范2.3.3.3，如果 then 是函数，调用 x.then
-      if (typeof then === 'function') { 
+      if (typeof then === 'function') {
         // 规范 2.3.3.3
         // reject 或 reject 其中一个执行过的话，忽略其他的
-        then.call(x, y => {
+        then.call(x, (y) => {
           // 规范 2.3.3.3.3，即这三处谁先执行就以谁的结果为准
           if (called) return;
           called = true;
           // resolve的结果依旧是promise 那就继续解析
           resolvePromise(promise2, y, resolve, reject);
-        }, err => {
+        }, (err) => {
           if (called) return;
           called = true;
           reject(err);// 失败了就失败了
-        })
+        });
       } else {
         resolve(x); // 直接成功即可
       }
@@ -282,7 +282,7 @@ function resolvePromise(promise2, x, resolve, reject){
       if (called) return;
       called = true;
       // 取then出错了那就不要在继续执行了
-      reject(e); 
+      reject(e);
     }
   } else {
     resolve(x);
@@ -367,13 +367,13 @@ class MyPromise{
 
 ```js
 MyPromise.defer = MyPromise.deferred = function () {
-  let dfd = {}
-  dfd.promise = new MyPromise((resolve,reject)=>{
+  const dfd = {};
+  dfd.promise = new MyPromise((resolve, reject) => {
     dfd.resolve = resolve;
     dfd.reject = reject;
   });
   return dfd;
-}
+};
 module.exports = MyPromise;
 ```
 
@@ -394,61 +394,60 @@ module.exports = MyPromise;
 
 ```js
 MyPromise.all = function(promiseList) {
-  var resPromise = new MyPromise(function(resolve, reject) {
-    var count = 0;
-    var result = [];
-    var length = promiseList.length;
+  const resPromise = new MyPromise((resolve, reject) => {
+    let count = 0;
+    const result = [];
+    const { length } = promiseList;
 
-    if(length === 0) {
+    if (length === 0) {
       return resolve(result);
     }
 
-    promiseList.forEach(function(promise, index) {
-      MyPromise.resolve(promise).then(function(value){
+    promiseList.forEach((promise, index) => {
+      MyPromise.resolve(promise).then((value) => {
         count++;
         result[index] = value;
-        if(count === length) {
+        if (count === length) {
           resolve(result);
         }
-      }, function(reason){
+      }, (reason) => {
         reject(reason);
       });
     });
   });
 
   return resPromise;
-}
+};
 ```
 
 ### 1.10 Promise.race
 
 ```js
 MyPromise.race = function(promiseList) {
-  var resPromise = new MyPromise(function(resolve, reject) {
-    var length = promiseList.length;
+  const resPromise = new MyPromise((resolve, reject) => {
+    const { length } = promiseList;
 
     if (length === 0) {
       return resolve();
-    } else {
-      for(var i = 0; i < length; i++) {
-        MyPromise.resolve(promiseList[i]).then(function(value) {
-          return resolve(value);
-        }, function(reason) {
-          return reject(reason);
-        });
-      }
+    }
+    for (let i = 0; i < length; i++) {
+      MyPromise.resolve(promiseList[i]).then((value) => {
+        return resolve(value);
+      }, (reason) => {
+        return reject(reason);
+      });
     }
   });
   return resPromise;
-}
+};
 ```
 
 ### 1.11 完整代码
 
 ```js
-function resolvePromise(promise2, x, resolve, reject){
+function resolvePromise(promise2, x, resolve, reject) {
   // 规范 2.3.1，x 不能和 promise2 相同，避免循环引用
-  if(x === promise2) {
+  if (x === promise2) {
     // reject报错
     return reject(new TypeError('Chaining cycle detected for promise'));
   }
@@ -457,13 +456,13 @@ function resolvePromise(promise2, x, resolve, reject){
   if (x instanceof MyPromise) {
     // 2.3.2.1 如果x为pending状态，promise必须保持pending状态，直到x为fulfilled/rejected
     if (x.currentState === 'pending') {
-      x.then(function(value) {
+      x.then((value) => {
         // 再次调用该函数是为了确认 x resolve 的
         // 参数是什么类型，如果是基本类型就再次 resolve
         // 把值传给下个 then
-        resolutionProcedure(promise2, value, resolve, reject)
+        resolutionProcedure(promise2, value, resolve, reject);
       }, reject);
-      } else { // 但如果这个promise的状态已经确定了，那么它肯定有一个正常的值，而不是一个thenable，所以这里可以取它的状态
+    } else { // 但如果这个promise的状态已经确定了，那么它肯定有一个正常的值，而不是一个thenable，所以这里可以取它的状态
       x.then(resolve, reject);
     }
     return;
@@ -476,22 +475,22 @@ function resolvePromise(promise2, x, resolve, reject){
     try {
       // 规范2.3.3.1 因为x.then可能是一个getter，这种情况下多次读取就有可能产生副作用
       // 既要判断它的类型，又要调用它，这就是两次读取
-      let then = x.then;
+      const { then } = x;
       // 规范2.3.3.3，如果 then 是函数，调用 x.then
-      if (typeof then === 'function') { 
+      if (typeof then === 'function') {
         // 规范 2.3.3.3
         // reject 或 reject 其中一个执行过的话，忽略其他的
-        then.call(x, y => {
+        then.call(x, (y) => {
           // 规范 2.3.3.3.3，即这三处谁先执行就以谁的结果为准
           if (called) return;
           called = true;
           // resolve的结果依旧是promise 那就继续解析
           resolvePromise(promise2, y, resolve, reject);
-        }, err => {
+        }, (err) => {
           if (called) return;
           called = true;
           reject(err);// 失败了就失败了
-        })
+        });
       } else {
         resolve(x); // 直接成功即可
       }
@@ -500,14 +499,14 @@ function resolvePromise(promise2, x, resolve, reject){
       if (called) return;
       called = true;
       // 取then出错了那就不要在继续执行了
-      reject(e); 
+      reject(e);
     }
   } else {
     resolve(x);
   }
 }
-class MyPromise{
-  constructor(executor){
+class MyPromise {
+  constructor(executor) {
     this.state = 'pending';
     this.value = undefined;
     this.reason = undefined;
@@ -515,23 +514,23 @@ class MyPromise{
     this.onResolvedCallbacks = [];
     // 失败存放法数组
     this.onRejectedCallbacks = [];
-    let resolve = value => {
+    const resolve = (value) => {
       if (this.state === 'pending') {
         this.state = 'fulfilled';
         this.value = value;
         // 一旦resolve执行，调用成功数组的函数
-        this.onResolvedCallbacks.forEach(fn => fn());
+        this.onResolvedCallbacks.forEach((fn) => fn());
       }
     };
-    let reject = reason => {
+    const reject = (reason) => {
       if (this.state === 'pending') {
         this.state = 'rejected';
         this.reason = reason;
         // 一旦reject执行，调用失败数组的函数
-        this.onRejectedCallbacks.forEach(fn => fn());
+        this.onRejectedCallbacks.forEach((fn) => fn());
       }
     };
-    try{
+    try {
       executor(resolve, reject);
     } catch (err) {
       reject(err);
@@ -539,39 +538,41 @@ class MyPromise{
   }
   then(onFulfilled, onRejected) {
     // onFulfilled如果不是函数，就忽略onFulfilled，直接返回value
-    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     // onRejected如果不是函数，就忽略onRejected，直接扔出错误
-    onRejected = typeof onRejected === 'function' ? onRejected : err => { throw err };
-    let promise2 = new MyPromise((resolve, reject) => {
+    onRejected = typeof onRejected === 'function' ? onRejected : (err) => {
+      throw err;
+    };
+    const promise2 = new MyPromise((resolve, reject) => {
       if (this.state === 'fulfilled') {
         // 异步
         setTimeout(() => {
           try {
-            let x = onFulfilled(this.value);
+            const x = onFulfilled(this.value);
             resolvePromise(promise2, x, resolve, reject);
           } catch (e) {
             reject(e);
           }
         }, 0);
-      };
+      }
       if (this.state === 'rejected') {
         // 异步
         setTimeout(() => {
           // 如果报错
           try {
-            let x = onRejected(this.reason);
+            const x = onRejected(this.reason);
             resolvePromise(promise2, x, resolve, reject);
           } catch (e) {
             reject(e);
           }
         }, 0);
-      };
+      }
       if (this.state === 'pending') {
         this.onResolvedCallbacks.push(() => {
           // 至于为什么用 setTimeout？因为我们模拟不了微任务，那就用宏任务去解决吧
           setTimeout(() => {
             try {
-              let x = onFulfilled(this.value);
+              const x = onFulfilled(this.value);
               resolvePromise(promise2, x, resolve, reject);
             } catch (e) {
               reject(e);
@@ -582,72 +583,71 @@ class MyPromise{
           // 异步
           setTimeout(() => {
             try {
-              let x = onRejected(this.reason);
+              const x = onRejected(this.reason);
               resolvePromise(promise2, x, resolve, reject);
             } catch (e) {
               reject(e);
             }
-          }, 0)
+          }, 0);
         });
-      };
+      }
     });
     // 返回promise，完成链式
     return promise2;
   }
 }
-MyPromise.resolve = function(val){
-  return new MyPromise((resolve,reject)=>{
-    resolve(val)
+MyPromise.resolve = function(val) {
+  return new MyPromise((resolve, reject) => {
+    resolve(val);
   });
-}
-MyPromise.reject = function(val){
-  return new MyPromise((resolve,reject)=>{
-    reject(val)
+};
+MyPromise.reject = function(val) {
+  return new MyPromise((resolve, reject) => {
+    reject(val);
   });
-}
+};
 MyPromise.race = function(promiseList) {
-  var resPromise = new MyPromise(function(resolve, reject) {
-    var length = promiseList.length;
+  const resPromise = new MyPromise((resolve, reject) => {
+    const { length } = promiseList;
 
-    if(length === 0) {
+    if (length === 0) {
       return resolve();
-    } else {
-      for(var i = 0; i < length; i++) {
-        MyPromise.resolve(promiseList[i]).then(function(value) {
-          return resolve(value);
-        }, function(reason) {
-          return reject(reason);
-        });
-      }
+    }
+    for (let i = 0; i < length; i++) {
+      MyPromise.resolve(promiseList[i]).then((value) => {
+        return resolve(value);
+      }, (reason) => {
+        return reject(reason);
+      });
     }
   });
   return resPromise;
-}
+};
 MyPromise.all = function(promiseList) {
-  var resPromise = new MyPromise(function(resolve, reject) {
-    var count = 0;
-    var result = [];
-    var length = promiseList.length;
+  const resPromise = new MyPromise((resolve, reject) => {
+    let count = 0;
+    const result = [];
+    const { length } = promiseList;
 
-    if(length === 0) {
+    if (length === 0) {
       return resolve(result);
     }
 
-    promiseList.forEach(function(promise, index) {
-      MyPromise.resolve(promise).then(function(value){
+    promiseList.forEach((promise, index) => {
+      MyPromise.resolve(promise).then((value) => {
         count++;
         result[index] = value;
-        if(count === length) {
+        if (count === length) {
           resolve(result);
         }
-      }, function(reason){
+      }, (reason) => {
         reject(reason);
       });
     });
   });
 
   return resPromise;
-}
+};
 ```
 
 ## 2. Promise面试题
@@ -662,7 +662,7 @@ const promise = new Promise((resolve, reject) => {
   }, 0);
   resolve();
   console.log(2);
-})
+});
 promise.then(() => {
   console.log(3);
 }).catch(() => {
@@ -699,7 +699,8 @@ Promise.resolve(1)
   })
   .then((res) => {
     console.log(res);
-  }).then((res) => {
+  })
+  .then((res) => {
     console.log(res);
   });
 // 输出结果 1 fail Error: Oh noes! 4 undefined
@@ -729,7 +730,7 @@ Promise.resolve()
 const promise = Promise.resolve()
   .then(() => {
     return promise;
-  })
+  });
 promise.catch(console.error);
 // 输出结果 TypeError: Chaining cycle detected for promise
 // .then 或 .catch 返回的值不能是 promise 本身，否则会造成死循环
@@ -757,11 +758,11 @@ Promise.resolve(1)
 
 ```js
 Promise.resolve('1')
-  .then(res => {
+  .then((res) => {
     console.log(res);
     return 2;
   })
-  .then(res => {
+  .then((res) => {
     console.log(res);
     return 3;
   })
@@ -769,7 +770,7 @@ Promise.resolve('1')
     console.log('finally');
   });
 Promise.resolve('4')
-  .then(res => {
+  .then((res) => {
     console.log('finally2', res);
     return 5;
   })
@@ -777,7 +778,7 @@ Promise.resolve('4')
     console.log('finally2');
     return 6;
   })
-  .then(res => {
+  .then((res) => {
     console.log('finally2', res);
   });
 // 1 finally2 4  2  finally2  finally finally2 5
@@ -792,11 +793,11 @@ const promise = new Promise((resolve, reject) => {
     console.log('once');
     resolve('success');
   }, 1000);
-})
+});
 const start = Date.now();
 promise.then((res) => {
   console.log(res, Date.now() - start);
-})
+});
 promise.then((res) => {
   console.log(res, Date.now() - start);
 });
@@ -808,12 +809,12 @@ promise.then((res) => {
 
 ```js
 function runAsync (x) {
-  const p = new Promise(r => setTimeout(() => r(x, console.log(x)), 1000))
-  return p
+  const p = new Promise((r) => setTimeout(() => r(x, console.log(x)), 1000));
+  return p;
 }
 Promise.race([runAsync(1), runAsync(2), runAsync(3)])
-  .then(res => console.log('result: ', res))
-  .catch(err => console.log(err))
+  .then((res) => console.log('result: ', res))
+  .catch((err) => console.log(err));
 // 1 'result: ' 1 2 3
 // 使用.race()方法，它只会获取最先执行完成的那个结果，其它的异步任务虽然也会继续进行下去，不过race已经不管那些任务的结果了
 ```
@@ -822,24 +823,24 @@ Promise.race([runAsync(1), runAsync(2), runAsync(3)])
 
 ```js
 async function async1 () {
-  console.log("async1 start");
+  console.log('async1 start');
   await async2();
-  console.log("async1 end");
+  console.log('async1 end');
   setTimeout(() => {
-    console.log('timer1')
-  }, 0)
+    console.log('timer1');
+  }, 0);
 }
 async function async2 () {
   setTimeout(() => {
-    console.log('timer2')
-  }, 0)
-  console.log("async2");
+    console.log('timer2');
+  }, 0);
+  console.log('async2');
 }
 async1();
 setTimeout(() => {
-  console.log('timer3')
-}, 0)
-console.log("start")
+  console.log('timer3');
+}, 0);
+console.log('start');
 // async1 start => async2 => start => async1 end => timer2 => timer3 => timer1
 ```
 
@@ -847,15 +848,15 @@ console.log("start")
 async function async1 () {
   await async2();
   console.log('async1');
-  return 'async1 success'
+  return 'async1 success';
 }
 async function async2 () {
   return new Promise((resolve, reject) => {
-    console.log('async2')
-    reject('error')
-  })
+    console.log('async2');
+    reject('error');
+  });
 }
-async1().then(res => console.log(res));
+async1().then((res) => console.log(res));
 // 'async2'  => Uncaught (in promise) error
 // 如果在async函数中抛出了错误，则终止错误结果，不会继续向下执行
 ```
@@ -866,25 +867,25 @@ async1().then(res => console.log(res));
 const async1 = async () => {
   console.log('async1');
   setTimeout(() => {
-    console.log('timer1')
-  }, 2000)
-  await new Promise(resolve => {
-    console.log('promise1')
-  })
-  console.log('async1 end')
-  return 'async1 success'
-} 
+    console.log('timer1');
+  }, 2000);
+  await new Promise((resolve) => {
+    console.log('promise1');
+  });
+  console.log('async1 end');
+  return 'async1 success';
+};
 console.log('script start');
-async1().then(res => console.log(res));
+async1().then((res) => console.log(res));
 console.log('script end');
 Promise.resolve(1)
   .then(2)
   .then(Promise.resolve(3))
   .catch(4)
-  .then(res => console.log(res))
+  .then((res) => console.log(res));
 setTimeout(() => {
-  console.log('timer2')
-}, 1000)
+  console.log('timer2');
+}, 1000);
 // script start => async1 => promise1 => script end => 1 => timer2 => timer1
 // async函数中await的new Promise要是没有返回值的话则不执行后面的内容
 // .then函数中的参数期待的是函数，如果不是函数的话会发生透传

@@ -60,29 +60,29 @@ cookie不可跨域
 ## 使用
 
 ```js
-let getCookie = function (key) {
-  let r = new RegExp('(?:^|;+|\\s+)' + key + '=([^;]*)')
-  let m = document.cookie.match(r)
-  return (!m ? '' : m[1])
-}
-let setCookie = function (name, value, expires, path, domain, secure) { // 写入COOKIES
-  let exp = new Date()
-  expires = arguments[2] || null
-  path = arguments[3] || "/"
-  domain = arguments[4] || null
-  secure = arguments[5] || false
-  expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : ""
-  document.cookie = name + '=' + escape(value) + ( expires ? ';expires=' + exp.toGMTString() : '') + ( path ? ';path=' + path : '') + ( domain ? ';domain=' + domain : '') + ( secure ? ';secure' : '')
-}
-let delCookie = function(name, path, domain, secure) { // 删除cookie
-  let value = getCookie(name)
+const getCookie = function (key) {
+  const r = new RegExp(`(?:^|;+|\\s+)${ key }=([^;]*)`);
+  const m = document.cookie.match(r);
+  return (!m ? '' : m[1]);
+};
+const setCookie = function (name, value, expires, path, domain, secure) { // 写入COOKIES
+  const exp = new Date();
+  expires = arguments[2] || null;
+  path = arguments[3] || '/';
+  domain = arguments[4] || null;
+  secure = arguments[5] || false;
+  expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : '';
+  document.cookie = `${name }=${ escape(value) }${expires ? `;expires=${ exp.toGMTString()}` : '' }${path ? `;path=${ path}` : '' }${domain ? `;domain=${ domain}` : '' }${secure ? ';secure' : ''}`;
+};
+const delCookie = function(name, path, domain, secure) { // 删除cookie
+  const value = getCookie(name);
   if (value != null) {
-    let exp = new Date()
-    exp.setMinutes(exp.getMinutes() - 1000)
-    path = path || "/"
-    document.cookie = name + '=;expires=' + exp.toGMTString() + ( path ? ';path=' + path : '') + ( domain ? ';domain=' + domain : '') + ( secure ? ';secure' : '')
+    const exp = new Date();
+    exp.setMinutes(exp.getMinutes() - 1000);
+    path = path || '/';
+    document.cookie = `${name }=;expires=${ exp.toGMTString() }${path ? `;path=${ path}` : '' }${domain ? `;domain=${ domain}` : '' }${secure ? ';secure' : ''}`;
   }
-}
+};
 ```
 
 ## 参考文章

@@ -52,7 +52,7 @@ Function.prototype.newCall = function (context) {
   context.fn = this;
   context.fn();
   delete context.fn;
-}
+};
 ```
 
 #### 1.2.2 增加执行时的参数
@@ -63,7 +63,7 @@ Function.prototype.newCall = function (context, ...args) {
   context.fn = this;
   context.fn(...args);
   delete context.fn;
-}
+};
 ```
 
 #### 1.2.3 this 参数可以传 null，当为 null 的时候，视为指向 window
@@ -75,7 +75,7 @@ Function.prototype.newCall = function (context = window, ...args) {
   context.fn = this;
   context.fn(...args);
   delete context.fn;
-}
+};
 ```
 
 #### 1.2.4 数是可以有返回值的
@@ -88,7 +88,7 @@ Function.prototype.newCall = function (context = window, ...args) {
   const result = context.fn(...args);
   delete context.fn;
   return result;
-}
+};
 ```
 
 #### 1.2.5 key属性原本已存在（我们用的是fn属性）
@@ -111,7 +111,7 @@ Function.prototype.newCall = function (context = window, ...args) {
   //   context[fn] = originalVal;
   // }
   return result;
-}
+};
 ```
 
 #### 1.2.6 容错处理
@@ -120,7 +120,7 @@ Function.prototype.newCall = function (context = window, ...args) {
 // 第六版
 Function.prototype.newCall = function (context = window, ...args) {
   if (typeof this !== 'function') {
-    throw new TypeError(this + ' is not a function');
+    throw new TypeError(`${this } is not a function`);
   }
   context = context || window;
   const fn = Symbol('fn');
@@ -128,7 +128,7 @@ Function.prototype.newCall = function (context = window, ...args) {
   const result = context[fn](...args);
   delete context[fn];
   return result;
-}
+};
 ```
 
 ## 2. apply
@@ -142,8 +142,8 @@ apply() 方法调用一个具有给定this值的函数，以及作为一个数�
 注意：call()方法的作用和 apply() 方法类似，区别就是call()方法接受的是参数列表，而apply()方法接受的是一个参数数组。
 
 ```js
-var array = ['a', 'b'];
-var elements = [0, 1, 2];
+const array = ['a', 'b'];
+const elements = [0, 1, 2];
 array.push.apply(array, elements);
 console.info(array); // ["a", "b", 0, 1, 2]
 ```
@@ -154,7 +154,7 @@ console.info(array); // ["a", "b", 0, 1, 2]
 // 第六版
 Function.prototype.newApply = function (context = window, args = []) {
   if (typeof this !== 'function') {
-    throw new TypeError(this + ' is not a function');
+    throw new TypeError(`${this } is not a function`);
   }
   // 如果 args传入值为 null 或 undefined
   args = args || [];
@@ -164,7 +164,7 @@ Function.prototype.newApply = function (context = window, args = []) {
   const result = context[fn](...args);
   delete context[fn];
   return result;
-}
+};
 ```
 
 ## 3. bind
@@ -184,10 +184,10 @@ arg1, arg2, ...：当目标函数被调用时，被预置入绑定函数的参�
 返回值：返回一个原函数的拷贝，并拥有指定的 this 值和初始参数
 
 ```js
-var value = 2;
+const value = 2;
 
-var foo = {
-  value: 1
+const foo = {
+  value: 1,
 };
 function bar(name, age) {
   this.habit = 'shopping';
@@ -197,9 +197,9 @@ function bar(name, age) {
 }
 bar.prototype.friend = 'kevin';
 
-var bindFoo = bar.bind(foo, 'daisy');
+const bindFoo = bar.bind(foo, 'daisy');
 
-var obj = new bindFoo('18'); // undefined daisy 18
+const obj = new bindFoo('18'); // undefined daisy 18
 console.log(obj.habit); // shopping
 console.log(obj.friend); // kevin
 ```
@@ -219,8 +219,8 @@ Function.prototype.newBind = function (context = window, ...args1) {
       return new _this(...newArr);
     }
     return _this.apply(context, newArr);
-  }
-}
+  };
+};
 ```
 
 ```js
@@ -241,13 +241,13 @@ Function.prototype.newBind = function (context = window, ...args1) {
     const result = context[fn](...newArr);
     delete context[fn];
     return result;
-  }
-}
-var name = 'yuhoo';
+  };
+};
+const name = 'yuhoo';
 const a = { name: 'liamhuo' };
 const b = function () {
-  console.log(this.name)
-}
+  console.log(this.name);
+};
 b(); // yuhoo
 const c = b.newBind(a);
 c(); // liamhuo

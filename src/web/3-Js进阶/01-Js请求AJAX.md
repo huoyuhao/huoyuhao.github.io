@@ -21,7 +21,7 @@ let xhr = null;
 if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
   xhr = new XMLHttpRequest();
 } else if (window.ActiveXObject) { // IE 6 and older
-  xhr = new ActiveXObject("Microsoft.XMLHTTP");
+  xhr = new ActiveXObject('Microsoft.XMLHTTP');
 }
 ```
 
@@ -75,32 +75,32 @@ readyState 属性一共有5个值，分别表示不同的请求响应阶段：
 ### 2.1 发送GET请求
 
 ```js
-let xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.open('get', 'www.example.php?query=test');
 xhr.send();
 xhr.onreadystatechange = function() {
-  if(xhr.readyState === 4) {
-    if(xhr.status === 200){
+  if (xhr.readyState === 4) {
+    if (xhr.status === 200) {
       console.log(xhr.responseText);
     }
   }
-}
+};
 ```
 
 ### 2.2 发送POST请求
 
 ```js
-let xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.open('post', 'www.example.php?query=test');
 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 xhr.send('query=test');
 xhr.onreadystatechange = function() {
-  if(xhr.readyState === 4) {
-    if(xhr.status === 200){
+  if (xhr.readyState === 4) {
+    if (xhr.status === 200) {
       console.log(JSON.parse(xhr.responseText));
     }
   }
-}
+};
 ```
 
 ## 3. 封装AJAX
