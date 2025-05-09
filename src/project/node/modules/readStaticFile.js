@@ -25,8 +25,8 @@ const readStaticFile = (res, filePathname) => {
     // 返回 false 表示, 客户端想要的 是 静态文件
     return true;
   }
-    // 返回 false 表示, 客户端想要的 不是 静态文件
-    return false;
+  // 返回 false 表示, 客户端想要的 不是 静态文件
+  return false;
 };
 
 // 导出函数

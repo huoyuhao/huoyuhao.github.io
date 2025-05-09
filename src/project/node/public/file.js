@@ -15,7 +15,7 @@ server.on('request', (req, res) => {
           return res.end('public dir is not found');
         }
         const htmlStr = template.render(data.toString(), {
-          files
+          files,
         });
         res.end(htmlStr);
       }); // fs.readdir()用于读取一个文件目录，返回读取目录下的所有文件名的数组
@@ -42,7 +42,7 @@ server.on('request', (req, res) => {
             return `${url }/${ item}`;
           });
           const htmlStr = template.render(data.toString(), {
-            files: fileArr
+            files: fileArr,
           });
           res.end(htmlStr);
         });
