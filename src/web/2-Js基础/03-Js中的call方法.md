@@ -144,6 +144,7 @@ apply() 方法调用一个具有给定this值的函数，以及作为一个数�
 ```js
 const array = ['a', 'b'];
 const elements = [0, 1, 2];
+// eslint-disable-next-line prefer-spread
 array.push.apply(array, elements);
 console.info(array); // ["a", "b", 0, 1, 2]
 ```
@@ -197,9 +198,9 @@ function bar(name, age) {
 }
 bar.prototype.friend = 'kevin';
 
-const bindFoo = bar.bind(foo, 'daisy');
+const BindFoo = bar.bind(foo, 'daisy');
 
-const obj = new bindFoo('18'); // undefined daisy 18
+const obj = new BindFoo('18'); // undefined daisy 18
 console.log(obj.habit); // shopping
 console.log(obj.friend); // kevin
 ```
@@ -211,14 +212,14 @@ Function.prototype.newBind = function (context = window, ...args1) {
   if (this === Function.prototype) {
     throw new TypeError('Error');
   }
-  const _this = this;
+  const _ = this;
   return function F (...args2) {
     const newArr = [...args1, ...args2];
     // 判断是否用于构造函数 如果是则使用new调用当前函数
     if (this instanceof F) {
-      return new _this(...newArr);
+      return new _(...newArr);
     }
-    return _this.apply(context, newArr);
+    return _.apply(context, newArr);
   };
 };
 ```
@@ -228,16 +229,16 @@ Function.prototype.newBind = function (context = window, ...args1) {
   if (this === Function.prototype) {
     throw new TypeError('Error');
   }
-  const _this = this;
+  const _ = this;
   return function F (...args2) {
     const newArr = [...args1, ...args2];
     // 判断是否用于构造函数 如果是则使用new调用当前函数
     if (this instanceof F) {
-      return new _this(...newArr);
+      return new _(...newArr);
     }
     context = context || window;
     const fn = Symbol('fn');
-    context[fn] = _this;
+    context[fn] = _;
     const result = context[fn](...newArr);
     delete context[fn];
     return result;

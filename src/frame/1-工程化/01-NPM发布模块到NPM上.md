@@ -133,8 +133,9 @@ module.exports = {
     publicPath: '/lib/',
     filename: 'index.js',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
+};
 ```
 
 ### 5. 修改文件目录格式
@@ -145,7 +146,7 @@ module.exports = {
 
 #### 2）更改目录
 
-```js
+```
 HelloWorld
 ├── example                    # 存放demo的代码
 ├── lib                        # 真实引用编译过的代码

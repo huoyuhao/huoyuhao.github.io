@@ -272,7 +272,7 @@ git push
 
 修改代码如下：
 
-```js
+```config
 [core]
   autocrlf = true
   excludesfile = XXX

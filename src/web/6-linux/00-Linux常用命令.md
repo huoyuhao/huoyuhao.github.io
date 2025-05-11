@@ -10,44 +10,44 @@ meta:
 
 ## Nginx
 
-```js
-// nginx配置文件位置
+```shell
+# nginx配置文件位置
 cd /etc/nginx/conf.d
 
-// nginx的启动
+# nginx的启动
 systemctl start nginx
 nginx -s reload
 
-// 测试nginx是否正常
+# 测试nginx是否正常
 nginx –t
 ```
 
 ## Vim
 
-```js
-u   // 撤销上一步
-/   // 查找
-dd  // 删除光标所在行
-cat -n rsyslog.conf //显示所有行号（包括空行）
-cat -b rsyslog.conf //显示所有行号（不包括空行）
+```shell
+u   # 撤销上一步
+/   # 查找
+dd  # 删除光标所在行
+cat -n rsyslog.conf # 显示所有行号（包括空行）
+cat -b rsyslog.conf # 显示所有行号（不包括空行）
 ```
 
 ## Firewall
 
-```js
-// 停止firewall
+```shell
+# 停止firewall
 systemctl stop firewalld.service
 
-// 禁止firewall开机启动
+# 禁止firewall开机启动
 systemctl disable firewalld.service
 
-// 查看默认防火墙状态（关闭后显示notRunning，开启后显示running）
+# 查看默认防火墙状态（关闭后显示notRunning，开启后显示running）
 firewall-cmd --state
 ```
 
 ## MySQL
 
-```linux
+```shell
 # 链接数据库
 mysql -umysql -h9.134.32.65 -p
 use oss;

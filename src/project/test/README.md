@@ -10,25 +10,24 @@
 function sum (a, b) {
 }
 
-11 3
-101 5
-^ 110
-& 111
-| 001
-!11  00
+// 11 3
+// 101 5
+// ^ 110
+// & 111
+// | 001
+// !11  00
 
-11 >> 1 1
-11 << 110 6
+// 11 >> 1 1
+// 11 << 110 6
 
-11 ^ 101 = 110
-11 & 101 = 111
+// 11 ^ 101 = 110
+// 11 & 101 = 111
 
+// 110 >> 0
+// 0 -> 111 >> 1 进位 0
+// 0 -> 110 >> 0 0
 
-110 >> 0
-0 -> 111 >> 1 进位 0
-0 -> 110 >> 0 0
-
-11 >> 1
+// 11 >> 1
 ```
 
 #### 其他数字相关
@@ -46,6 +45,7 @@ https://github.com/camsong/blog/issues/9
 console.log('Hello World!');
 Array.prototype.myReduce = function (fun, item) {
   const len = this.length;
+  // eslint-disable-next-line prefer-destructuring
   let result = this[0];
   if (item) {
     result = fun(item, this[0]);
@@ -101,7 +101,7 @@ function say() {
   console.log(inner);
   console.log(this.inner);
 }
-var obj = (function () {
+const obj = (function () {
   const inner = '1-1';
   return {
     inner: '1-2',
@@ -112,14 +112,14 @@ var obj = (function () {
   };
 })();
 obj.say();
-var obj = (function () {
+const obj1 = (function () {
   const inner = '1-1';
   return {
     inner: '1-2',
     say,
   };
 })();
-obj.say();
+obj1.say();
 ```
 
 ### 其他
@@ -170,20 +170,20 @@ console.log(sum(1)(2)(3));
 3. 保持原数组顺序；
 */
 function addSerial(arr) {
-  var result = []
+  const result = [];
   // do something
-  return result
+  return result;
 }
-console.log(addSerial(["ab", "c", "ab", "d", "c"]));
+console.log(addSerial(['ab', 'c', 'ab', 'd', 'c']));
 
-function addSerial(arr) {
-  var result = []
+function addSerial1(arr) {
+  let result = [];
   // do something
-  let len = arr.length
-  let obj = {}
-  for(let i = 0; i < len; i++) {
+  const len = arr.length;
+  const obj = {};
+  for (let i = 0; i < len; i++) {
     if (obj[arr[i]]) {
-      obj[arr[i]].number++;
+      obj[arr[i]].number += 1;
       arr[i] = arr[i] + obj[arr[i]].number;
     } else {
       obj[arr[i]] = {};
@@ -191,15 +191,15 @@ function addSerial(arr) {
       obj[arr[i]].index = i;
     }
   }
-  for(let key in obj){
+  for (const key in obj) {
     if (obj[key].number > 1) {
-      arr[obj[key].index] = arr[obj[key].index] + '1';
+      arr[obj[key].index] = `${arr[obj[key].index] }1`;
     }
   }
-  result = arr
-  return result
+  result = arr;
+  return result;
 }
-console.log(addSerial(["ab", "c", "ab", "d", "c"]))
+console.log(addSerial1(['ab', 'c', 'ab', 'd', 'c']));
 ```
 
 ## ES6
@@ -209,7 +209,7 @@ console.log(addSerial(["ab", "c", "ab", "d", "c"]))
 ```js
 Promise.all().then().catch();
 
-function promiseAll([]) {
+function promiseAll() {
 }
 
 promiseAll().then().catch();
@@ -247,15 +247,15 @@ function getMap(m, n, k) {
       continue;
     } else {
       arr[i][j] = -1;
-      i++;
-      arr[i - 1][j - 1] === -1 ? arr[i - 1][j - 1] : arr[i - 1][j - 1]++;
-      arr[i - 1][j]++;
-      arr[i - 1][j + 1]++;
-      arr[i][j - 1]++;
-      arr[i][j + 1]++;
-      arr[i + 1][j - 1]++;
-      arr[i + 1][j]++;
-      arr[i + 1][j + 1]++;
+      i += 1;
+      arr[i - 1][j - 1] === -1 ? arr[i - 1][j - 1] : arr[i - 1][j - 1] += 1;
+      arr[i - 1][j] += 1;
+      arr[i - 1][j + 1] += 1;
+      arr[i][j - 1] += 1;
+      arr[i][j + 1] += 1;
+      arr[i + 1][j - 1] += 1;
+      arr[i + 1][j] += 1;
+      arr[i + 1][j + 1] += 1;
     }
     if (i > number) { // 雷的个数大于地图位置的个数
       break;
@@ -271,7 +271,7 @@ function getMap(m, n, k) {
 
 3） 优化生成地雷的模块 避免重复生成地雷
 
-```js
+```
 arr = [...new Array(number).keys()]
   [0, 1, 2, 3, 4, 5];
 2;

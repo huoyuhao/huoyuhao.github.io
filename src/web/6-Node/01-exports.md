@@ -13,9 +13,7 @@ meta:
 
 ### 1.1 介绍
 
-```js
-const { run, eat } = require('./dog.js');
-```
+`const { run, eat } = require('./dog.js');`
 
 `CommonJS`使用`require`引入模块的方式是动态的，所谓动态就是上面代码在被执行的时候，才会引入`dog.js`模块，而且引入的是完整的一个对象，并不只是`run`和`eat`两个方法。所以上面这段代码也可以和下面的代码等同
 
@@ -35,13 +33,18 @@ const { eat } = dog;
 
 ```js
 // 导出dog.js
-module.exports.eat = function (data) { console.log(data); }
-//引入
+module.exports.eat = function (data) {
+  console.log(data);
+};
+// 引入
 const { eat } = require('./dog.js');
+```
 
-
+```js
 // 直接赋值给exports进行导出
-module.exports = function (data) { console.log(data); }
+module.exports = function (data) {
+  console.log(data);
+};
 // 引入
 const eat = require('./dog.js');
 ```
@@ -80,27 +83,34 @@ exports = 123;
 ```js
 // CommonJS
 exports.eat = function () {};
+```
+
+```js
 // ES6
+
 export function eat () {}
 ```
 
 `export`用于暴露模块对外的接口。这里需要注意`export暴露的是变量而不是值`。注意这两者的区别，下面代码对变量和值进行了解释。（个人理解import取得是当前变量的引用，所以必须是变量而不是值）
 
 ```js
-// 报错，导出的是1，并非a，1是值，export不能直接导出值 
+// 报错，导出的是1，并非a，1是值，export不能直接导出值
 const a = 1;
 export a; // SyntaxError: Invalid or unexpected token
-
 // 正确，导出的是b
 export const b = 1;
 // 正确，导出的是一个对象
-export { a };
+const a1 = 1;
+export { a1 };
+```
+
+```js
 // 报错 export必须导出具有对应关系的变量
-function eat () {}
+const eat = () => {}
 export eat;
 // 正确
-export function eat () {}
-export { eat };
+export function eat1 () {}
+export { eat2 };
 ```
 
 ### 2.2 export default
@@ -123,12 +133,12 @@ console.log(dog); // 1
 ```js
 import defaultExport from "module-name";
 import * as name from "module-name";
-import { export } from "module-name";
-import { export as alias } from "module-name";
+import { export0 } from "module-name";
+import { export0 as alias } from "module-name";
 import { export1, export2 } from "module-name";
-import { export1, export2 as alias2 , [...] } from "module-name";
-import defaultExport, { export [ , [...] ] } from "module-name";
-import defaultExport, * as name from "module-name";
+import { export3, export4 as alias2 , [...] } from "module-name";
+import defaultExport1, { export5 [ , [...] ] } from "module-name";
+import defaultExport2, * as name from "module-name";
 import "module-name";
 ```
 
@@ -136,13 +146,13 @@ import "module-name";
 
 ```js
 // a.js
-console.log('a.js')
-import { foo } from './b.js';
-console.log(foo);
+console.log('a.js');
+import { foo as foo1 } from './b.js';
+console.log(foo1);
 
 // b.js
-console.log('b.js')
-export let foo = 1;
+console.log('b.js');
+export const foo = 1;
 // 运行 node -r esm a.js
 // b.js  a.js 1
 ```
@@ -163,9 +173,9 @@ export default { foo };
 
 // c.js
 console.log('I am c.js...')
-import b from './b.js';
-console.log('c.js b.foo:', b.foo);
-b.foo = b.foo - 1;
+import b1 from './b.js';
+console.log('c.js b.foo:', b1.foo);
+b1.foo = b1.foo - 1;
 export default {};
 
 // 运行 node -r esm a.js
@@ -178,7 +188,7 @@ export default {};
 ```js
 // a.js
 console.log('a.js');
-var b = require('./b');
+const b = require('./b');
 console.log(b.foo);
 
 // b.js
@@ -188,9 +198,8 @@ module.exports = { foo };
 
 // 运行 node a.js
 // a.js b.js 1
-
 // 对 a.js 预编译时，只会把变量 b 的声明提前，a.js & b.js 预编译后的执行顺序如下
-var b;
+const b;
 console.log('I am a.js...');
 b = require('./b');
 console.log(b.foo);
@@ -199,9 +208,9 @@ console.log(b.foo);
 ```js
 // a.js
 console.log('I am a.js...');
-var b = require('./b');
-console.log(b.foo);
-b.foo = b.foo - 1;
+const b1 = require('./b');
+console.log(b1.foo);
+b1.foo = b1.foo - 1;
 require('./c');
 
 // b.js
@@ -211,8 +220,8 @@ module.exports = { foo };
 
 // c.js
 console.log('I am c.js...');
-var b = require('./b');
-console.log(b.foo);
+const b2 = require('./b');
+console.log(b2.foo);
 
 // node a.js
 // I am a.js...
@@ -226,7 +235,7 @@ import命令只能在模块顶层使用，不能在函数、判断语句等代�
 
 ### 2.5 node 中运行 es6
 
-```js
+```shell
 npm install esm
 node -r esm xxx.js // xxx.js 中使用 ES6 模块规范
 node xxx.js        // xxx.js 中使用 CommonJS 规范
@@ -250,31 +259,39 @@ node xxx.js        // xxx.js 中使用 CommonJS 规范
 // b.js
 let count = 0;
 setTimeout(() => {
-  console.log("base.count：", ++count);
+  count += 1;
+  console.log('base.count：', count);
 }, 500);
 module.exports.count = count;
+```
 
+```js
 // a.js
 const { count } = require('./b');
 setTimeout(() => {
-  console.log("count in commonjs is", count);
+  console.log('count in commonjs is', count);
 }, 1000);
 // node a.js
 // base.count： 1
 // count in commonjs is 0
+```
 
+```js
 // b.js
-let count = { a: 1 };
+const count = { a: 1 };
 setTimeout(() => {
   count.b = 2;
-  count.a++;
-  console.log("base.count：", count);
+  count.a += 1;
+  console.log('base.count：', count);
 }, 500);
-module.exports.count = count;
+module.exports.count = count;0;
+```
+
+```js
 // a.js
 const { count } = require('./b');
 setTimeout(() => {
-  console.log("count in es6 is", count);
+  console.log('count in es6 is', count);
 }, 1000);
 // node a.js base.count： { a: 2, b: 2 }
 // count in es6 is { a: 2, b: 2 }
@@ -284,14 +301,17 @@ setTimeout(() => {
 // b.js
 let count = 0;
 setTimeout(() => {
-  console.log("base.count：", ++count);
+  count += 1;
+  console.log('base.count：', count);
 }, 500);
 export { count };
+```
 
+```js
 // a.js
 import { count } from './b';
 setTimeout(() => {
-  console.log("count in es6 is", count);
+  console.log('count in es6 is', count);
 }, 1000);
 // base.count： 1
 // count in es6 is 1
@@ -313,7 +333,7 @@ CommonJS的一个模块就是一个脚本文件，require命令第一次加载�
 ```js
 {
   id: '...', // 模块名
-  exports: { ... }, // 模块输出的各个接口
+  exports: { '...' }, // 模块输出的各个接口
   loaded: true, // 布尔值，表示该模块的脚本是否执行完毕
   ...
 }
@@ -333,16 +353,16 @@ console.log('a done');
 // b.js
 console.log('b starting');
 exports.done = false;
-const a = require('./a.js');
-console.log('in b, a.done = %j', a.done);
+const a1 = require('./a.js');
+console.log('in b, a.done = %j', a1.done);
 exports.done = true;
 console.log('b done');
 
-//main.js
+// main.js
 console.log('main starting');
-const a = require('./a.js');
-const b = require('./b.js');
-console.log('in main, a.done = %j, b.done = %j', a.done, b.done);
+const a2 = require('./a.js');
+const b2 = require('./b.js');
+console.log('in main, a.done = %j, b.done = %j', a2.done, b2.done);
 
 // node a.js
 // main starting
@@ -362,25 +382,28 @@ ES6模块是动态引用，不存在缓存值的问题，它遇到模块加载�
 ```js
 // a.js
 import { b } from './b';
-var counter = 0;
-export function a (n) {
-  counter ++;
-  console.log(counter);
-  return n == 0 || b(n-1);
-}
+let counter = 0;
 
+export function a (n) {
+  counter += 1;
+  console.log(counter);
+  return n === 0 || b(n - 1);
+}
+```
+
+```js
 // b.js
 import { a } from './a.js';
 
 export function b (n) {
-  return n != 0 && a(n-1);
+  return n !== 0 && a(n - 1);
 }
 
 // main.js
 import * as m from './a.js';
-var x = m.a(5);
+const x = m.a(5);
 console.log(x);
-var y = m.a(4);
+const y = m.a(4);
 console.log(y);
 
 // node main.js

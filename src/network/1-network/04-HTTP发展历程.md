@@ -39,7 +39,7 @@ HTTP/0.9 是于 1991 年提出的，主要用于学术交流，需求很简单�
 
 + 多字符集支持、多部分发送（multi-part type）、权限（authorization）、内容编码（content encoding）
 
-```js
+```
 GET /myPage.html HTTP/1.0
 User-Agent: NCSA_Mosaic/2.0 (Windows 3.1)
 
@@ -89,7 +89,7 @@ Range是在 HTTP/1.1里新增的一个请求头字段域。我们使用的迅雷
 
 206 - Partial Content 客户发送了一个带有Range头的GET请求，服务器完成了它
 
-```js
+```
 请求头中:
 Range: bytes=0-801 // 一般请求下载整个文件是bytes=0- 或不用这个头
 响应头中:

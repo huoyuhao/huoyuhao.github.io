@@ -76,18 +76,20 @@ class MyPromise {
 promise.then(onFulfilled, onRejected)
 
 ```js
-class MyPromise{
-  constructor(executor) {...}
+class MyPromise {
+  constructor(executor) {
+    // ...
+  }
   // then 方法 有两个参数onFulfilled onRejected
   then(onFulfilled, onRejected) {
     // 状态为fulfilled，执行onFulfilled，传入成功的值
     if (this.state === 'fulfilled') {
       onFulfilled(this.value);
-    };
+    }
     // 状态为rejected，执行onRejected，传入失败的原因
     if (this.state === 'rejected') {
       onRejected(this.reason);
-    };
+    }
   }
 }
 ```
@@ -183,29 +185,31 @@ then 方法必须返回一个 promise 对象。
 + 如果 onRejected 不是函数且 promise1 拒绝执行， promise2 必须拒绝执行并返回相同的据因
 
 ```js
-class MyPromise{
-  constructor(executor) {...}
+class MyPromise {
+  constructor(executor) {
+    // ...
+  }
   then(onFulfilled, onRejected) {
     // 声明返回的promise2
-    let promise2 = new MyPromise((resolve, reject)=>{
+    const promise2 = new MyPromise((resolve, reject) => {
       if (this.state === 'fulfilled') {
-        let x = onFulfilled(this.value);
+        const x = onFulfilled(this.value);
         // resolvePromise函数，处理自己return的promise和默认的promise2的关系
         resolvePromise(promise2, x, resolve, reject);
-      };
+      }
       if (this.state === 'rejected') {
-        let x = onRejected(this.reason);
+        const x = onRejected(this.reason);
         resolvePromise(promise2, x, resolve, reject);
-      };
+      }
       if (this.state === 'pending') {
-        this.onResolvedCallbacks.push(()=>{
-          let x = onFulfilled(this.value);
+        this.onResolvedCallbacks.push(() => {
+          const x = onFulfilled(this.value);
           resolvePromise(promise2, x, resolve, reject);
-        })
-        this.onRejectedCallbacks.push(()=>{
-          let x = onRejected(this.reason);
+        });
+        this.onRejectedCallbacks.push(() => {
+          const x = onRejected(this.reason);
           resolvePromise(promise2, x, resolve, reject);
-        })
+        });
       }
     });
     // 返回promise，完成链式
@@ -299,43 +303,49 @@ function resolvePromise(promise2, x, resolve, reject) {
   + 如果onFulfilled或onRejected报错，则直接返回reject()
 
 ```js
-class MyPromise{
-  constructor(executor) {...}
+class MyPromise {
+  constructor(executor) {
+    // ...
+  }
   then(onFulfilled, onRejected) {
     // onFulfilled如果不是函数，就忽略onFulfilled，直接返回value
-    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
+    // eslint-disable-next-line no-param-reassign
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     // onRejected如果不是函数，就忽略onRejected，直接扔出错误
-    onRejected = typeof onRejected === 'function' ? onRejected : err => { throw err };
-    let promise2 = new MyPromise((resolve, reject) => {
+    // eslint-disable-next-line no-param-reassign
+    onRejected = typeof onRejected === 'function' ? onRejected : (err) => {
+      throw err;
+    };
+    const promise2 = new MyPromise((resolve, reject) => {
       if (this.state === 'fulfilled') {
         // 异步
         setTimeout(() => {
           try {
-            let x = onFulfilled(this.value);
+            const x = onFulfilled(this.value);
             resolvePromise(promise2, x, resolve, reject);
           } catch (e) {
             reject(e);
           }
         }, 0);
-      };
+      }
       if (this.state === 'rejected') {
         // 异步
         setTimeout(() => {
           // 如果报错
           try {
-            let x = onRejected(this.reason);
+            const x = onRejected(this.reason);
             resolvePromise(promise2, x, resolve, reject);
           } catch (e) {
             reject(e);
           }
         }, 0);
-      };
+      }
       if (this.state === 'pending') {
         this.onResolvedCallbacks.push(() => {
           // 至于为什么用 setTimeout？因为我们模拟不了微任务，那就用宏任务去解决吧
           setTimeout(() => {
             try {
-              let x = onFulfilled(this.value);
+              const x = onFulfilled(this.value);
               resolvePromise(promise2, x, resolve, reject);
             } catch (e) {
               reject(e);
@@ -346,14 +356,14 @@ class MyPromise{
           // 异步
           setTimeout(() => {
             try {
-              let x = onRejected(this.reason);
+              const x = onRejected(this.reason);
               resolvePromise(promise2, x, resolve, reject);
             } catch (e) {
               reject(e);
             }
-          }, 0)
+          }, 0);
         });
-      };
+      }
     });
     // 返回promise，完成链式
     return promise2;
@@ -366,6 +376,7 @@ class MyPromise{
 我们使用Promise/A+官方的测试工具`nm i promises-aplus-tests -g`来对我们的MyPromise进行测试，要使用这个工具我们必须实现一个静态方法deferred，官方对这个方法的定义如下:
 
 ```js
+// eslint-disable-next-line no-multi-assign
 MyPromise.defer = MyPromise.deferred = function () {
   const dfd = {};
   dfd.promise = new MyPromise((resolve, reject) => {
@@ -379,7 +390,7 @@ module.exports = MyPromise;
 
 用npm将`promises-aplus-tests`下载下来，再配置下package.json就可以跑测试了:
 
-```js
+```json
 {
   "devDependencies": {
     "promises-aplus-tests": "^2.1.2"
@@ -405,7 +416,7 @@ MyPromise.all = function(promiseList) {
 
     promiseList.forEach((promise, index) => {
       MyPromise.resolve(promise).then((value) => {
-        count++;
+        count += 1;
         result[index] = value;
         if (count === length) {
           resolve(result);
@@ -538,8 +549,10 @@ class MyPromise {
   }
   then(onFulfilled, onRejected) {
     // onFulfilled如果不是函数，就忽略onFulfilled，直接返回value
+    // eslint-disable-next-line no-param-reassign
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     // onRejected如果不是函数，就忽略onRejected，直接扔出错误
+    // eslint-disable-next-line no-param-reassign
     onRejected = typeof onRejected === 'function' ? onRejected : (err) => {
       throw err;
     };
@@ -635,7 +648,7 @@ MyPromise.all = function(promiseList) {
 
     promiseList.forEach((promise, index) => {
       MyPromise.resolve(promise).then((value) => {
-        count++;
+        count += 1;
         result[index] = value;
         if (count === length) {
           resolve(result);
@@ -680,7 +693,9 @@ console.log(5);
 Promise.resolve(1)
   .then((res) => {
     console.log(res);
+
     throw Error('Oh no!');
+    // eslint-disable-next-line no-unreachable
     return 2;
   })
   .then((res) => {
@@ -802,7 +817,8 @@ promise.then((res) => {
   console.log(res, Date.now() - start);
 });
 // once success 1005 success 1007
-// promise 的 .then 或者 .catch 可以被调用多次，但这里 Promise 构造函数只执行一次。或者说 promise 内部状态一经改变，并且有了一个值，那么后续每次调用 .then 或者 .catch 都会直接拿到该值。
+// promise 的 .then 或者 .catch 可以被调用多次，但这里 Promise 构造函数只执行一次。或者说 promise 内部状态一经改变，并且有了一个值，
+// 那么后续每次调用 .then 或者 .catch 都会直接拿到该值。
 ```
 
 ### 2.4 race all等

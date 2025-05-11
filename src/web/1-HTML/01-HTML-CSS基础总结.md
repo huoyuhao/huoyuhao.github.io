@@ -21,7 +21,7 @@ link | @import
 
 ### 占位
 
-```js
+```css
 visibility: hidden;
 opacity: 0;
 transform: scale(0);
@@ -30,7 +30,7 @@ position left/right/top/bottom: -9999px; // 让元素在视区外
 
 ### 不占位
 
-```
+```css
 display: none;
 width: 0; height: 0; overflow: hidden;
 ```
@@ -126,7 +126,7 @@ framename | 在指定的框架中打开被链接文档
 
 + 伪元素：在内容元素的前后插入额外的元素或样式，但是这些元素实际上并不在文档中生成。它们只在外部显示可见，但不会在文档的源代码中找到它们，因此，称为“伪”元素。例如：
 
-```js
+```css
 p::before {
   content: "test";
 }
@@ -134,7 +134,7 @@ p::before {
 
 + 伪类：将特殊的效果添加到特定选择器上。它是已有元素上添加类别的，不会产生新的元素。例如：
 
-```js
+```css
 a:hover {
   color: #333;
 }
@@ -148,7 +148,7 @@ a:hover {
 
 + 单行文本溢出
 
-```js
+```css
 overflow: hidden;            // 溢出隐藏
 text-overflow: ellipsis;     // 溢出用省略号显示
 white-space: nowrap;         // 规定段落中的文本不进行换行
@@ -156,7 +156,7 @@ white-space: nowrap;         // 规定段落中的文本不进行换行
 
 + 多行文本溢出
 
-```js
+```css
 overflow: hidden;             // 溢出隐藏
 text-overflow: ellipsis;      // 溢出用省略号显示
 display: -webkit-box;         // 将对象作为弹性伸缩盒子模型显示

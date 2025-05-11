@@ -146,19 +146,18 @@ onclick 和 addEventListener 是指向绑定事件的元素。
 
 ## 5. 定时函数
 
-```js
-let obj = {
+```js​
+const obj = {
   fun: function () {
     console.log(this);
   }
-}
-​
+};
 setInterval(obj.fun,1000); // this指向window对象
 // 等价于
 const extractedLogInfo = obj.fun;
 setTimeout(extractedLogInfo);
 
-setInterval('obj.fun()',1000); // this指向obj对象
+setInterval('obj.fun()', 1000); // this指向obj对象
 ```
 
 setInterval() 是window对象下内置的一个方法，接受两个参数，第一个参数允许是一个函数或者是一段可执行的 JS 代码，第二个参数则是执行前面函数或者代码的时间间隔；

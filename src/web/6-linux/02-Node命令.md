@@ -27,7 +27,7 @@ n 8.10.0 # 安装8.10.0版本
 
 ## 用forever 进行管理
 
-```js
+```shell
 npm install -g forever
 forever start index.js
 ```
@@ -60,25 +60,25 @@ PM2自身帮你维护着一个进程列表，你可以很方便的对列表中�
 
 通过 start 和 delete 命令将你的项目添加到进程列表里面
 
-```js
-// 将项目添加到进程列表，并启动该进程
+```shell
+# 将项目添加到进程列表，并启动该进程
 pm2 start app.js
 
-// 查看进程列表
+# 查看进程列表
 pm2 ls
 
-// 从进程列表中删除指定名称的进程
+# 从进程列表中删除指定名称的进程
 pm2 delete app
 
-// 在start命令后面加上--name 或者-n参数来直接指定进程的名称
+# 在start命令后面加上--name 或者-n参数来直接指定进程的名称
 pm2 start app.js --name myApp
 
-// 停止该进程，但是依然会保留在进程列表里面
+# 停止该进程，但是依然会保留在进程列表里面
 pm2 stop app
 
-// 启动该进程
+# 启动该进程
 pm2 start app
 
-// 重启该进程，即先运行了stop命令，然后再运行start命令
+# 重启该进程，即先运行了stop命令，然后再运行start命令
 pm2 restart app
 ```

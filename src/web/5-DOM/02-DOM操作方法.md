@@ -101,7 +101,8 @@ const insertedElement = parentElement.insertBefore(newElement, referenceElement)
 // insertedElement 插入的子节点，即newElement
 // parentElement 新插入节点的父节点
 // newElement 新插入的节点
-// referenceElement 在该节点之前插入newElement。可以通过将referenceElement改为referenceElement.nextElementSibling方式让newElement插入到referenceElement之后。实现类似insertAfter方法。
+// referenceElement 在该节点之前插入newElement。
+// 可以通过将referenceElement改为referenceElement.nextElementSibling方式让newElement插入到referenceElement之后。实现类似insertAfter方法。
 ```
 
 ### 3.4 Node.replaceChild

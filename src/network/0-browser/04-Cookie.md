@@ -67,20 +67,26 @@ const getCookie = function (key) {
 };
 const setCookie = function (name, value, expires, path, domain, secure) { // 写入COOKIES
   const exp = new Date();
+  // eslint-disable-next-line prefer-rest-params
   expires = arguments[2] || null;
+  // eslint-disable-next-line prefer-rest-params
   path = arguments[3] || '/';
+  // eslint-disable-next-line prefer-rest-params
   domain = arguments[4] || null;
+  // eslint-disable-next-line prefer-rest-params
   secure = arguments[5] || false;
   expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : '';
-  document.cookie = `${name }=${ escape(value) }${expires ? `;expires=${ exp.toGMTString()}` : '' }${path ? `;path=${ path}` : '' }${domain ? `;domain=${ domain}` : '' }${secure ? ';secure' : ''}`;
+  document.cookie = `${name }=${ escape(value) }${expires ? `;expires=${ exp.toGMTString()}` : '' }`
+  + `${path ? `;path=${ path}` : '' }${domain ? `;domain=${ domain}` : '' }${secure ? ';secure' : ''}`;
 };
 const delCookie = function(name, path, domain, secure) { // 删除cookie
   const value = getCookie(name);
-  if (value != null) {
+  if (value !== null) {
     const exp = new Date();
     exp.setMinutes(exp.getMinutes() - 1000);
     path = path || '/';
-    document.cookie = `${name }=;expires=${ exp.toGMTString() }${path ? `;path=${ path}` : '' }${domain ? `;domain=${ domain}` : '' }${secure ? ';secure' : ''}`;
+    document.cookie = `${name }=;expires=${ exp.toGMTString() }${path ? `;path=${ path}` : '' }`
+    + `${domain ? `;domain=${ domain}` : '' }${secure ? ';secure' : ''}`;
   }
 };
 ```

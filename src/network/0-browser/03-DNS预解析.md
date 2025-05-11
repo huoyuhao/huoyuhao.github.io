@@ -46,9 +46,9 @@ meta:
 
 ### 示例
 
-```js
-// 打开和关闭DNS预读取
+```html
+<!-- 打开和关闭DNS预读取 -->
 <meta http-equiv="x-dns-prefetch-control" content="off"></meta>
-// 强制查询特定主机名
+<!-- 强制查询特定主机名 -->
 <link rel="dns-prefetch" href="//hm.baidu.com"></link>
 ```
