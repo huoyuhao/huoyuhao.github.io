@@ -309,10 +309,10 @@ class MyPromise {
   }
   then(onFulfilled, onRejected) {
     // onFulfilled如果不是函数，就忽略onFulfilled，直接返回value
-    // eslint-disable-next-line no-param-reassign
+
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     // onRejected如果不是函数，就忽略onRejected，直接扔出错误
-    // eslint-disable-next-line no-param-reassign
+
     onRejected = typeof onRejected === 'function' ? onRejected : (err) => {
       throw err;
     };
@@ -549,10 +549,10 @@ class MyPromise {
   }
   then(onFulfilled, onRejected) {
     // onFulfilled如果不是函数，就忽略onFulfilled，直接返回value
-    // eslint-disable-next-line no-param-reassign
+
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : (value) => value;
     // onRejected如果不是函数，就忽略onRejected，直接扔出错误
-    // eslint-disable-next-line no-param-reassign
+
     onRejected = typeof onRejected === 'function' ? onRejected : (err) => {
       throw err;
     };
