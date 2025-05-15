@@ -716,9 +716,10 @@ Promise.resolve(1)
     console.log(res);
   })
   .then((res) => {
+    // 上一个then返回的值为undefined
     console.log(res);
   });
-// 输出结果 1 fail Error: Oh noes! 4 undefined
+// 输出结果 1 fail Error: Oh no! 4 undefined
 // promise 每次调用 .then 或者 .catch 都会返回一个新的 promise，从而实现了链式调用
 // 如果当前步骤遇到错误，则任何后续的 .then  都将被跳过，直到遇到 .catch
 ```

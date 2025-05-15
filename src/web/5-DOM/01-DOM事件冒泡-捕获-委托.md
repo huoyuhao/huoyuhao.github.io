@@ -64,26 +64,44 @@ DOM 事件标准描述了事件传播的 3 个阶段：
 + 对于target节点则是先执行先注册的事件，无论冒泡还是捕获
 
 ```html
-<div id="s1">s1
-  <div id="s2">s2</div>
+<div id="parent">parent
+  <div id="child" onclick="console.log('child 原生')">
+    child
+  </div>
 </div>
-<script>
-s1.addEventListener("click", function(e){
-  console.log("s1 冒泡事件");         
-}, false);
-s2.addEventListener("click", function(e){
-  console.log("s2 冒泡事件");
-}, false);
-        
-s1.addEventListener("click", function(e){
-  console.log("s1 捕获事件");
-}, true);
-  
-s2.addEventListener("click", function(e){
-  console.log("s2 捕获事件");
-}, true);
-// 输出结果："s1 捕获事件"、"s2 冒泡事件"、"s2 捕获事件"、"s1 冒泡事件"
-// 因为到达s2元素是目标阶段，先注册的冒泡后注册的捕获，则先执行冒泡
+<script type="text/javascript">
+  var parent = document.getElementById('parent')
+  var child = document.getElementById('child')
+  parent.addEventListener('click', function () {
+    Promise.resolve().then(() => {
+      console.log('parent 冒泡 promise')
+    })
+    console.log('parent 冒泡')
+  }, false)
+  child.addEventListener('click', function () {
+    Promise.resolve().then(() => {
+      console.log('child 冒泡 promise')
+    })
+    console.log('child 冒泡1')
+  }, false)
+  child.addEventListener('click', function () {
+    console.log('child 冒泡2')
+  })
+  parent.addEventListener('click', function () {
+    console.log('parent 捕获')
+  }, true)
+  child.addEventListener('click', function () {
+    console.log('child 捕获')
+  }, true)
+  child.click();
+  // parent 捕获
+  // child 捕获
+  // child 原生
+  // child 冒泡1
+  // child 冒泡2
+  // parent 冒泡
+  // child 冒泡 promise
+  // parent 冒泡 promise
 </script>
 ```
 

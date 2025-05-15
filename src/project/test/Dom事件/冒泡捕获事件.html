@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File</title>
+</head>
+<body>
+  <div id="parent">parent
+    <div id="child" onclick="console.log('child 原生')">
+      child
+    </div>
+  </div>
+  <script type="text/javascript">
+    var parent = document.getElementById('parent')
+    var child = document.getElementById('child')
+    parent.addEventListener('click', function () {
+      Promise.resolve().then(() => {
+        console.log('parent 冒泡 promise')
+      })
+      console.log('parent 冒泡')
+    }, false)
+    child.addEventListener('click', function () {
+      Promise.resolve().then(() => {
+        console.log('child 冒泡 promise')
+      })
+      console.log('child 冒泡1')
+    }, false)
+    child.addEventListener('click', function () {
+      console.log('child 冒泡2')
+    })
+    parent.addEventListener('click', function () {
+      console.log('parent 捕获')
+    }, true)
+    child.addEventListener('click', function () {
+      console.log('child 捕获')
+    }, true)
+    child.click();
+    // parent 捕获
+    // child 捕获
+    // child 原生
+    // child 冒泡1
+    // child 冒泡2
+    // parent 冒泡
+    // child 冒泡 promise
+    // parent 冒泡 promise
+  </script>
+</body>
+</html>
