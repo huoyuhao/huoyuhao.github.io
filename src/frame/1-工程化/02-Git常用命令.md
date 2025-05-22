@@ -257,7 +257,7 @@ git checkout feature_xxx
 git rebase master
 # 遇到冲突解决冲突
 git rebase --continue
-git push
+git push -f
 ```
 
 
