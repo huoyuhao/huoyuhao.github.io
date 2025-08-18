@@ -19,7 +19,7 @@ meta:
 
 完整的URL是由协议（比如http，ftp）、域名（比如`http://www.baidu.com`）、文件路径（比如/src/index.html这样的）和端口（比如:80）四个部分组成，如果内容不齐，协议默认为http，文件路径默认为空（虽然服务器接收到的是空的文件名，但是一般会在服务器端补全为index.html），端口默认为80端口。
 
-HSTS（HTTP Strcit-Transport-Securit）的作用是强制客户端（如浏览器）使用HTTPS与服务器创建连接。服务器开启HSTS的方法是，当客户端通过HTTPS发出请求时，在服务器返回的超文本传输协议（HTTP）响应头中包含Strict-Transport-Security字段。非加密传输时设置的HSTS字段无效。这是一种 Web 安全策略机制，可保护网站免受协议降级攻击和 cookie 劫持、中间人攻击。
+HSTS（HTTP Strict-Transport-Security）的作用是强制客户端（如浏览器）使用HTTPS与服务器创建连接。服务器开启HSTS的方法是，当客户端通过HTTPS发出请求时，在服务器返回的超文本传输协议（HTTP）响应头中包含Strict-Transport-Security字段。非加密传输时设置的HSTS字段无效。这是一种 Web 安全策略机制，可保护网站免受协议降级攻击和 cookie 劫持、中间人攻击。
 
 Chrome 浏览器关闭HSTS操作。地址栏中输入 chrome://net-internals/#hsts、在 Delete domain 中输入项目的域名，并Delete 删除、可以在 Query domain 测试是否删除成功
 
@@ -43,7 +43,7 @@ Chrome 浏览器关闭HSTS操作。地址栏中输入 chrome://net-internals/#hs
 
 ## 服务器响应
 
-+ 服务器接收HTTP请求，解析请求头、请求题、请求行
++ 服务器接收HTTP请求，解析请求头、请求体、请求行
 
 + 根据请求路径参数，处理请求逻辑
 

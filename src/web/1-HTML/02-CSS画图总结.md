@@ -25,7 +25,7 @@ meta:
 
 + 画一个圆
 + 画另外两个半圆，绝对定位（使用border-radius）
-+ 通过transform: rotate(90reg);旋转相应角度（transform-origin旋转基点）
++ 通过transform: rotate(90deg);旋转相应角度（transform-origin旋转基点）
 
 [code - 扇形](https://codepen.io/lanxingyuhoo/pen/YzpKYrR)
 

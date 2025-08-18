@@ -6,7 +6,9 @@ meta:
   content: 前端规范,前端CSS代码规范,CSS,前端,规范,命名规范,CSS规范
 ---
 
-# CSS代码规范
+# 现代CSS代码规范
+
+本文档旨在提供一套现代、实用的CSS代码规范，帮助团队提高代码质量、可维护性和开发效率。规范内容基于当前Web开发最佳实践，并考虑了现代浏览器的支持情况。
 
 ## 1. 加载方式
 
@@ -73,10 +75,11 @@ div{ margin : 0; padding: 0; border: 1px red solid; }
 + 内联样式虽然省去了CSS渲染树的构建查找等工作，但是CSS外链形式可以进行缓存的。而且不符合结构与表象分离的思想
 + 非关键样式通过外链形式（或者[异步下载方式](https://juejin.im/post/5b6133a351882519d346853f#heading-1)）进行加载，可以通过浏览器进行缓存，减少加载时间，同时异步下载，减少源文件（html）大小
 + 更多内容查看[内联和外链脚本的性能实验](https://harttle.land/2017/05/05/external-scripts-vs-inline.html)
++ 对于现代Web应用，推荐使用CSS-in-JS或CSS Modules等模块化方案来更好地管理样式作用域
 
 ## 2. 代码风格
 
-### 2.1. 命名
+### 2.1 命名规范
 
 #### 2.1.1 class与id命名
 
@@ -89,6 +92,8 @@ class命名使用字符 `-` 增加易读性，而且和css属性名称保持了�
 *也可以使用下划线`_`作为连接符（双击更加容易全选中当前class）*
 
 更多命名查看 [CSS 命名法](https://segmentfault.com/a/1190000007956424)
+
++ 推荐使用BEM命名方法论来提高CSS的可维护性：`.block__element--modifier`
 
 #### 2.1.2 头部缩写推荐
 
@@ -127,8 +132,9 @@ class命名使用字符 `-` 增加易读性，而且和css属性名称保持了�
 
 ### 2.2 编码格式
 
-+ 样式文件必须写上 @charset 规则，并且一定要在样式文件的第一行首个字符位置开始写，编码名用 “UTF-8”
-+ 字符 @charset “”; 都用小写字母，不能出现转义符，编码名允许大小混写
++ 样式文件必须写上 @charset 规则，并且一定要在样式文件的第一行首个字符位置开始写，编码名用 "UTF-8"
++ 字符 @charset ""; 都用小写字母，不能出现转义符，编码名允许大小混写
++ 现代项目中推荐使用CSS预处理器（如Sass、Less）或PostCSS来增强CSS功能
 
 ```css
 @charset "UTF-8";
@@ -254,6 +260,7 @@ CSS选择器的匹配是**从右向左**进行的，这一策略导致了不同�
 + 不要使用类选择器和ID选择器修饰元素标签，如：h3#markdown，这样多此一举，还会降低效率
 + 选择器的嵌套层级应不大于 3 级，位置靠后的限定条件应尽可能精确
 + 除非是样式reset需要，禁止对纯元素选择器设置特定样式，避免样式污染
++ 现代CSS推荐使用类选择器为主，结合CSS Modules或BEM方法论来避免样式冲突
 
 ```css
 /* 推荐 */
@@ -295,7 +302,7 @@ p {}
 }
 ```
 
-### 3.2 属性书写顺序
+### 3.3 属性书写顺序
 
 建议遵循以下顺序：
 
@@ -303,6 +310,7 @@ p {}
 + 自身属性：width / height / margin / padding / border / background
 + 文本属性：color / font / text-decoration / text-align / vertical-align / white- space / break-word
 + 其他属性（CSS3）：content / cursor / border-radius / box-shadow / text-shadow / background:linear-gradient …
++ 现代CSS布局推荐使用Flexbox和Grid替代float布局
 
 ```css
 .liam {
@@ -341,6 +349,7 @@ p {}
   + 不建议取值为 2147483647。以便于自身产品线被其他产品线引用时，当遇到层级覆盖冲突的情况，留出向上调整的空间。
 + 在第三方环境下，期望显示在最上层的元素，通过标签内联和 !important，将 z-index 指定为 2147483647
   + 第三方环境对于开发者来说完全不可控。在第三方环境下的元素，为了保证元素不被其页面其他样式定义覆盖，需要采用此做法。
++ 现代CSS推荐使用CSS Grid和Flexbox布局来减少对z-index的依赖
 
 ## 4. 值与单位
 
@@ -401,6 +410,8 @@ p {}
 + RGB颜色值必须使用十六进制记号形式。不允许使用 rgb()
 + 颜色值可以缩写时，必须使用缩写形式
 + 颜色值不允许使用命名色值
++ 现代CSS推荐使用HSL颜色模式，更符合人类对颜色的理解
++ 推荐使用CSS自定义属性（变量）来管理主题色和常用颜色
 
 ```css
 /* 推荐 */
@@ -425,6 +436,7 @@ p {}
 + font-family 属性中的字体族名称应使用字体的英文 Family Name，其中如有空格，须放置在引号中。
 + font-family 按「西文字体在前、中文字体在后」、「效果佳 (质量高/更能满足需求) 的字体在前、效果一般的字体在后」的顺序编写，最后必须指定一个通用字体族( serif / sans-serif )
 + font-family 不区分大小写，但在同一个项目中，同样的 Family Name 大小写必须统一
++ 现代Web开发推荐使用系统字体栈以提高性能：`font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;`
 
 ```css
 /* 推荐 */
@@ -478,32 +490,45 @@ CSS 的字重分 100 – 900 共九档，但目前受字体本身质量和浏览
 
 ### 6.1 单行注释
 
-注释内容第一个字符和最后一个字符都是一个空格字符，单独占一行，行与行之间相隔一行
++ 注释以 /* 开头，以 */ 结尾
++ 注释内容与 /* 和 */ 之间各保留一个空格
++ 注释内容使用中文
++ 注释内容应简洁明了，说明代码功能或注意事项
++ 对于复杂样式或特殊处理，应添加注释说明原因和上下文
 
 ```css
 /* 推荐 */
-.liam{}
+.liam {
+  width: 100%; /* 宽度100% */
+  height: 100%; /* 高度100% */
+}
 
 /* 不推荐 */
-.jdc {
-  display: block;
-}
-.jdc {
-  display: block; /* 不推荐 */
+.liam {
+  width: 100%;/*宽度100%*/
+  height: 100%;/*高度100%*/
 }
 ```
 
 ### 6.2 模块注释
 
-注释内容第一个字符和最后一个字符都是一个空格字符，`/*` 与 模块信息描述占一行，多个横线分隔符 `-` 与 `*/` 占一行，行与行之间相隔两行
++ 注释应放在代码块的上方
++ 注释应与代码块保持相同的缩进
++ 注释应与代码块之间保留一个空行
 
 ```css
-/* 推荐
----------------------------------------------------------------- */
-.mod_a {}
+/* 推荐 */
+/* 这是一个注释 */
+.liam {
+  width: 100%;
+  height: 100%;
+}
 
-/* 不推荐 ---------------------------------------------------- */
-.mod_a {}
+/* 不推荐 */
+.liam { /* 这是一个注释 */
+  width: 100%;
+  height: 100%;
+}
 ```
 
 ### 6.3 文件信息注释
@@ -521,22 +546,52 @@ CSS 的字重分 100 – 900 共九档，但目前受字体本身质量和浏览
 
 ## 7. 样式重置
 
-### 7.1 H5移动端
+### 7.1 现代样式重置方案
+
+现代CSS开发推荐使用更简洁的重置方案，或者使用normalize.css来保持浏览器样式一致性：
 
 ```css
-* { -webkit-tap-highlight-color: transparent; outline: 0; margin: 0; padding: 0; vertical-align: baseline; }
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin: 0; padding: 0; vertical-align: baseline; }
-img { border: 0 none; vertical-align: top; }
-i, em { font-style: normal; }
-ol, ul { list-style: none; }
-input, select, button, h1, h2, h3, h4, h5, h6 { font-size: 100%; font-family: inherit; }
-table { border-collapse: collapse; border-spacing: 0; }
-a { text-decoration: none; color: #666; }
-body { margin: 0 auto; min-width: 320px; max-width: 640px; height: 100%; font-size: 14px; font-family: -apple-system, Helvetica,sans-serif; line-height: 1.5; color: #666; -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important; }
-input[type="text"], textarea { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+/* 现代CSS重置方案 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  outline: none;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+body {
+  min-height: 100vh;
+}
 ```
 
-### 7.2 PC端
+### 7.2 传统重置方案（保留参考）
 
 ```css
 html, body, div, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, ul, li, fieldset, form, label, input, legend, table, caption, tbody, tfoot, thead, tr, th, td, textarea, article, aside, audio, canvas, figure, footer, header, mark, menu, nav, section, time, video { margin: 0; padding: 0; }
@@ -611,6 +666,8 @@ CSS3 浏览器私有前缀在前，标准前缀在后
 }
 ```
 
+现代CSS开发中，推荐使用Autoprefixer等工具自动添加浏览器前缀，减少手动维护成本。
+
 ### 8.2 伪元素
 
 伪元素是伪的，伪的意思就是说，你无法用js获取到这个伪元素，或者增、删、改一个伪元素，所以伪元素的优点就体现在这里了——你可以用伪元素制造视觉上的效果，但是不会增加JS查DOM的负担，它对JS是透明的。所以即使你给页面添加了很多伪元素，也不会影响查DOM的效率。同时，它不是一个实际的html标签，可以加快浏览器加载html文件，对SEO也是有帮助的。
@@ -619,6 +676,7 @@ CSS3 浏览器私有前缀在前，标准前缀在后
 
 + 没有语义化的标签可以通过伪元素实现
 + 一些符号、icon、清楚浮动等
++ 使用伪元素创建简单的几何图形，减少额外的HTML标签
 
 ### 8.3 其他原则
 
@@ -626,10 +684,23 @@ CSS3 浏览器私有前缀在前，标准前缀在后
 + 通过webpack打包压缩css文件代码
 + 书写代码前, 考虑并提高样式重复使用率
 + 在保存代码解耦的前提下，尽量合并重复的样式
++ 现代CSS推荐使用CSS Grid和Flexbox布局来减少对float的依赖
++ 推荐使用CSS自定义属性（变量）来提高样式的可维护性
++ 使用CSS函数如clamp()、min()、max()来创建响应式设计
 
 ## 9. 注意事项
 
-本文暂未对【动画】、【适配】两个内容做规范要求，需要后续补充
+### 9.1 CSS动画规范
+
++ 推荐使用CSS3动画替代JavaScript动画以提高性能
++ 优先使用transform和opacity属性进行动画，避免触发布局重排
++ 使用will-change属性提示浏览器哪些元素将要发生变化
+
+### 9.2 响应式设计规范
+
++ 推荐使用移动优先的设计方法
++ 使用媒体查询时，优先使用min-width而不是max-width
++ 推荐使用CSS Grid和Flexbox进行响应式布局
 
 ## 10 参考
 
@@ -638,3 +709,7 @@ CSS3 浏览器私有前缀在前，标准前缀在后
 [css编码规范](http://itmyhome.com/css/shu_xing_qian_zhui.html)
 
 [CSS性能优化的8个技巧](https://juejin.im/post/5b6133a351882519d346853f#heading-6)
+
+[现代CSS指南](https://moderncss.dev/)
+
+[CSS Tricks](https://css-tricks.com/)

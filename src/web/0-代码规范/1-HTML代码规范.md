@@ -3,8 +3,10 @@ meta:
 - name: description
   content: 前端HTML代码规范
 - name: keywords
-  content: 前端规范,前端HTML代码规范,HTML,前端,规范,命名规范,HTML规范
+  content: HTML代码规范,HTML,语义化标签,可访问性,SEO优化
 ---
+
+> 本文档在传统HTML规范基础上，结合现代Web开发实践，引入了语义化标签、可访问性、SEO优化等现代理念，旨在提升代码质量和开发效率。
 
 # HTML代码规范
 
@@ -12,7 +14,8 @@ meta:
 
 ### 1.1 缩进&换行
 
-+ 使用 4 个空格做为一个缩进层级，不允许使用 2 个空格 或 tab 字符
++ 使用 2 个空格做为一个缩进层级，不允许使用 4 个空格 或 tab 字符
++ 推荐使用 Prettier 等代码格式化工具，统一团队代码风格
 + 每行不得超过 120 个字符
 
 **解释：**过长的代码不容易阅读与维护。但是考虑到 HTML 的特殊性，不做硬性要求。
@@ -28,6 +31,9 @@ meta:
 #### 1.2.2 标签自定义属性命名
 
 标签的自定义属性以data-开头，后面跟小写单词，多单词使用 - 连接如：`<a data-product-num='18' href="javascript:;"></a>`
+
++ class 命名使用中划线分隔 (kebab-case)，例如：`todo-item`，推荐使用 BEM (Block Element Modifier) 命名方法论
++ id 命名使用驼峰命名（camelCase），例如：`todoItem`
 
 #### 1.2.3 name 与 id
 
@@ -63,6 +69,8 @@ alert(document.getElementById('foo').tagName)
 #### 1.3.1 标签名必须使用小写字母
 
 #### 1.3.2 对于无需自闭合的标签，不允许自闭合
+
++ 优先使用语义化标签，如 `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>` 等，提升代码可读性和 SEO
 
 常见无需自闭合标签有input、br、img、hr等
 
@@ -157,6 +165,8 @@ dl,dt,dd - 定义列表
 <table cellSpacing="0">...</table>
 ```
 
++ 布尔属性（如 `disabled`, `checked`, `readonly`）建议简写，即存在即为 `true`，不存在即为 `false`
+
 #### 1.4.2 属性值必须用双引号包围
 
 不允许使用单引号，不允许不使用引号
@@ -169,6 +179,8 @@ dl,dt,dd - 定义列表
 <script src='esl.js'></script>
 <script src=esl.js></script>
 ```
+
++ 对于包含双引号的属性值，可以使用单引号包围，或对双引号进行转义
 
 #### 1.4.3 布尔类型的属性，建议不添加属性值
 
@@ -198,6 +210,8 @@ dl,dt,dd - 定义列表
 + aria-*, role
 + required, readonly, disabled
 
+> 现代HTML开发中，`role` 和 `aria-*` 属性对于提升网页可访问性至关重要，应优先考虑添加。
+
 class是为高可复用组件设计的，所以应处在第一位；
 
 id更加具体且应该尽量少使用，所以将它放在第二位
@@ -222,6 +236,8 @@ id更加具体且应该尽量少使用，所以将它放在第二位
 
 不声明文档类型，会进入怪异模式，浏览器按照自己的方式解析页面，不同浏览器渲染样式不同
 
+推荐明确指定 `lang` 属性，如 `<html lang="zh-CN">`，以提升可访问性和SEO
+
 #### 2.1.2 启用 IE Edge 模式
 
 ```html
@@ -236,6 +252,8 @@ id更加具体且应该尽量少使用，所以将它放在第二位
 <html lang="zh-CN">
 ```
 
+* 推荐使用标准的 [BCP 47](https://www.techonthenet.com/js/language_tags.php) 语言标签
+
 ### 2.2 编码
 
 #### 2.2.1 页面必须使用精简形式，明确指定字符编码。指定字符编码的 meta 必须是 head 的第一个直接子元素
@@ -249,6 +267,8 @@ id更加具体且应该尽量少使用，所以将它放在第二位
 #### 2.2.2 HTML 文件使用无 BOM 的 UTF-8 编码
 
 UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文件时可能造成不必要的干扰
+
+* 确保服务器也正确配置了字符编码
 
 ### 2.3 CSS和JavaScript引入
 
@@ -268,13 +288,22 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 
 结构-样式-行为的代码分离，对于提高代码的可阅读性和维护性都有好处
 
+* 推荐将 CSS 放在 `<head>` 中，JS 放在 `</body>` 之前，以优化页面加载性能
+* 对于现代Web应用，推荐使用模块化加载方案，如 ES6 Modules
+
 #### 2.3.3 在 head 中引入页面需要的所有 CSS 资源
 
 在页面渲染的过程中，新的CSS可能导致元素的样式重新计算和绘制，页面闪烁。而且css阻塞js执行
 
+* 对于首屏关键CSS，可以考虑内联以减少HTTP请求
+
 #### 2.3.4 JavaScript 应当放在页面末尾，或采用异步加载
 
 将 script 放在页面中间将阻断页面的渲染。出于性能方面的考虑，如非必要，请遵守此条建议
+
+* 对于不影响首屏渲染的 JS 文件，推荐使用 `defer` 或 `async` 属性进行异步加载
+* `defer` 适用于需要等待DOM解析完成后再执行的脚本
+* `async` 适用于独立的脚本，不依赖其他脚本的执行结果
 
 #### 2.3.5 移动环境或只针对现代浏览器设计的 Web 应用，如果引用外部资源的 URL 协议部分与页面相同，建议省略协议前缀
 
@@ -283,6 +312,8 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 `<script src="//huoyuhao.net/jquery-1.10.2.min.js"></script>`
 
 链接不声明协议名称（http/https），这样会默认使用当前页面的协议，以后升级协议减少不必要的麻烦
+
+* 现代Web开发中，推荐明确指定协议（如 `https://`），以确保资源加载的安全性和一致性
 
 #### 2.3.6 书写链接地址时，必须避免重定向，在URL地址后面加上“/”
 
@@ -303,6 +334,8 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 + 可能产生报错。
 
 空的 href 属性也存在类似问题。用户点击空链接时，浏览器也会向服务器发送 HTTP 请求，可以通过 JavaScript 阻止空链接的默认的行为
+
+* 推荐使用 `#` 作为占位符，并结合 `javascript:void(0)` 或 `event.preventDefault()` 来处理点击事件
 
 ## 3. Head
 
@@ -326,6 +359,8 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 
 + 页面必须包含 title 标签声明标题
 + title 必须作为 head 的直接子元素，并紧随 charset 声明之后
++ title 标题应简练，避免堆砌关键词
++ 推荐添加 `meta description` 标签，提供页面内容的简要描述
 
 ### 3.2 DNS预解析
 
@@ -339,6 +374,7 @@ DNS 预读取是一项使浏览器主动去执行域名解析的功能，其范�
 ```
 
 更多内容了解[X-DNS-Prefetch-Control](https://developer.mozilla.org/zh-CN/docs/Controlling_DNS_prefetching)
+* 使用 `<link rel="dns-prefetch" href="//example.com">` 进行DNS预解析
 
 ### 3.3 favicon
 
@@ -350,6 +386,7 @@ DNS 预读取是一项使浏览器主动去执行域名解析的功能，其范�
 使用 link 指定 favicon
 
 `<link rel="shortcut icon" href="/favicon.ico">`
+* 推荐使用多种尺寸和格式的 favicon，以适配不同设备和浏览器
 
 ### 3.4 viewport
 
@@ -360,6 +397,7 @@ viewport meta tag可以设置可视区域的宽度和初始缩放大小，避免
 比如，在页面宽度小于 980px 时，若需 iOS 设备友好，应当设置 viewport 的 width 值来适应你的页面宽度。同时因为不同移动设备分辨率不同，在设置时，应当使用 device-width 和 device-height 变量。
 
 另外，为了使 viewport 正常工作，在页面内容样式布局设计上也要做相应调整，如避免绝对定位等。关于 viewport 的更多介绍，可以参见 [Safari Web Content Guide](https://developer.apple.com/library/mac/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html#//apple_ref/doc/uid/TP40006509-SW26)的介绍
+* 推荐使用 `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
 
 ### 3.5 lang
 
@@ -376,6 +414,7 @@ Sitepoint 站点上 给出了一份[语言代码表](https://www.sitepoint.com/i
 禁止 img 的 src 取值为空。延迟加载的图片也要增加默认的 src
 
 src 取值为空，会导致部分浏览器重新加载一次当前页面，参考：[更多](https://developer.yahoo.com/performance/rules.html#emptysrc)
+* 推荐使用 `loading="lazy"` 属性实现图片懒加载
 
 ### 4.2 title 属性
 
@@ -388,10 +427,12 @@ src 取值为空，会导致部分浏览器重新加载一次当前页面，参�
 为重要图片添加 alt 属性
 
 可以提高图片加载失败时的用户体验。
+* 对于纯装饰性图片，alt 属性应设置为空字符串 `alt=""`
 
 ### 4.4 width 和 height 属性
 
 添加 width 和 height 属性，以避免页面抖动
+* 推荐使用 CSS 来控制图片尺寸，而非 HTML 属性
 
 ### 4.5 img标签与CSS背景
 
@@ -417,6 +458,7 @@ css中的图片以背景图形式存在，写在html中的图片以标签形式�
 产品 logo、用户头像、用户产生的图片等有潜在下载需求的图片，以 img 形式实现，能方便用户下载。
 
 无下载需求的图片，比如：icon、背景、代码使用的图片等，尽可能采用 css 背景图实现
+* 装饰性图片应使用 CSS 背景，并设置 `background-image` 的 `alt` 描述（通过 `aria-label` 或其他方式）
 
 ## 5. 多媒体
 
@@ -432,13 +474,19 @@ MP3/WAV/Ogg
 
 MP4/WebM/Ogg
 
+* 推荐提供多种格式以保证兼容性，如 `<source>` 标签
+
 ### 5.2 audio 和 video
 
 在支持 HTML5 的浏览器中优先使用 audio 和 video 标签来定义音视频元素
 
+* 推荐添加 `controls` 属性，提供播放控件
+
 ### 5.3 优雅降级
 
 使用退化到插件的方式来对多浏览器进行支持
+
+* 推荐使用 `<track>` 标签添加字幕或描述，提升可访问性
 
 ```html
 <audio controls>
@@ -461,6 +509,8 @@ MP4/WebM/Ogg
 ### 5.4 自动播放
 
 只在必要的时候开启音视频的自动播放
+
+* 现代浏览器通常会阻止自动播放，需要用户交互后才能播放
 
 ### 5.5 容错说明
 

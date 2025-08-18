@@ -109,7 +109,7 @@ meta:
 + start：对齐单元格的起始边缘。
 + end：对齐单元格的结束边缘。
 + center：单元格内部居中。
-+ stretch：拉伸，占满单元格的整个宽度（默认值
++ stretch：拉伸，占满单元格的整个宽度（默认值）
 
 ### 2.7 justify-content/align-content/place-content
 
