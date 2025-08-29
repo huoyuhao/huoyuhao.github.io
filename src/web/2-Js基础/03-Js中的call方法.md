@@ -1,28 +1,34 @@
 ---
 meta:
   - name: description
-    content: JavaScript中apply,call,bind方法
+    content: 深入理解JavaScript中的call、apply和bind方法，包括它们的使用场景和模拟实现
   - name: keywords
-    content: JavaScript中apply/call/bind方法,apply,call,bind,JavaScript,前端,学习,模拟实现
+    content: JavaScript,call,apply,bind,函数调用,上下文绑定,模拟实现,前端开发
 ---
-# JavaScript中call等方法
+# JavaScript中的call、apply和bind方法详解
 
-## 1. call
+## 1. call方法
 
-### 1.1 call原型
+### 1.1 call方法的作用
 
-Function.prototype.call()
+call()方法是Function.prototype上的一个方法，用于调用一个函数并显式地指定函数内部this的值。它可以接受一个指定的this值和若干个参数，并立即执行该函数。
 
-call() 方法使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数
+### 1.2 call方法的语法
 
+```js
+
+// eslint-disable-next-line
 function.call(thisArg, arg1, arg2, ...)
+```
 
-参数
+参数说明：
 
-+ thisArg：可选的。在 function 函数运行时使用的 this 值。请注意，this可能不是该方法看到的实际值：如果这个函数处于非严格模式下，则指定为 null 或 undefined 时会自动替换为指向全局对象，原始值会被包装
-+ arg1, arg2, ...：指定的参数列表
+- `thisArg`：可选参数，指定函数运行时的this值。如果函数处于非严格模式下，且thisArg为null或undefined，则this会自动指向全局对象；如果是原始值，则会被包装为对象。
+- `arg1, arg2, ...`：指定传递给函数的参数列表
 
-返回值：使用调用者提供的 this 值和参数调用该函数的返回值。若该方法没有返回值，则返回 undefined。
+返回值：调用函数的返回结果。
+
+### 1.3 call方法的使用示例
 
 ```js
 function Product (name, price) {
@@ -39,9 +45,16 @@ console.log(new Food('cheese', 5).name);
 // expected output: "cheese"
 ```
 
-### 1.2 模拟实现call
+### 1.4 call方法的模拟实现
 
-#### 1.2.1 实现主要功能
+我们可以通过以下步骤来模拟实现call方法：
+
+1. 将函数设置为传入对象的一个属性
+2. 执行该函数
+3. 删除该属性
+4. 返回执行结果
+  
+#### 1.4.1 实现主要功能
 
 + call 改变了 this 的指向，指向到 第一个参数
 + 函数执行了
@@ -55,7 +68,7 @@ Function.prototype.newCall = function (context) {
 };
 ```
 
-#### 1.2.2 增加执行时的参数
+#### 1.4.2 增加执行时的参数
 
 ```js
 // 第二版
@@ -66,7 +79,7 @@ Function.prototype.newCall = function (context, ...args) {
 };
 ```
 
-#### 1.2.3 this 参数可以传 null，当为 null 的时候，视为指向 window
+#### 1.4.3 this 参数可以传 null，当为 null 的时候，视为指向 window
 
 ```js
 // 第三版
@@ -78,7 +91,7 @@ Function.prototype.newCall = function (context = window, ...args) {
 };
 ```
 
-#### 1.2.4 数是可以有返回值的
+#### 1.4.4 数是可以有返回值的
 
 ```js
 // 第四版
@@ -91,7 +104,7 @@ Function.prototype.newCall = function (context = window, ...args) {
 };
 ```
 
-#### 1.2.5 key属性原本已存在（我们用的是fn属性）
+#### 1.4.5 key属性原本已存在（我们用的是fn属性）
 
 + 使用symbol
 + 使用随机生成，然后原属性值取出，使用并删除后，再复制回来
@@ -114,7 +127,7 @@ Function.prototype.newCall = function (context = window, ...args) {
 };
 ```
 
-#### 1.2.6 容错处理
+#### 1.4.6 容错处理
 
 ```js
 // 第六版
