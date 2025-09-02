@@ -5,25 +5,20 @@ meta:
   - name: keywords
     content: 前端跨站脚本攻击,XSS,前端,攻击,
 ---
-# 跨站脚本攻击
+# 跨站脚本攻击 (XSS)
 
 ## 1. 介绍
 
-> “XSS是跨站脚本攻击(Cross Site Scripting)，为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。”
+> "XSS是跨站脚本攻击(Cross Site Scripting)，为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS。恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。"
 
-xss攻击的核心方式是脚本。这些脚本通常是javascript脚本，从这个层面来说javascript能做的事情，xss攻击一般都能做到。比如：
+XSS攻击的核心方式是脚本。这些脚本通常是JavaScript脚本，从这个层面来说JavaScript能做的事情，XSS攻击一般都能做到。比如：
 
-+ 通过 document.cookie 盗取 cookie中的信息
-
-+ 使用 js或 css破坏页面正常的结构与样式
-
-+ 流量劫持（通过访问某段具有 window.location.href 定位到其他页面）
-
-+ dos攻击：利用合理的客户端请求来占用过多的服务器资源，从而使合法用户无法得到服务器响应。并且通过携带过程的 cookie信息可以使服务端返回400开头的状态码，从而拒绝合理的请求服务。
-
-+ 利用 iframe、frame、XMLHttpRequest或上述 Flash等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作，并且攻击者还可以利用 iframe，frame进一步的进行 CSRF 攻击。
-
-+ 控制企业数据，包括读取、篡改、添加、删除企业敏感数据的能力
+- 通过 `document.cookie` 盗取 cookie 中的信息
+- 使用 js 或 css 破坏页面正常的结构与样式
+- 流量劫持（通过访问某段具有 `window.location.href` 定位到其他页面）
+- DoS 攻击：利用合理的客户端请求来占用过多的服务器资源，从而使合法用户无法得到服务器响应。并且通过携带过程的 cookie 信息可以使服务端返回400开头的状态码，从而拒绝合理的请求服务。
+- 利用 iframe、frame、XMLHttpRequest 或上述 Flash 等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作，并且攻击者还可以利用 iframe，frame 进一步的进行 CSRF 攻击。
+- 控制企业数据，包括读取、篡改、添加、删除企业敏感数据的能力
 
 ## 2. 分类
 
@@ -85,33 +80,40 @@ document.body.appendChild(div);
 
 应对XSS攻击的主要手段还是编码与过滤两种，`编码`用于将特殊的符号 "<、>、&、'、""进行html转义，而`过滤`则是阻止特定的标记、属性、事件
 
-### 3.1 转义html
+### 3.1 转义HTML
 
-+ 使用encodeURIComponent对url中的参数进行编码(反射型xss)
+对用户输入的数据进行HTML转义是防范XSS攻击的基础措施：
 
-+ 服务器接收到数据，在存储到数据库之前，进行转义/过滤
-
-+ 前端接收到服务器传递过来的数据，在展示到页面前，先进行转义/过滤
+- 使用`encodeURIComponent`对URL中的参数进行编码（反射型XSS）
+- 服务器接收到数据，在存储到数据库之前，进行转义/过滤
+- 前端接收到服务器传递过来的数据，在展示到页面前，先进行转义/过滤
 
 ### 3.2 HTTP-only Cookie
 
-`HTTP-only`禁止JavaScript读取某些敏感Cookie，攻击者完成XSS注入后也无法窃取此Cookie属性：防止脚本冒充用户提交危险操作
+设置Cookie的`HttpOnly`属性可以禁止JavaScript读取某些敏感Cookie，即使攻击者完成XSS注入也无法窃取此Cookie：
 
-如果某一个Cookie 选项被设置成 HttpOnly = true 的话，那此Cookie 只能通过服务器端修改，Js 是操作不了的（无法读写这个cookie）
+- 防止脚本冒充用户提交危险操作
+- 如果某一个Cookie选项被设置成`HttpOnly=true`的话，此Cookie只能通过服务器端修改，JavaScript无法读写这个Cookie
 
 ### 3.3 Content-Security-Policy
 
-在服务端使用HTTP的`Content-Security-Policy`头部来指定策略，或者在前端设置meta标答。例如下面的配置只允许加载同域下的资源
+在服务端使用HTTP的`Content-Security-Policy`头部来指定策略，或者在前端设置meta标签。例如下面的配置只允许加载同域下的资源：
 
-### 3.4 innerText/textContent
+```
+Content-Security-Policy: default-src 'self';
+```
 
-+ 在使用 `.innerHTML、.outerHTML、document.write()` 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等
+### 3.4 使用安全的API
 
-+ 如果用 Vue/React 技术栈，并且不使用 `v-html/dangerouslySetInnerHTML` 功能，就在前端 render 阶段避免 `innerHTML、outerHTML` 的 XSS 隐患
+避免使用不安全的DOM操作API：
+
+- 在使用`.innerHTML`、`.outerHTML`、`document.write()`时要特别小心，不要把不可信的数据作为HTML插到页面上
+- 应尽量使用`.textContent`、`.setAttribute()`等更安全的API
+- 如果使用Vue/React技术栈，并且不使用`v-html`/`dangerouslySetInnerHTML`功能，就在前端render阶段避免`innerHTML`、`outerHTML`的XSS隐患
 
 ### 3.5 验证码
 
-防止脚本冒充用户提交危险操作
+使用验证码可以防止脚本冒充用户提交危险操作，增加攻击成本。
 
 ## 4. 参考资料
 
