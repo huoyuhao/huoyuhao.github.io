@@ -15,11 +15,7 @@ call()方法是Function.prototype上的一个方法，用于调用一个函数�
 
 ### 1.2 call方法的语法
 
-```js
-
-// eslint-disable-next-line
-function.call(thisArg, arg1, arg2, ...)
-```
+`function.call(thisArg, arg1, arg2, ...)`
 
 参数说明：
 

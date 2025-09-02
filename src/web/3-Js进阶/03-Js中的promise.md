@@ -5,13 +5,13 @@ meta:
   - name: keywords
     content: JavaScript中的promise,同步,异步,JavaScript,前端,学习,Promise,async
 ---
-# JavaScript中的promise
+# JavaScript中的Promise详解
 
-## 1. 手写Promise
+## 1. 手写Promise实现
 
-### 1.1 Promise声明
+### 1.1 Promise基本声明
 
-promise是一个类，它的构造函数接受一个函数，函数的两个参数也都是函数
+Promise是一个类，它的构造函数接受一个函数作为参数，该函数的两个参数也都是函数
 
 ```js
 class MyPromise {
@@ -25,12 +25,13 @@ class MyPromise {
 }
 ```
 
-### 1.2 Promise状态
+### 1.2 Promise的三种状态
 
-+ Promise存在三个状态（state）pending、fulfilled、rejected
-+ pending: 一个promise在resolve或者reject前就处于这个状态。
-+ fulfilled: 一个promise被resolve后就处于fulfilled状态，这个状态不能再改变，而且必须拥有一个不可变的值(value)。
-+ rejected: 一个promise被reject后就处于rejected状态，这个状态也不能再改变，而且必须拥有一个不可变的拒绝原因(reason)
+Promise存在三个状态（state）：
+
+1. **pending（待定）**：Promise初始状态，在resolve或reject前处于此状态
+2. **fulfilled（已成功）**：Promise被resolve后处于此状态，状态不能再改变，且必须拥有一个不可变的值(value)
+3. **rejected（已失败）**：Promise被reject后处于此状态，状态也不能再改变，且必须拥有一个不可变的拒绝原因(reason)
 
 ```js
 class MyPromise {
@@ -71,9 +72,12 @@ class MyPromise {
 
 ### 1.3 then方法
 
-一个promise必须拥有一个then方法来访问他的值或者拒绝原因。then方法有两个参数：
+Promise有一个叫做then的方法，then方法是定义在原型对象Promise.prototype上的方法，它的作用是为Promise实例添加状态改变时的回调函数。
 
-promise.then(onFulfilled, onRejected)
+then方法接受两个参数：
+
+- onFulfilled：当Promise对象状态变为fulfilled时调用
+- onRejected：当Promise对象状态变为rejected时调用
 
 ```js
 class MyPromise {
@@ -101,7 +105,7 @@ const test = new MyPromise((resolve, reject) => {
 // 成功
 ```
 
-### 1.4 解决异步实现
+### 1.4 静态方法
 
 是当resolve在setTimeout内执行，then时state还是pending等待状态 我们就需要在then调用的时候，将成功和失败存到各自的数组，一旦reject或者resolve，就调用它们
 
@@ -170,19 +174,19 @@ console.log('失败');
 // 失败 -> 成功
 ```
 
-### 1.5 解决链式调用
+### 1.5 链式调用实现
 
-then 方法可以被同一个 promise 调用多次
+then方法可以被同一个Promise调用多次：
 
-+ 当 promise 成功执行时，所有 onFulfilled 需按照其注册顺序依次回调
-+ 当 promise 被拒绝执行时，所有的 onRejected 需按照其注册顺序依次回调
+- 当Promise成功执行时，所有onFulfilled回调需按照其注册顺序依次执行
+- 当Promise被拒绝执行时，所有onRejected回调需按照其注册顺序依次执行
 
-then 方法必须返回一个 promise 对象。
+then方法必须返回一个新的Promise对象，以实现链式调用：
 
-+ 如果 onFulfilled 或者 onRejected 返回一个值 x ，则运行 Promise 解决过程：[[Resolve](promise2, x)](https://promisesaplus.com/#point-47) resolvePromise
-+ 如果 onFulfilled 或者 onRejected 抛出一个异常 e ，则 promise2 必须拒绝执行，并返回拒因 e
-+ 如果 onFulfilled 不是函数且 promise1 成功执行， promise2 必须成功执行并返回相同的值
-+ 如果 onRejected 不是函数且 promise1 拒绝执行， promise2 必须拒绝执行并返回相同的据因
+1. 如果onFulfilled或onRejected返回一个值x，则运行Promise解决过程：[[Resolve](promise2, x)](https://promisesaplus.com/#point-47) resolvePromise
+2. 如果onFulfilled或onRejected抛出一个异常e，则promise2必须拒绝执行，并返回拒因e
+3. 如果onFulfilled不是函数且promise1成功执行，promise2必须成功执行并返回相同的值
+4. 如果onRejected不是函数且promise1拒绝执行，promise2必须拒绝执行并返回相同的据因
 
 ```js
 class MyPromise {
@@ -218,26 +222,38 @@ class MyPromise {
 }
 ```
 
-### 1.6 resolvePromise函数
+### 1.6 resolvePromise函数详解
 
-判断x
+resolvePromise函数用于处理then方法返回值x的不同情况：
 
-+ x 是对象或者函数（包括promise），let then = x.then
-  + x 是普通值 直接resolve(x)
-  + x 不能是null
-+ 当x是对象或者函数（默认promise）声明了then
-  + 如果取then报错，则走reject()
-  + 如果then是个函数，则用call执行then，第一个参数是this，后面是成功的回调和失败的回调
-  + 如果成功的回调还是 promise ，就递归继续解析
-+ 成功和失败只能调用一个 所以设定一个called来防止多次调用
+1. **基础类型值处理**：
+   - 如果x是普通值（非对象或函数），直接调用resolve(x)
+   - x不能是null
+
+2. **对象或函数处理**（包括Promise）：
+   - 如果x是对象或函数，声明`let then = x.then`
+   - 如果取then属性时报错，则调用reject()
+   - 如果then是函数，则使用call执行then，第一个参数是this，后面是成功回调和失败回调
+   - 如果成功回调返回的还是Promise，就递归继续解析
+
+3. **防止多次调用**：
+   - 成功和失败回调只能调用一个，所以设定一个called变量来防止多次调用
 
 ```js
+/**
+ * Promise解决过程 [[Resolve]](promise, x)
+ * @param {Promise} promise2 - then方法返回的新Promise对象
+ * @param {*} x - then方法回调函数的返回值
+ * @param {Function} resolve - promise2的resolve函数
+ * @param {Function} reject - promise2的reject函数
+ */
 function resolvePromise(promise2, x, resolve, reject) {
   // 规范 2.3.1，x 不能和 promise2 相同，避免循环引用
   if (x === promise2) {
     // reject报错
     return reject(new TypeError('Chaining cycle detected for promise'));
   }
+
   // 规范 2.3.2
   // 如果 x 为 Promise，状态为 pending 需要继续等待否则执行
   if (x instanceof MyPromise) {
@@ -254,8 +270,10 @@ function resolvePromise(promise2, x, resolve, reject) {
     }
     return;
   }
+
   // 防止多次调用
   let called;
+
   // 规范 2.3.3，判断 x 是否为对象或函数
   if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
     // 规范 2.3.3.2，如果不能取出 then，就 reject
@@ -263,6 +281,7 @@ function resolvePromise(promise2, x, resolve, reject) {
       // 规范2.3.3.1 因为x.then可能是一个getter，这种情况下多次读取就有可能产生副作用
       // 既要判断它的类型，又要调用它，这就是两次读取
       const { then } = x;
+
       // 规范2.3.3.3，如果 then 是函数，调用 x.then
       if (typeof then === 'function') {
         // 规范 2.3.3.3
@@ -271,12 +290,13 @@ function resolvePromise(promise2, x, resolve, reject) {
           // 规范 2.3.3.3.3，即这三处谁先执行就以谁的结果为准
           if (called) return;
           called = true;
+
           // resolve的结果依旧是promise 那就继续解析
           resolvePromise(promise2, y, resolve, reject);
         }, (err) => {
           if (called) return;
           called = true;
-          reject(err);// 失败了就失败了
+          reject(err); // 失败了就失败了
         });
       } else {
         resolve(x); // 直接成功即可
@@ -285,6 +305,7 @@ function resolvePromise(promise2, x, resolve, reject) {
       // 也属于失败
       if (called) return;
       called = true;
+
       // 取then出错了那就不要在继续执行了
       reject(e);
     }
@@ -296,10 +317,16 @@ function resolvePromise(promise2, x, resolve, reject) {
 
 ### 1.7 其他问题
 
-+ 规定onFulfilled,onRejected都是可选参数，如果他们不是函数，必须被忽略
-  + onFulfilled返回一个普通的值，成功时直接等于 value => value
-  + onRejected返回一个普通的值，失败时如果直接等于 value => value，则会跑到下一个then中的onFulfilled中，所以直接扔出一个错误reason => throw err
-+ 规定onFulfilled或onRejected不能同步被调用，必须异步调用。我们就用setTimeout解决异步问题
+### 2.1 onFulfilled和onRejected参数可选性
+
+- onFulfilled和onRejected都是可选参数
+- 如果类型不是函数需要忽略，后续如果还有then的回调会继续执行
+- 都有默认值，具体如下：
+  - onFulfilled的默认值是`value => value`
+  - onRejected的默认值是`err => { throw err; }`
++ **异步调用要求**：
+  + 规定onFulfilled或onRejected不能同步被调用，必须异步调用
+  + 我们使用setTimeout解决异步问题，确保回调在下一个事件循环中执行
   + 如果onFulfilled或onRejected报错，则直接返回reject()
 
 ```js
@@ -373,9 +400,21 @@ class MyPromise {
 
 ### 1.8 测试Promise
 
-我们使用Promise/A+官方的测试工具`nm i promises-aplus-tests -g`来对我们的MyPromise进行测试，要使用这个工具我们必须实现一个静态方法deferred，官方对这个方法的定义如下:
+为了确保我们实现的MyPromise符合Promise/A+规范，我们需要使用官方测试套件进行验证。
+
+#### 1.8.1 实现deferred方法
+
+测试套件要求实现一个静态方法`deferred`，用于创建一个包含resolve、reject方法和promise对象的结构。该方法的实现如下:
 
 ```js
+/**
+ * 创建一个deferred对象，包含promise、resolve和reject属性
+ * 用于Promise/A+测试套件
+ * @returns {Object} deferred对象
+ * @property {MyPromise} promise - Promise实例
+ * @property {Function} resolve - resolve函数
+ * @property {Function} reject - reject函数
+ */
 // eslint-disable-next-line no-multi-assign
 MyPromise.defer = MyPromise.deferred = function () {
   const dfd = {};
@@ -385,10 +424,19 @@ MyPromise.defer = MyPromise.deferred = function () {
   });
   return dfd;
 };
+
 module.exports = MyPromise;
 ```
 
-用npm将`promises-aplus-tests`下载下来，再配置下package.json就可以跑测试了:
+#### 1.8.2 运行Promises/A+测试套件
+
+首先全局安装Promise/A+测试套件:
+
+```bash
+npm install promises-aplus-tests -g
+```
+
+然后在package.json中添加测试脚本:
 
 ```json
 {
@@ -400,6 +448,14 @@ module.exports = MyPromise;
   }
 }
 ```
+
+执行测试命令:
+
+```bash
+npm test
+```
+
+通过测试后，可以确保我们的MyPromise实现完全符合Promise/A+规范。
 
 ### 1.9 Promise.all
 
