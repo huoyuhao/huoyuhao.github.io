@@ -6,7 +6,7 @@ meta:
     content: 原生JS DOM操作方法汇总,DOM操作方法,原生JS,DOM操作,
 ---
 
-# DOM操作方法汇总
+# DOM 操作方法
 
 ## 1. 创建节点
 
@@ -120,7 +120,7 @@ const replacedChild = parentNode.replaceChild(newChild, oldChild);
 
 ### 4.1 document.querySelector
 
-入参selectors 是一个字符串，包含一个或多个css选择器。返回获取到的元素。
+入参selectors 是一个字符串，包含一个或多个CSS选择器。返回获取到的元素。
 
 ### 4.2 document.querySelectorAll
 
@@ -158,13 +158,13 @@ const replacedChild = parentNode.replaceChild(newChild, oldChild);
 
 ### 5.3 element.getAttribute(attrName)
 
-获取元素上属性名为attrName属性的值。如果该属性名不存在则放回null或者 ''空字符串。
+获取元素上属性名为attrName属性的值。如果该属性名不存在则返回null或者''空字符串。
 
 ### 5.4 element.hasAttribute(attrName)
 
-检测该元素上是否有该属性。返回值为true or false。
+检测该元素上是否有该属性。返回值为true或false。
 
-## 6. DOM事件
+## 6. DOM 事件
 
 ### 6.1 element.addEventListener
 
@@ -191,15 +191,15 @@ elem.dispatchEvent(new Event('click'));
 // 在elem上模拟一次单击事件
 ```
 
-## 7.元素样式尺寸
+## 7. 元素样式尺寸
 
 ### 7.1 window.getComputedStyle(elem)
 
-获取elem所有应用了css后的属性值。返回一个实时的 CSSStyleDeclaration 对象。
+获取elem所有应用了CSS后的属性值。返回一个实时的 CSSStyleDeclaration 对象。
 
 ### 7.2 elem.getBoundingClientRect
 
-返回元素的大小以及相对于视口的位置。返回一个DOMRect对象。包括元素的 left right top bottom width height x y 属性值。
+返回元素的大小以及相对于视口的位置。返回一个DOMRect对象。包括元素的 left、right、top、bottom、width、height、x、y 属性值。
 
 ## 8. 参考文章
 

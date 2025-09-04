@@ -5,45 +5,45 @@ meta:
   - name: keywords
     content: Node命令,HTTPS,前端,Node,Nginx
 ---
-# Node命令
+# Node 命令
 
-## Node & Npm安装
+## 1. Node & NPM安装
 
 ```shell
 # 最新版本安装方法
 sudo apt install nodejs-legacy
 sudo apt install npm
 
-# 升级npm为最新版本
+# 升级NPM为最新版本
 sudo npm install npm@latest -g
 npm install npm@4 -g # 4是版本号
 
-# 安装用于安装nodejs的模块n
+# 安装用于安装NodeJS的模块n
 sudo npm install -g n sudo n latest # 安装官方最新版本
 sudo n stable # 安装官方稳定版本
 sudo n lts # 安装官方最新LTS版本
 n 8.10.0 # 安装8.10.0版本
 ```
 
-## 用forever 进行管理
+## 2. 用Forever进行管理
 
 ```shell
 npm install -g forever
 forever start index.js
 ```
 
-## PM2进程管理
+## 3. PM2进程管理
 
-### 安装
+### 3.1 安装
 
 ```shell
-# 通过npm安装
+# 通过NPM安装
 npm install -g pm2
 
-# 通过yarn安装
+# 通过Yarn安装
 yarn global add pm2
 
-# 添加pm2命令自动完成功能
+# 添加PM2命令自动完成功能
 pm2 completion install
 ```
 
@@ -52,9 +52,9 @@ pm2 completion install
   ...styles,
   ^^^
 
-原因是pm2版本过高，因为我的nodejs才是v6.17.1版本，升级node即可
+原因是PM2版本过高，因为我的NodeJS才是v6.17.1版本，升级Node即可
 
-### 多进程管理
+### 3.2 多进程管理
 
 PM2自身帮你维护着一个进程列表，你可以很方便的对列表中的进程进行启动、重启和停止等操作。你的所有项目都会在底层运行，你可以通过命令行，也就是PM2 CLI工具和你的项目进行交互。
 
