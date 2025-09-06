@@ -5,32 +5,32 @@ meta:
   - name: keywords
     content: NGINX配置,NGINX,前端,alias,root,Nginx
 ---
-# NGINX配置
+# Nginx 配置
 
 ## 1. 基础特点
 
-+ Nginx 专为性能优化而开发。
-  + 性能是其最重要的考量,实现上非常注重效率 。它支持内核 Poll 模型，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。
-+ Nginx 具有很高的稳定性。
-  + 其它 HTTP 服务器，当遇到访问的峰值，或者有人恶意发起慢速连接时，很可能会导致服务器物理内存耗尽频繁交换，失去响应，只能重启服务器。例如当前 apache 一旦上到 200 个进程以上，web响应速度就明显非常缓慢了。而 Nginx 采取了分阶段资源分配技术，使得它的 CPU 与内存占用率非常低。
-  + Nginx 官方表示在保持 10,000 个无活动连接时，它只占 2.5M 内存，所以类似 DOS 这样的攻击对 Nginx 来说基本上是毫无用处的。就稳定性而言，Nginx 比 lighthttpd 更胜一筹。
-+ Nginx 支持热部署。
-  + 它的启动特别容易, 并且几乎可以做到 7*24 不间断运行，即使运行数个月也不需要重新启动。
-  + 你还能够在不间断服务的情况下，对软件版本进行升级。
+- Nginx 专为性能优化而开发。
+  - 性能是其最重要的考量，实现上非常注重效率。它支持内核 Poll 模型，能经受高负载的考验，有报告表明能支持高达 50,000 个并发连接数。
+- Nginx 具有很高的稳定性。
+  - 其它 HTTP 服务器，当遇到访问的峰值，或者有人恶意发起慢速连接时，很可能会导致服务器物理内存耗尽频繁交换，失去响应，只能重启服务器。例如当前 Apache 一旦上到 200 个进程以上，Web响应速度就明显非常缓慢了。而 Nginx 采取了分阶段资源分配技术，使得它的 CPU 与内存占用率非常低。
+  - Nginx 官方表示在保持 10,000 个无活动连接时，它只占 2.5M 内存，所以类似 DOS 这样的攻击对 Nginx 来说基本上是毫无用处的。就稳定性而言，Nginx 比 LightHTTPD 更胜一筹。
+- Nginx 支持热部署。
+  - 它的启动特别容易，并且几乎可以做到 7*24 不间断运行，即使运行数个月也不需要重新启动。
+  - 你还能够在不间断服务的情况下，对软件版本进行升级。
 
 ## 2. 常用命令
 
 ```sh
-# nginx配置文件位置
+# Nginx配置文件位置
 cd /etc/nginx/conf.d
 
-# nginx的启动
+# Nginx的启动
 systemctl start nginx
 # 热加载，重新加载配置文件
 nginx -s reload
 
-# 测试nginx是否正常
-nginx –t
+# 测试Nginx是否正常
+nginx -t
 ```
 
 ## 3. 配置
@@ -38,31 +38,31 @@ nginx –t
 ### 3.1 配置示例
 
 ```config
-#指令名 指令值;  #全局块，主要设置Nginx服务器整体运行的配置指令
+# 指令名 指令值;  # 全局块，主要设置Nginx服务器整体运行的配置指令
 worker_processes  1;
 
-#events块,主要设置,Nginx服务器与用户的网络连接,这一部分对Nginx服务器的性能影响较大
+# events块，主要设置Nginx服务器与用户的网络连接，这一部分对Nginx服务器的性能影响较大
 events {
   worker_connections  1024;
 }
 
-#http块，是Nginx服务器配置中的重要部分，代理、缓存、日志记录、第三方模块配置...  
+# http块，是Nginx服务器配置中的重要部分，代理、缓存、日志记录、第三方模块配置...
 http {
 
-  #指令名 指令值;
+  # 指令名 指令值;
   include       mime.types;
   default_type  application/octet-stream;
   sendfile        on;
   keepalive_timeout  65;
 
-  #server块，是Nginx配置和虚拟主机相关的内容
+  # server块，是Nginx配置和虚拟主机相关的内容
   server {
     listen       80;
     server_name  localhost;
     
-    #location块，基于Nginx服务器接收请求字符串与location后面的值进行匹配，对特定请求进行处理
+    # location块，基于Nginx服务器接收请求字符串与location后面的值进行匹配，对特定请求进行处理
     location / {
-      #指令名 指令值;
+      # 指令名 指令值;
       root   html;
       index  index.html index.htm;
     }
@@ -75,9 +75,9 @@ http {
 }
 ```
 
-nginx.conf配置文件中默认有三大块：全局块、events块、http块
+Nginx.conf配置文件中默认有三大块：全局块、Events块、Http块
 
-http块中可以配置多个server块，每个server块又可以配置多个location块
+Http块中可以配置多个Server块，每个Server块又可以配置多个Location块
 
 ### 3.2 全局块
 
@@ -160,7 +160,7 @@ gzip_types      text/plain text/css text/xml application/json application/javasc
 
 ### 3.6 location配置
 
-#### 3.6.1 location 配置
+#### 3.6.1 Location 配置
 
 ```config
 location [ = | ~ | ~* | ^~ ] uri { ... }
@@ -169,14 +169,14 @@ location @name { ... }
 
 修饰符匹配优先级从高到低依次为
 
-+ `location =` 表示精确匹配。只有请求的url路径与后面的字符串完全相等时，才会命中。如果已经匹配成功，就停止继续向下搜索并立即处理此请求
-+ `location ^~` 表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找
-+ `location ~` 表示该规则是使用正则定义的，区分大小写
-+ `location ~*` 表示该规则是使用正则定义的，不区分大小写
-+ `location /a` 普通前缀匹配，优先级低于带参数前缀匹配
-+ `location /` 任何没有匹配成功的，都会匹配这里处理
+- `location =` 表示精确匹配。只有请求的URL路径与后面的字符串完全相等时，才会命中。如果已经匹配成功，就停止继续向下搜索并立即处理此请求
+- `location ^~` 表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找
+- `location ~` 表示该规则是使用正则定义的，区分大小写
+- `location ~*` 表示该规则是使用正则定义的，不区分大小写
+- `location /a` 普通前缀匹配，优先级低于带参数前缀匹配
+- `location /` 任何没有匹配成功的，都会匹配这里处理
 
-注意：在浏览器传送URI时对一部分字符进行URL编码，比如空格被编码为`%20`，问号被编码为`%3f`等。`～`有一个特点是，它对uri中的这些符号将会进行编码处理。比如，如果location块收到的URI为`/html/%20/data`，则当Nginx服务器搜索到配置为`～ /html/ /data`的location时，可以匹配成功
+注意：在浏览器传送URI时对一部分字符进行URL编码，比如空格被编码为`%20`，问号被编码为`%3f`等。`～`有一个特点是，它对URI中的这些符号将会进行编码处理。比如，如果Location块收到的URI为`/html/%20/data`，则当Nginx服务器搜索到配置为`～ /html/ /data`的Location时，可以匹配成功
 
 #### 3.6.2 location 案例分析
 
@@ -224,17 +224,17 @@ liam.com/test 706
 liam.com/images 708 正则匹配是使用文件中的顺序，先匹配成功的返回
 ```
 
-#### 3.6.3 location URI结尾带不带 /
+#### 3.6.3 Location URI结尾带不带 /
 
-关于 URI 尾部的 / 有三点也需要说明一下。第一点与 location 配置有关，其他两点无关。
+关于 URI 尾部的 / 有三点也需要说明一下。第一点与 Location 配置有关，其他两点无关。
 
-+ location 中的字符有没有 / 都没有影响。也就是说 /user/ 和 /user 是一样的。
-+ 如果 URI 结构是 `https://liam.com/` 的形式，尾部有没有 / 都不会造成重定向。因为浏览器在发起请求的时候，默认加上了 / 。虽然很多浏览器在地址栏里也不会显示 / 。这一点，可以访问baidu验证一下。
+- Location 中的字符有没有 / 都没有影响。也就是说 /user/ 和 /user 是一样的。
+- 如果 URI 结构是 `https://liam.com/` 的形式，尾部有没有 / 都不会造成重定向。因为浏览器在发起请求的时候，默认加上了 / 。虽然很多浏览器在地址栏里也不会显示 / 。这一点，可以访问baidu验证一下。
 如果 URI 的结构是 `https://liam.com/some-dir/` 。尾部如果缺少 / 将导致重定向。因为根据约定，URL 尾部的 / 表示目录，没有 / 表示文件。所以访问 `/some-dir/` 时，服务器会自动去该目录下找对应的默认文件。如果访问 `/some-dir` 的话，服务器会先去找 `some-dir` 文件，找不到的话会将 `some-dir` 当成目录，重定向到 `/some-dir/ `，去该目录下找默认文件。
 
-#### 3.6.4 location @name的用法
+#### 3.6.4 Location @name的用法
 
-@用来定义一个命名location。主要用于内部重定向，不能用来处理正常的请求。其用法如下
+@用来定义一个命名Location。主要用于内部重定向，不能用来处理正常的请求。其用法如下
 
 ```conf
 location / {
@@ -247,8 +247,8 @@ location @custom {
 
 ### 3.7 虚拟目录alias和root
 
-+ `alias`指定的目录是准确的，即location匹配访问的path目录下的文件直接是在alias目录下查找的；
-+ `root`指定的目录是location匹配访问的path目录的上一级目录，这个path目录一定要是真实存在root指定目录下的；
+- `alias`指定的目录是准确的，即Location匹配访问的path目录下的文件直接是在alias目录下查找的；
+- `root`指定的目录是Location匹配访问的path目录的上一级目录，这个path目录一定要是真实存在root指定目录下的；
 
 ```shell
 # /data 目录
@@ -265,8 +265,8 @@ location /test/ {
   alias /data/images/;
 }
 # http://XXX.com/test/banner.png 访问成功
-# alias虚拟目录配置中，location匹配的path目录如果后面不带"/"，那么访问的url地址中这个path目录后面加不加"/"不影响访问，访问时它会自动加上"/"；
-# 但是如果location匹配的path目录后面加上"/"，那么访问的url地址中这个path目录必须要加上"/"，访问时它不会自动加上"/"。如果不加上"/"，访问就会失败！
+# alias虚拟目录配置中，Location匹配的path目录如果后面不带"/"，那么访问的url地址中这个path目录后面加不加"/"不影响访问，访问时它会自动加上"/"；
+# 但是如果Location匹配的path目录后面加上"/"，那么访问的url地址中这个path目录必须要加上"/"，访问时它不会自动加上"/"。如果不加上"/"，访问就会失败！
 # 即 /test/ alias /data/images 会导致访问失败
 
 location ~ ^/im[a-z]+/ {
@@ -274,7 +274,7 @@ location ~ ^/im[a-z]+/ {
 }
 # http://XXX.com/images/banner.png 访问成功
 # http://XXX.com/img/logo.png 访问成功
-# root目录配置中，location匹配的path目录后面带不带"/"，都不会影响访问。
+# root目录配置中，Location匹配的path目录后面带不带"/"，都不会影响访问。
 ```
 
 ### 3.8 端口转发
@@ -291,13 +291,13 @@ server{
     # 保留代理之前的host 包含客户端真实的域名和端口号
     proxy_set_header Host $proxy_host;
 
-    # 保留代理之前的真实客户端ip
+    # 保留代理之前的真实客户端IP
     proxy_set_header X-Real-IP $remote_addr;
     
     # 这个Header和X-Real-IP类似，但它在多级代理时会包含真实客户端及中间每个代理服务器的IP
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
-    # 表示客户端真实的协议（http还是https）
+    # 表示客户端真实的协议（HTTP还是HTTPS）
     proxy_set_header X-Forwarded-Proto $scheme;
   }
   location /data/ {
@@ -306,7 +306,7 @@ server{
   location /user/ {
     proxy_pass  http://liamhuo.com;
   }
-  # 在配置proxy_pass代理转发时，如果后面的url加/，表示绝对根路径；如果没有/，表示相对路径
+  # 在配置proxy_pass代理转发时，如果后面的URL加/，表示绝对根路径；如果没有/，表示相对路径
   # liam.com/data/index.html => liamhuo.com/index.html
   # liam.com/user/index.html => liamhuo.com/user/index.html
 }
@@ -316,14 +316,15 @@ server{
 
 变量名 | 功能
 --- | ---
-$host | 请求信息中的Host，如果请求中没有Host行，则等于设置的服务器名$request_method | 客户端请求类型，如GET、POST
+$host | 请求信息中的Host，如果请求中没有Host行，则等于设置的服务器名
+$request_method | 客户端请求类型，如GET、POST
 $remote_addr | 客户端的IP地址
 $args | 请求中的参数
 $content_length | 请求头中的Content-length字段
 $http_user_agent | 客户端agent信息
 $http_cookie | 客户端cookie信息
 $remote_port | 客户端的端口
-$server_protocol | 请求使用的协议，如HTTP/1.0、·HTTP/1.1`
+$server_protocol | 请求使用的协议，如HTTP/1.0、HTTP/1.1`
 $server_addr | 服务器地址
 $server_name | 服务器名称
 $server_port | 服务器的端口号
@@ -341,7 +342,7 @@ upstream balanceServer {
 }
 ```
 
-在server中拦截响应请求，并将请求转发到Upstream中配置的服务器列表。
+在Server中拦截响应请求，并将请求转发到Upstream中配置的服务器列表。
 
 ```config
 server {
@@ -353,7 +354,7 @@ server {
 }
 ```
 
-上面的配置只是指定了nginx需要转发的服务端列表，并没有指定分配策略
+上面的配置只是指定了Nginx需要转发的服务端列表，并没有指定分配策略
 
 ### 5.1 轮询
 
@@ -395,8 +396,8 @@ upstream balanceServer {
 
 ### 5.4 指定权重
 
-+ weight代表权重，权重越高，被分配到的客户端越多。
-+ 用于后端服务器性能不均的情况，性能高的服务器将分配更多的客户端
+- weight代表权重，权重越高，被分配到的客户端越多。
+- 用于后端服务器性能不均的情况，性能高的服务器将分配更多的客户端
 
 ```config
 upstream backserver {
@@ -405,12 +406,12 @@ upstream backserver {
 }
 ```
 
-### 5.3 最快响应时间策略
+### 5.5 最快响应时间策略
 
-+ 依赖于NGINX Plus，优先分配给响应时间最短的服务器
-+ fair策略是扩展策略，默认不被编译进nginx内核。它根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。
-+ 这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此须慎用
-+ nginx的默认模块中是不支持的，需要下载 nginx-upstream-fair 模块
+- 依赖于Nginx Plus，优先分配给响应时间最短的服务器
+- fair策略是扩展策略，默认不被编译进Nginx内核。它根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。
+- 这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此须慎用
+- Nginx的默认模块中是不支持的，需要下载 nginx-upstream-fair 模块
 
 ```config
 upstream balanceServer {
