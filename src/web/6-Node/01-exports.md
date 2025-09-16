@@ -5,9 +5,9 @@ meta:
   - name: keywords
     content: require,import,module.exports,module,互相导入,exports,
 ---
-# Import、Require、Export、Module.Export 总结
+# import、require、export、module.export 总结
 
-## 1. CommonJS 规范
+## 1. CommonJS规范
 
 `exports`、`module.exports`、`module`、`require`属于CommonJS规范
 
@@ -23,11 +23,11 @@ const { run } = dog;
 const { eat } = dog;
 ```
 
-### 1.2 Module
+### 1.2 module
 
 在`CommonJS`中，一个文件就是一个`模块`，`module`就表示当前模块的引用（module是一个对象）。`module`作为一个对象自然也就有关于当前模块信息的属性。常见的有：`module.exports`、`module.children`、`module.parent`等等，这里只需要关注`module.exports`就行。
 
-### 1.3 Module.Exports
+### 1.3 module.exports
 
 `module.exports`也是一个对象，该对象由系统创建，在外部文件引入此模块时实际就是引入了`exports`对象。一般我们都采用`module.exports.xxx`的方式导出数据，也可以使用直接给`exports`赋值的方式导出数据。
 
@@ -49,7 +49,7 @@ module.exports = function (data) {
 const eat = require('./dog.js');
 ```
 
-### 1.4 Exports
+### 1.4 exports
 
 `exports`是个值得注意的地方。它的使用方法和`module.exports`是一样的，类似于`module.exports`的快捷方式。非常要注意的是不要直接给`exports`赋值，只能使用.对exports的属性进行赋值，如果使用=直接给exports赋值会导致数据不能导出。
 
@@ -63,20 +63,20 @@ exports.eat = function (data) {
 exports = 123;
 ```
 
-### 1.5 Require
+### 1.5 require
 
 `require()`用于引入模块、JSON、本地文件，这里只对引入模块做说明。其参数可以是模块名，也可以是文件路径。如果直接使用模块名，则会在node_modules中或者内置模块中进行引入。如果引入的是模块，该方法的返回值就是`module.exports`对象
 
 
 
 
-## 2. ES6 的模块规范介绍
+## 2. ES6的模块规范介绍
 
 `import`、`import()`、`export`、`export default`属于ES6的模块规范
 
 `ES6`采用`import`的方式引入模块，这种方式和`CommonJS`正好相反，它是静态的引入模块，即在代码编译的时候就已经把`run`和`eat`方法引入了。所以在效率上会比`CommonJS`的`require`方法效率更高
 
-### 2.1 Export
+### 2.1 export
 
 注意和`CommonJS`中`exports`进行区别，`export`在ES6中是个关键字，`exports`在CommonJS中是一个对象或属性。也就是说`exports`必须使用=对自身的属性进行赋值，而`export`则使用声明的方式导出变量。
 
@@ -113,7 +113,7 @@ export function eat1 () {}
 export { eat2 };
 ```
 
-### 2.2 Export Default
+### 2.2 export default
 
 `export default`用于直接导出`值`，比如直接导出数值、字符串、对象、数组、方法等。在使用`import`引入的时候，直接给导出的值一个变量就行了
 
@@ -126,7 +126,7 @@ import dog from 'dog.js';
 console.log(dog); // 1
 ```
 
-### 2.3 Import
+### 2.3 import
 
 `import`是输入接口，用来引入外部模块暴露出来的变量或者值，接口是只读的不可以被改变，如果接口是对象则可以更改对象的属性，但是不建议这样做。所有输入进来的东西我们不应该去更改它的原始值。
 
@@ -142,7 +142,7 @@ import defaultExport2, * as name from "module-name";
 import "module-name";
 ```
 
-### 2.4 Import 变量提升
+### 2.4 import 变量提升
 
 ```js
 // a.js
@@ -233,7 +233,7 @@ console.log(b2.foo);
 
 import命令只能在模块顶层使用，不能在函数、判断语句等代码块之中引用；require可以。
 
-### 2.5 Node 中运行 ES6
+### 2.5 node 中运行 es6
 
 ```shell
 npm install esm
@@ -241,7 +241,7 @@ node -r esm xxx.js // xxx.js 中使用 ES6 模块规范
 node xxx.js        // xxx.js 中使用 CommonJS 规范
 ```
 
-## 3. CommonJS 和 ES6 的差异
+## 3. CommonJS和ES6的差异
 
 | 类型 | CommonJS | ES6 |
 | --- | --- | ---|
@@ -253,7 +253,7 @@ node xxx.js        // xxx.js 中使用 CommonJS 规范
 | 基础数据类型 | 复制该变量 | 只是对该变量的动态只读引用 |
 | 复杂数据类型 | 浅拷贝该对象 | 只是对该变量的动态只读引用 |
 
-目前所有的引擎都还没有实现 `import`，我们在 Node 中使用 babel 支持 ES6，也仅仅是将 ES6 转码为 ES5 再执行，`import` 语法会被转码为 `require`
+目前所有的引擎都还没有实现import，我们在node中使用babel支持ES6，也仅仅是将ES6转码为ES5再执行，import语法会被转码为require
 
 ```js
 // b.js
@@ -284,7 +284,7 @@ setTimeout(() => {
   count.a += 1;
   console.log('base.count：', count);
 }, 500);
-module.exports.count = count;
+module.exports.count = count;0;
 ```
 
 ```js
@@ -319,14 +319,14 @@ setTimeout(() => {
 
 ## 4. 循环引入
 
-### 4.1 Require 加载原理
+### 4.1 require加载原理
 
 当Node遇到require(X)时，会按照下面顺序处理
 
-- 如果 X 是内置模块，比如 `require('http')`，返回该模块，不在继续执行
-- 如果 X 以 "./"、"/"、"../" 开头，根据 X 所在的父模块，确定 X 的绝对路径，随后将 X 当成文件一次查找 x、x.js、x.json、x.node，只要存在其中一个，就返回该文件
-- 如果 X 不带路径，根据 X 所在的父模块，确定 X 可能的安装目录，在每个目录中，将 X 当成文件名或者目录加载
-- 抛出 "not found"
++ 如果X是内置模块，比如require('http')，返回该模块，不在继续执行
++ 如果X以“./”、"/"、“../”开头，根据X所在的父模块，确定X的绝对路径，随后将X当成文件一次查找x、x.js、x.json、x.node，只要存在其中一个，就返回该文件
++ 如果X不戴路径，根据X所在的父模块，确定X可能的安装目录，在每个目录中，将X当成文件名或者目录加载
++ 抛出“not found”
 
 CommonJS的一个模块就是一个脚本文件，require命令第一次加载该脚本，就会执行整个脚本，随后在内存中生成一个对象
 
@@ -375,7 +375,7 @@ console.log('in main, a.done = %j, b.done = %j', a2.done, b2.done);
 // in main, a.done = true, b.done = true
 ```
 
-### 4.2 ES6 循环加载
+### 4.2 ES6循环加载
 
 ES6模块是动态引用，不存在缓存值的问题，它遇到模块加载命令import时，不会去执行模块，而是只生成一个引用。等到真的需要用到时，再到模块里面去取值。
 
