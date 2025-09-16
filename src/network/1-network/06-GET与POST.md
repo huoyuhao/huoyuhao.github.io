@@ -3,11 +3,11 @@ meta:
   - name: description
     content: 前端GET与POST的区别
   - name: keywords
-    content: 前端GET与POST的区别,GET,POST,前端,
+    content: 前端GET与POST的区别,GET,POST,前端,HTTP方法,RESTful API
 ---
 # 前端GET与POST的区别
 
-## GET与POST的区别
+## 1. GET与POST的区别
 
 1. GET在浏览器回退时是无害的，而POST会再次提交请求
 
@@ -23,9 +23,9 @@ meta:
 
 7. GET参数通过URL传递，POST放在Request body中
 
-## 请求过程不同
+## 2. 请求过程不同
 
-### post请求的过程
+### 2.1 post请求的过程
 
 1. 浏览器请求tcp连接（第一次握手）
 2. 服务器答应进行tcp连接（第二次握手）
@@ -34,7 +34,7 @@ meta:
 5. 浏览器发送数据
 6. 服务器返回200 OK响应
 
-### get请求的过程
+### 2.2 get请求的过程
 
 1. 浏览器请求tcp连接（第一次握手）
 2. 服务器答应进行tcp连接（第二次握手）
@@ -49,17 +49,17 @@ meta:
 
 因此到底是发一次还是发N次，客户端可以很灵活的决定。因为不管怎么发都是符合HTTP协议的，因此我们应该视为这种优化是一种实现细节，而不用扯到GET和POST本身的区别上。更不要当个什么世纪大发现。
 
-## 关于URL的长度
+## 3. 关于URL的长度
 
 不论是GET和POST都可以使用URL传递数据，所以我们常说的“GET数据有长度限制“其实是指”URL的长度限制“。
 
-## 安全性
+## 4. 安全性
 
 HTTP本身是明文协议。每个HTTP请求和返回的每个byte都会在网络上明文传播，不管是url，header还是body
 
 必须做从客户端到服务器的端端加密。业界的通行做法就是https
 
-## 参考文章
+## 5. 参考文章
 
 [听说『99% 的人都理解错了 HTTP 中 GET 与 POST 的区别』？？](https://zhuanlan.zhihu.com/p/25028045)
 
