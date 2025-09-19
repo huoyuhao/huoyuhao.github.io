@@ -81,37 +81,35 @@ cookie不可跨域
 ```js
 // 获取cookie
 function getCookie(name) {
-  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-  if (arr = document.cookie.match(reg))
-    return unescape(arr[2]);
-  else
-    return null;
+  const reg = new RegExp(`(^| )${ name }=([^;]*)(;|$)`);
+  const arr = document.cookie.match(reg);
+  if (arr) return unescape(arr[2]);
+  return null;
 }
 
 // 设置cookie
 function setCookie(name, value, expireDays) {
-  let exDate = new Date();
+  const exDate = new Date();
   exDate.setDate(exDate.getDate() + expireDays);
-  document.cookie = name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + exDate.toGMTString());
+  document.cookie = `${name }=${ escape(value) }${(expireDays === null) ? '' : `;expires=${ exDate.toGMTString()}`}`;
 }
 
 // 删除cookie
 function delCookie(name) {
-  let exp = new Date();
+  const exp = new Date();
   exp.setTime(exp.getTime() - 1);
   const value = getCookie(name);
-  if (value !== null)
-    document.cookie = name + "=" + value + ";expires=" + exp.toGMTString();
+  if (value !== null) document.cookie = `${name }=${ value };expires=${ exp.toGMTString()}`;
 }
 
 // 设置带路径和域名的Cookie
 function setCookieWithDomain(name, value, domain, path, expireDays) {
-  let exDate = new Date();
+  const exDate = new Date();
   exDate.setDate(exDate.getDate() + expireDays);
-  document.cookie = name + "=" + escape(value) + 
-    ((expireDays == null) ? "" : ";expires=" + exDate.toGMTString()) +
-    ((domain == null) ? "" : ";domain=" + domain) +
-    ((path == null) ? "" : ";path=" + path);
+  document.cookie = `${name }=${ escape(value)
+  }${(expireDays === null) ? '' : `;expires=${ exDate.toGMTString()}`
+  }${(domain === null) ? '' : `;domain=${ domain}`
+  }${(path === null) ? '' : `;path=${ path}`}`;
 }
 ```
 
@@ -154,7 +152,7 @@ Set-Cookie: sessionId=abc123; SameSite=Lax; Secure
 function setAuthCookie(token) {
   const expires = new Date();
   expires.setDate(expires.getDate() + 7); // 7天过期
-  
+
   document.cookie = `authToken=${token}; expires=${expires.toUTCString()}; path=/; secure; httponly; samesite=lax`;
 }
 

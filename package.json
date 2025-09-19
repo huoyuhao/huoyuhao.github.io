@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "docs:dev": "vuepress dev src",
     "docs:build": "vuepress build src",
-    "dev": "npm run update && npm run docs:dev",
+    "dev": "vuepress dev src",
     "build": "npm run update && npm run docs:build",
     "lint": "eslint --cache --fix --ext .js,.mjs,.cjs",
     "update": "node ./createConfig.js"
