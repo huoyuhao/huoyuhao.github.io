@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Node 命令</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/logo.png">
+    <meta name="description" content="Node命令">
+    <meta name="keywords" content="Node命令,HTTPS,前端,Node,Nginx">
+    <meta name="author" content="liam">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <link rel="preload" href="/assets/css/0.styles.e2f44ae9.css" as="style"><link rel="preload" href="/assets/js/app.fdbd3a7d.js" as="script"><link rel="preload" href="/assets/js/2.c135791f.js" as="script"><link rel="preload" href="/assets/js/1.ef243348.js" as="script"><link rel="preload" href="/assets/js/89.fd1d2e29.js" as="script"><link rel="prefetch" href="/assets/js/10.fac04ee2.js"><link rel="prefetch" href="/assets/js/11.df95b6d6.js"><link rel="prefetch" href="/assets/js/12.d322d79f.js"><link rel="prefetch" href="/assets/js/13.d461d101.js"><link rel="prefetch" href="/assets/js/14.eee8ad98.js"><link rel="prefetch" href="/assets/js/15.2da99dce.js"><link rel="prefetch" href="/assets/js/16.8066bbcc.js"><link rel="prefetch" href="/assets/js/17.0f456d45.js"><link rel="prefetch" href="/assets/js/18.87a15af9.js"><link rel="prefetch" href="/assets/js/19.8bf1456f.js"><link rel="prefetch" href="/assets/js/20.8e68410b.js"><link rel="prefetch" href="/assets/js/21.dbe112a9.js"><link rel="prefetch" href="/assets/js/22.f152b048.js"><link rel="prefetch" href="/assets/js/23.5f51756a.js"><link rel="prefetch" href="/assets/js/24.eafe48b1.js"><link rel="prefetch" href="/assets/js/25.02eda376.js"><link rel="prefetch" href="/assets/js/26.3d00d40b.js"><link rel="prefetch" href="/assets/js/27.98f181f5.js"><link rel="prefetch" href="/assets/js/28.ad631fc4.js"><link rel="prefetch" href="/assets/js/29.b9dd2f73.js"><link rel="prefetch" href="/assets/js/3.2be8686e.js"><link rel="prefetch" href="/assets/js/30.ac2f9ca3.js"><link rel="prefetch" href="/assets/js/31.7b0dc993.js"><link rel="prefetch" href="/assets/js/32.36cfbdda.js"><link rel="prefetch" href="/assets/js/33.de52c7e1.js"><link rel="prefetch" href="/assets/js/34.e3acfb01.js"><link rel="prefetch" href="/assets/js/35.fa488a03.js"><link rel="prefetch" href="/assets/js/36.5ec5b495.js"><link rel="prefetch" href="/assets/js/37.defa9fca.js"><link rel="prefetch" href="/assets/js/38.c10c335d.js"><link rel="prefetch" href="/assets/js/39.b94d4635.js"><link rel="prefetch" href="/assets/js/4.9be6b6a0.js"><link rel="prefetch" href="/assets/js/40.c80d1540.js"><link rel="prefetch" href="/assets/js/41.0252e8a3.js"><link rel="prefetch" href="/assets/js/42.bafa2252.js"><link rel="prefetch" href="/assets/js/43.a92a8c38.js"><link rel="prefetch" href="/assets/js/44.036b9bbd.js"><link rel="prefetch" href="/assets/js/45.932a99da.js"><link rel="prefetch" href="/assets/js/46.f09b813d.js"><link rel="prefetch" href="/assets/js/47.1480826c.js"><link rel="prefetch" href="/assets/js/48.13966581.js"><link rel="prefetch" href="/assets/js/49.4891ceb5.js"><link rel="prefetch" href="/assets/js/5.740bd581.js"><link rel="prefetch" href="/assets/js/50.f013af64.js"><link rel="prefetch" href="/assets/js/51.e18a236f.js"><link rel="prefetch" href="/assets/js/52.119fc6e0.js"><link rel="prefetch" href="/assets/js/53.b0675f90.js"><link rel="prefetch" href="/assets/js/54.0e15abb1.js"><link rel="prefetch" href="/assets/js/55.2af4c93e.js"><link rel="prefetch" href="/assets/js/56.e753164e.js"><link rel="prefetch" href="/assets/js/57.fba77abc.js"><link rel="prefetch" href="/assets/js/58.f8cf67e3.js"><link rel="prefetch" href="/assets/js/59.7131c32e.js"><link rel="prefetch" href="/assets/js/6.b59cd7d8.js"><link rel="prefetch" href="/assets/js/60.8581d2d7.js"><link rel="prefetch" href="/assets/js/61.20226f1d.js"><link rel="prefetch" href="/assets/js/62.254d9ae8.js"><link rel="prefetch" href="/assets/js/63.45b87153.js"><link rel="prefetch" href="/assets/js/64.c71a7f6f.js"><link rel="prefetch" href="/assets/js/65.d5fead4d.js"><link rel="prefetch" href="/assets/js/66.414ea1ae.js"><link rel="prefetch" href="/assets/js/67.21230f8e.js"><link rel="prefetch" href="/assets/js/68.02a17eb1.js"><link rel="prefetch" href="/assets/js/69.5cb10b3a.js"><link rel="prefetch" href="/assets/js/7.f54d7af6.js"><link rel="prefetch" href="/assets/js/70.c9fdf696.js"><link rel="prefetch" href="/assets/js/71.8064a150.js"><link rel="prefetch" href="/assets/js/72.4ab06319.js"><link rel="prefetch" href="/assets/js/73.a6dd0d8f.js"><link rel="prefetch" href="/assets/js/74.1f24a32f.js"><link rel="prefetch" href="/assets/js/75.19e4505d.js"><link rel="prefetch" href="/assets/js/76.ab6c86a0.js"><link rel="prefetch" href="/assets/js/77.1ce9dc61.js"><link rel="prefetch" href="/assets/js/78.e0ab9e4e.js"><link rel="prefetch" href="/assets/js/79.041b24ad.js"><link rel="prefetch" href="/assets/js/80.7e85dcac.js"><link rel="prefetch" href="/assets/js/81.c070cff6.js"><link rel="prefetch" href="/assets/js/82.05206f1b.js"><link rel="prefetch" href="/assets/js/83.58015a46.js"><link rel="prefetch" href="/assets/js/84.d65cc23d.js"><link rel="prefetch" href="/assets/js/85.aa8c60c9.js"><link rel="prefetch" href="/assets/js/86.670a93b3.js"><link rel="prefetch" href="/assets/js/87.4b8c6571.js"><link rel="prefetch" href="/assets/js/88.d0e60af8.js"><link rel="prefetch" href="/assets/js/90.28d64579.js"><link rel="prefetch" href="/assets/js/91.88717d89.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.92fa0d62.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e2f44ae9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/header-logo.png" alt="" class="logo"> <!----></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/web/" class="nav-link router-link-active">
+  Web
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络
+</a></div><div class="nav-item"><a href="/frame/" class="nav-link">
+  框架
+</a></div><div class="nav-item"><a href="/other/" class="nav-link">
+  工具
+</a></div><div class="nav-item"><a href="https://github.com/huoyuhao/huoyuhao.github.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/web/" class="nav-link router-link-active">
+  Web
+</a></div><div class="nav-item"><a href="/network/" class="nav-link">
+  网络
+</a></div><div class="nav-item"><a href="/frame/" class="nav-link">
+  框架
+</a></div><div class="nav-item"><a href="/other/" class="nav-link">
+  工具
+</a></div><div class="nav-item"><a href="https://github.com/huoyuhao/huoyuhao.github.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>代码规范</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>HTML</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Js基础</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Js进阶</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Js安全</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DOM</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Node</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Mac</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>linux</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/web/7-linux/00-Linux常用命令.html" class="sidebar-link">Linux常用命令</a></li><li><a href="/web/7-linux/00-博客.html" class="sidebar-link">博客</a></li><li><a href="/web/7-linux/01-升级服务器.html" class="sidebar-link">升级服务器</a></li><li><a href="/web/7-linux/02-Node命令.html" class="active sidebar-link">Node命令</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/web/7-linux/02-Node命令.html#_1-node-npm安装" class="sidebar-link">1. Node &amp; NPM安装</a></li><li class="sidebar-sub-header"><a href="/web/7-linux/02-Node命令.html#_2-用forever进行管理" class="sidebar-link">2. 用Forever进行管理</a></li><li class="sidebar-sub-header"><a href="/web/7-linux/02-Node命令.html#_3-pm2进程管理" class="sidebar-link">3. PM2进程管理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/web/7-linux/02-Node命令.html#_3-1-安装" class="sidebar-link">3.1 安装</a></li><li class="sidebar-sub-header"><a href="/web/7-linux/02-Node命令.html#_3-2-多进程管理" class="sidebar-link">3.2 多进程管理</a></li></ul></li></ul></li><li><a href="/web/7-linux/03-Nginx配置.html" class="sidebar-link">Nginx配置</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="node-命令"><a href="#node-命令" class="header-anchor">#</a> Node 命令</h1> <h2 id="_1-node-npm安装"><a href="#_1-node-npm安装" class="header-anchor">#</a> 1. Node &amp; NPM安装</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token comment"># 最新版本安装方法</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nodejs-legacy
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">npm</span>
+
+<span class="token comment"># 升级NPM为最新版本</span>
+<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> npm@latest <span class="token parameter variable">-g</span>
+<span class="token function">npm</span> <span class="token function">install</span> npm@4 <span class="token parameter variable">-g</span> <span class="token comment"># 4是版本号</span>
+
+<span class="token comment"># 安装用于安装NodeJS的模块n</span>
+<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> n <span class="token function">sudo</span> n latest <span class="token comment"># 安装官方最新版本</span>
+<span class="token function">sudo</span> n stable <span class="token comment"># 安装官方稳定版本</span>
+<span class="token function">sudo</span> n lts <span class="token comment"># 安装官方最新LTS版本</span>
+n <span class="token number">8.10</span>.0 <span class="token comment"># 安装8.10.0版本</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h2 id="_2-用forever进行管理"><a href="#_2-用forever进行管理" class="header-anchor">#</a> 2. 用Forever进行管理</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> forever
+forever start index.js
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="_3-pm2进程管理"><a href="#_3-pm2进程管理" class="header-anchor">#</a> 3. PM2进程管理</h2> <h3 id="_3-1-安装"><a href="#_3-1-安装" class="header-anchor">#</a> 3.1 安装</h3> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token comment"># 通过NPM安装</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> pm2
+
+<span class="token comment"># 通过Yarn安装</span>
+<span class="token function">yarn</span> global <span class="token function">add</span> pm2
+
+<span class="token comment"># 添加PM2命令自动完成功能</span>
+pm2 completion <span class="token function">install</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><p>安装完成后使用报错：
+/usr/lib/node_modules/pm2/node_modules/chalk/source/index.js:103
+...styles,
+^^^</p> <p>原因是PM2版本过高，因为我的NodeJS才是v6.17.1版本，升级Node即可</p> <h3 id="_3-2-多进程管理"><a href="#_3-2-多进程管理" class="header-anchor">#</a> 3.2 多进程管理</h3> <p>PM2自身帮你维护着一个进程列表，你可以很方便的对列表中的进程进行启动、重启和停止等操作。你的所有项目都会在底层运行，你可以通过命令行，也就是PM2 CLI工具和你的项目进行交互。</p> <p>通过 start 和 delete 命令将你的项目添加到进程列表里面</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token comment"># 将项目添加到进程列表，并启动该进程</span>
+pm2 start app.js
+
+<span class="token comment"># 查看进程列表</span>
+pm2 <span class="token function">ls</span>
+
+<span class="token comment"># 从进程列表中删除指定名称的进程</span>
+pm2 delete app
+
+<span class="token comment"># 在start命令后面加上--name 或者-n参数来直接指定进程的名称</span>
+pm2 start app.js <span class="token parameter variable">--name</span> myApp
+
+<span class="token comment"># 停止该进程，但是依然会保留在进程列表里面</span>
+pm2 stop app
+
+<span class="token comment"># 启动该进程</span>
+pm2 start app
+
+<span class="token comment"># 重启该进程，即先运行了stop命令，然后再运行start命令</span>
+pm2 restart app
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">9/6/2025, 3:49:03 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/web/7-linux/01-升级服务器.html" class="prev">
+        升级服务器
+      </a></span> <span class="next"><a href="/web/7-linux/03-Nginx配置.html">
+        Nginx配置
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/assets/js/app.fdbd3a7d.js" defer></script><script src="/assets/js/2.c135791f.js" defer></script><script src="/assets/js/1.ef243348.js" defer></script><script src="/assets/js/89.fd1d2e29.js" defer></script>
+  </body>
+</html>
