@@ -1,23 +1,24 @@
 ---
-meta:
-  - name: description
-    content: 前端Eslint学习
-  - name: keywords
-    content: 前端Eslint学习,eslint,eslint配置,eslint.js,eslint教程
+title: Eslint配置
+author: 火雨
+createTime: 2024/03/26 12:00
 ---
-# 前端Eslint学习
+
+# Eslint配置
 
 ## 1. 安装Eslint
 
 `pnpm i -D eslint`
 `npx eslint --init`
 
-### Eslint基础配置
+### 1.1 Eslint基础配置
 
 规则值：
 + off 或者 0    关闭规则关闭
 + warn 或者 1   在打开的规则作为警告（不影响退出代码）
 + error 或者 2  把规则作为一个错误（退出代码触发时为1）
+
+### 1.2 Eslint规则配置
 
 ```js
 module.exports = {
@@ -127,14 +128,13 @@ module.exports = {
 };
 ```
 
-
 ## 2. Eslint Vue3项目配置
 
-### 安装
+### 2.1 安装
 
 `npm install eslint@^8.57.1 eslint-plugin-vue@^9.0.0 --save-dev`
 
-### Eslint配置文件
+### 2.2 Eslint配置文件
 
 ```js
 module.exports = {
@@ -287,18 +287,17 @@ module.exports = {
 };
 ```
 
-### 脚本
+### 2.3 脚本
 
 `"lint": "eslint --cache --fix --ext .js --ext .vue ./",`
 
-### 忽略文件
+### 2.4 忽略文件
 
 ```
 .eslintignore
 /docs
 ```
 
-
-## 参考文献
+## 3. 参考文献
 
 [Eslint中文网](https://cn.eslint.org/docs/rules/)

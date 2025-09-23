@@ -6,22 +6,22 @@ meta:
   content: NPM发布,NPM,发布模块,NPM发布模块
 ---
 
-# NPM发布模块
+# NPM发布模块到NPM上
 
 在我们进行多个项目开发的时候，有时候发现有的Vue模块在这些项目中是共用的，这个时候我们就可以把这个模块封装发到NPM上，然后再项目中安装引入就可以使用了。
 
 下面我就来简单介绍一下发布NPM包的流程
 
-## 一、项目创建
+## 1. 项目创建
 
-### 1. 使用简洁的webpack配置模板webpack-simple初始化项目
+### 1.1 使用webpack-simple初始化项目
 
 ```shell
 vue init webpack-simple vue-name
 #简洁的webpack配置模板
 ```
 
-### 2. 编写组件代码，本地进行调试
+### 1.2 编写组件代码，本地进行调试
 
 先编写组件代码，例如：
 
@@ -46,9 +46,9 @@ export default {
 import HelloWorld from "./components/HelloWorld";
 ```
 
-## 二、本地组件测试没问题,改造成vue插件类型的
+## 2. 改造成Vue插件类型
 
-### 1. 创建一个index.js文件，将组件输出
+### 2.1 创建一个index.js文件，将组件输出
 
 ```js
 import vueHelloWorld from './components/HelloWorld'; // 导入组件
@@ -64,40 +64,40 @@ const HelloWorld = {
 export default HelloWorld;// 导出..
 ```
 
-### 2. 修改配置文件package.json
+### 2.2 修改配置文件package.json
 
-#### 1) name
+#### 2.2.1 name
 
 + 名称，发布的模块名称，发布线上后，可以通过npm install xxxx来引用该模块，一般Vue组件以`vue-`开头
 
-#### 2) description
+#### 2.2.2 description
 
 + 描述，该模块的简单描述
 
-#### 3) version
+#### 2.2.3 version
 
 + 版本号，版本号分为A.B.C三位
 + A表示主版本号，如果有较大变动，且向下不兼容，需要更新，A为零时表示软件还在开发阶段
 + B表示次版本号，如果是新增了功能，而且向下兼容，需要更新
 + C表示补丁版本号，如修复bug
 
-#### 4)author
+#### 2.2.4 author
 
 + 作者信息
 
-#### 5）license
+#### 2.2.5 license
 
 + 代码授权许可，[具体编写可参考这里](https://zh.wikipedia.org/wiki/Category:%E8%87%AA%E7%94%B1%E8%BB%9F%E9%AB%94%E6%8E%88%E6%AC%8A)
 
-#### 6）main
+#### 2.2.6 main
 
 + 主入口文件，该属性指定了程序的主入口文件。即如果你的模块被命名为foo，用户安装了这个模块并通过require("foo")来使用这个模块，那么require返回的内容就是main属性指定的文件中 module.exports指向的对象。
 
-#### 7）keywords
+#### 2.2.7 keywords
 
 + 关键词，可以通过npm搜索你填写的关键词找到你的模块
 
-#### 8）bugs
+#### 2.2.8 bugs
 
 + 填写一个bug提交地址或者一个邮箱，被你的模块坑到的人可以通过这里吐槽
 
@@ -119,11 +119,11 @@ export default HelloWorld;// 导出..
 }
 ```
 
-### 3. 修改.gitignore文件
+### 2.3 修改.gitignore文件
 
 因为要用dist文件夹，所以在.gitignore文件中把dist/去掉
 
-### 4. 修改配置文件webpack.config.js
+### 2.4 修改配置文件webpack.config.js
 
 ```js
 module.exports = {
@@ -138,13 +138,13 @@ module.exports = {
 };
 ```
 
-### 5. 修改文件目录格式
+### 2.5 修改文件目录格式
 
-#### 1）删除不需要的文件
+#### 2.5.1 删除不需要的文件
 
 删除main.js、index.html、App.vue等不需要的文件
 
-#### 2）更改目录
+#### 2.5.2 更改目录
 
 ```
 HelloWorld
@@ -159,9 +159,9 @@ HelloWorld
 └── README.md                  # 项目说明 安装 使用
 ```
 
-### 6. 打包线下验证
+### 2.6 打包线下验证
 
-#### 1）打包压缩组件
+#### 2.6.1 打包压缩组件
 
 ```linux
 npm run build
@@ -169,7 +169,7 @@ npm pack
 #打包完成可以看到项目目录下多了一个压缩文件
 ```
 
-#### 2）新项目引入测试
+#### 2.6.2 新项目引入测试
 
 ```shell
 # 安装打包文件 name：打包文件名称
@@ -179,7 +179,7 @@ import HelloWorld from 'HelloWorld'
 Vue.use(HelloWorld)
 ```
 
-## 三、发布线上
+## 3. 发布线上
 
 ```shell
 npm login // 登陆 

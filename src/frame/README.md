@@ -1,5 +1,11 @@
 # 未完成目录
 
+Webpack Loader和Plugin的区别 打包 分包策略
+Source map
+热更新 热加载
+Babel
+Vite 打包 快的原因 为什么选择 webpack
+
 
 diff key的作用 key（除了v-for循环使用） index
 
@@ -13,10 +19,6 @@ fragments片段 多个同组件传参数 参数覆盖原因
 emits
 hash history区别 实现方式
 ts
-手动实现脚手架
-
-vite 打包 快的原因 为什么选择 webpack 热加载
-webpack 打包 分包策略 loader plugin
 
 监控 
 pv uv 首屏幕 白屏 切换路由上报 上报方式 后端收集生成日志
