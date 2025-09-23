@@ -1,22 +1,36 @@
 # 未完成目录
 
+## 1. 工程化
+
 Webpack Loader和Plugin的区别 打包 分包策略
 Source map
 热更新 热加载
 Babel
 Vite 打包 快的原因 为什么选择 webpack
-
+Rollup 打包
+Tree shaking
+代码分割
+代码压缩
+多进程打包
+HMR
+懒加载
+CI/CD
+Monorepo
+TypeScript
+Prettier
+Husky
+Lint-staged
+Commitlint
+多端开发 uni app
+Shadow DOM
 
 diff key的作用 key（除了v-for循环使用） index
-
 订阅观察 双向绑定 虚拟DOM
-
-vue3提升
+vue3
 组合式 API
 vueUse
 setup
 fragments片段 多个同组件传参数 参数覆盖原因
-emits
 hash history区别 实现方式
 ts
 
@@ -27,7 +41,3 @@ https://mp.weixin.qq.com/s?__biz=MzUxNjQ1NjMwNw==&mid=2247484932&idx=1&sn=932e8d
 https://cloud.tencent.com/developer/article/1875510
 
 报错
-
-多端开发 uni app
-PWA
-Shadow DOM
