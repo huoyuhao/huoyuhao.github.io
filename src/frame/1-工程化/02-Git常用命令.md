@@ -261,7 +261,82 @@ git push -f
 ```
 
 
-## 4. git个性化配置
+## 4. git cherry-pick
+
+### 4.1 基本概念
+
+`git cherry-pick` 命令用于将一个或多个特定的提交从一个分支应用到另一个分支。这个命令非常有用，特别是在你只想从一个分支中选择某些特定的更改，而不希望合并整个分支时。
+
+### 4.2 基本用法
+
+```bash
+git cherry-pick <commit-id>
+```
+
+当执行完 `cherry-pick` 之后，将会自动生成一个新的 commit 进行提交，也就是会有一个新的 commit ID。
+
+### 4.3 常用选项
+
+- `-n, --no-commit`：暂停提交，允许用户在提交前进行修改
+- `-x`：附加原始提交信息，方便追踪
+- `--continue`：解决冲突后继续 cherry-pick 操作
+- `--abort`：中止 cherry-pick 操作
+
+### 4.4 示例
+
+#### 4.4.1 单个提交的 cherry-pick
+
+```bash
+git cherry-pick a1b2c3d4
+```
+
+#### 4.4.2 多个提交的 cherry-pick
+
+```bash
+git cherry-pick a1b2c3d4 e5f6g7h8
+```
+
+#### 4.4.3 使用 `-n` 选项暂停提交
+
+```bash
+git cherry-pick -n a1b2c3d4
+# 进行必要的修改
+git commit -m "cherry-pick a1b2c3d4 with modifications"
+```
+
+#### 4.4.4 使用 `-x` 选项附加原始提交信息
+```bash
+git cherry-pick -x a1b2c3d4
+```
+执行后，提交信息会自动附加 "(cherry picked from commit a1b2c3d4)" 字样。
+
+#### 4.4.5 解决冲突
+
+当 cherry-pick 遇到冲突时，Git 会暂停操作并提示你解决冲突：
+```bash
+git cherry-pick a1b2c3d4
+# 解决冲突
+git add .
+git cherry-pick --continue
+# 或者放弃操作
+git cherry-pick --abort
+```
+
+### 4.5 应用场景
+
+- **特性提取**：将特性分支的特定功能合并到主分支
+- **安全修复**：在维护版本的分支中修复安全漏洞
+- **错误恢复**：从错误分支中提取正确的提交
+- **版本回溯**：将旧版本的特定功能应用到新版本
+
+### 4.6 注意事项
+
+1. `cherry-pick` 操作的对象是 commit，不是文件或目录
+2. 每个 cherry-pick 会生成新的 commit ID，即使内容相同
+3. 频繁使用 cherry-pick 可能导致分支历史混乱，建议谨慎使用
+4. 对于大型项目，考虑使用 `git rebase` 或 `git merge` 代替
+
+## 5. git个性化配置
 
 当我们使用git一段时间之后，想要使用一些git命令的简称，比如`st => status`，这时候我们学习如何进行个性化配置git命令。
 
@@ -317,7 +392,7 @@ git push -f
 其中`alias`里面的内容都是`git`命令的缩写
 `difftool`和`mergetool`是使用`BCompare`软件显示文件差异以及解决合并冲突
 
-## 5. 参考文献
+## 6. 参考文献
 
 [说说你对git rebase 和 git merge的理解？区别](https://github.com/febobo/web-interview/issues/228)
 [合併多個 commit，並且同步到遠端](https://github.com/880831ian/git-merge-multiple-commit)
